@@ -1,0 +1,153 @@
+/**
+ * Styling for display Yelp Widget Pro
+ */
+
+.clearfix {
+	*zoom: 1
+}
+
+.clearfix:before, .clearfix:after {
+	display: table;
+	line-height: 0;
+	content: ""
+}
+
+.clearfix:after {
+	clear: both
+}
+
+.yelp-business, .yelp-widget-search-api .ywp-map-container {
+	font-family: Arial, 'Lucida Grande', 'Bitstream Vera Sans', Verdana, sans-serif;
+	overflow: hidden;
+	width: auto;
+	padding: 10px;
+	margin: 0 0 10px;
+	background-color: #fefefe;
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.17);
+	-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.17);
+	-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.17);
+}
+
+.yelp-business.center {
+	margin: 0 auto 10px;
+}
+
+/* Many themes have some kind of styling on images */
+
+.yelp-business img {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: transparent none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	float: none;
+}
+
+.biz-img-wrap {
+	float: left;
+	margin: 0;
+}
+
+.yelp-business img.picture {
+	display: block;
+	float: left;
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.yelp-business .info {
+	overflow: hidden;
+}
+
+.yelp-business a.name {
+	display: block;
+	float: none;
+	font-size: 15px;
+	line-height: 18px;
+	font-weight: 600;
+	margin: 0 0 6px;
+	color: #C41200;
+	text-decoration: none;
+}
+
+.yelp-business a.name:hover {
+	text-decoration: underline;
+}
+
+.yelp-business-info {
+	margin: 0;
+}
+
+.yelp-business .info .review-count {
+	color: #999;
+	font-size: 11px;
+	line-height: 1;
+	margin: 3px 0 0 6px;
+	float: left;
+}
+
+.yelp-business .info .rating {
+	float: left;
+}
+
+.yelp-business .info .yelp-branding {
+	float: left;
+	clear: both;
+}
+
+.yelp-business .yelp-branding img {
+	display: block;
+}
+
+.yelp-address-wrap {
+	margin: 10px 0 0;
+	padding: 0;
+	font-size: 11px;
+	clear: both;
+	line-height: 16px;
+}
+
+/* Yelp Profile Image Sizes */
+
+.yelp-business.ywp-size-40 .info {
+	margin-left: 51px;
+}
+
+.yelp-business.ywp-size-60 .info {
+	margin-left: 72px;
+}
+
+.yelp-business.ywp-size-80 .info {
+	margin-left: 93px;
+}
+
+.yelp-business.ywp-size-100 .info {
+	margin-left: 112px;
+}
+
+/* Bootstrap Css Map Fix*/
+.ywp-map img {
+	max-width: none !important;
+	background-color: transparent !important;
+	background: transparent !important;
+}
+
+/* Bootstrap Css Map Fix*/
+.ywp-map label {
+	width: auto !important;
+	display: inline !important;
+}
+
+.ywp-phone {
+	background:url('../images/phone_icon.png') no-repeat left center transparent;
+	margin:0 !important;
+	padding:0 0 0 18px;
+}

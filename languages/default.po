@@ -1,0 +1,250 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ywp\n"
+"POT-Creation-Date: 2013-03-12 05:06-0800\n"
+"PO-Revision-Date: 2013-03-12 05:07-0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"X-Poedit-KeywordsList: _;__;_e\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: lib\n"
+
+#: options.php:43 options.php:113
+msgid "Yelp Widget Pro Settings"
+msgstr ""
+
+#: options.php:44
+msgid "Yelp Widget Pro"
+msgstr ""
+
+#: options.php:124
+msgid "Yelp Widget Pro Introduction"
+msgstr ""
+
+#: options.php:126
+msgid ""
+"Thanks for choosing Yelp Widget Pro! <strong>To start using Yelp Widget Pro "
+"you must have a valid Yelp API key</strong>.  Don't worry, it's <em>free</"
+"em> and very easy to get one!"
+msgstr ""
+
+#: options.php:128
+msgid "Yelp Widget Pro Activation Instructions:"
+msgstr ""
+
+#: options.php:131
+msgid "Sign into Yelp or create an account if you don't have one already"
+msgstr ""
+
+#: options.php:132
+msgid ""
+"Once logged in, <a href=\"http://www.yelp.com/developers/getting_started/"
+"api_access\" target=\"_blank\">sign up for API access"
+msgstr ""
+
+#: options.php:133
+msgid ""
+"After you have been granted an API key copy-and-paste the API v2.0 "
+"information into the appropriate fields below"
+msgstr ""
+
+#: options.php:134
+msgid "Click update to activate and begin using Yelp Widget Pro"
+msgstr ""
+
+#: options.php:138
+msgid "Like this plugin?  Give it a like on Facebook:"
+msgstr ""
+
+#: options.php:244
+msgid "Update"
+msgstr ""
+
+#: widget.php:22
+msgid "Display Yelp business ratings and reviews on your Website."
+msgstr ""
+
+#: widget.php:199
+msgid "Yelp is exhausted (Contact Yelp to increase your API call limit)"
+msgstr ""
+
+#: widget.php:330
+msgid ""
+"Please input your Yelp API information in the <a href=\"options-general.php?"
+"page=yelp_widget\">plugin settings</a> page prior to enabling Yelp Widget "
+"Pro."
+msgstr ""
+
+#: widget.php:338
+msgid "Widget Title"
+msgstr ""
+
+#: widget.php:345
+msgid "Yelp API Request Method:"
+msgstr ""
+
+#: widget.php:346
+msgid "Search Method"
+msgstr ""
+
+#: widget.php:347
+msgid "Business Method"
+msgstr ""
+
+#: widget.php:353
+msgid "Search Term:"
+msgstr ""
+
+#: widget.php:361
+msgid "Location:"
+msgstr ""
+
+#: widget.php:367
+msgid "Number of Items:"
+msgstr ""
+
+#: widget.php:380
+msgid "Sorting:"
+msgstr ""
+
+#: widget.php:383
+msgid "Best Match"
+msgstr ""
+
+#: widget.php:383
+msgid "Distance"
+msgstr ""
+
+#: widget.php:383
+msgid "Highest Rated"
+msgstr ""
+
+#: widget.php:401
+msgid "Business ID:"
+msgstr ""
+
+#: widget.php:407
+msgid "Display Options:"
+msgstr ""
+
+#: widget.php:415
+msgid "Display Business Address"
+msgstr ""
+
+#: widget.php:427
+msgid "Disable Title Output"
+msgstr ""
+
+#: widget.php:433
+msgid "Open Links in New Window"
+msgstr ""
+
+#: widget.php:438
+msgid "No Follow Links"
+msgstr ""
+
+#: widget.php:443
+msgid "Cache Data:"
+msgstr ""
+
+#: widget.php:446
+msgid "None"
+msgstr ""
+
+#: widget.php:446
+msgid "1 Hour"
+msgstr ""
+
+#: widget.php:446
+msgid "3 Hours"
+msgstr ""
+
+#: widget.php:446
+msgid "6 Hours"
+msgstr ""
+
+#: widget.php:446
+msgid "12 Hours"
+msgstr ""
+
+#: widget.php:446
+msgid "1 Day"
+msgstr ""
+
+#: widget.php:446
+msgid "2 Days"
+msgstr ""
+
+#: widget.php:446
+msgid "1 Week"
+msgstr ""
+
+#: lib/license-metabox.php:9
+msgid "Yelp Widget Pro Premium"
+msgstr ""
+
+#: lib/license-metabox.php:39
+msgid ""
+"If you have purchased a license for Yelp Widget Pro Premium you may enter it "
+"in below to enable premium features:"
+msgstr ""
+
+#: lib/license-metabox.php:41
+msgid "License Email"
+msgstr ""
+
+#: lib/license-metabox.php:52
+msgid "License Key"
+msgstr ""
+
+#: lib/license-metabox.php:68
+msgid "Deactivate"
+msgstr ""
+
+#: lib/license-metabox.php:72
+msgid "Activate"
+msgstr ""
+
+#: lib/license.php:173
+msgid ""
+"<div class=\"license-activated alert alert-success\">\n"
+"               <p><strong>License Activated</strong><br/> Thank you for "
+"purchasing Yelp Widget Premium"
+msgstr ""
+
+#: lib/license.php:182
+msgid ""
+"<p><strong>License Invalid</strong><br/> Please check that the license you "
+"are using is valid.</p>"
+msgstr ""
+
+#: lib/license.php:185
+msgid ""
+"<p><strong>License Invalid</strong><br/> Exceeded maximum number of "
+"activations.</p>"
+msgstr ""
+
+#: lib/license.php:188
+msgid ""
+"<p><strong>Invalid Request</strong><br/> Please <a href=\"http://wordpress."
+"org/support/plugin/yelp-widget-pro\" target=\"_blank\">contact support</a> "
+"for assistance.</p>"
+msgstr ""
+
+#: lib/license.php:199
+msgid ""
+"License Deactivated</strong><br/> Thank you for purchasing Yelp Widget Pro "
+"Premium"
+msgstr ""
+
+#: lib/license.php:206
+msgid ""
+"Upgrade to Yelp Widget Premium</strong><br/> Features include review "
+"snippets, a shortcode to display Yelp businesses anywhere on your site, more "
+"configuration options and free lifetime updates."
+msgstr ""

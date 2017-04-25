@@ -1,0 +1,335 @@
+/*
+ * Styles for the Yelp Widget Pro options panel
+ */
+
+#icon-yelp {
+	background: url('../images/yelp-logo-transparent-icon.png') no-repeat 0 0 transparent;
+	float: left;
+	width: 96px;
+	height: 45px;
+	margin-right: 12px;
+}
+
+#icon-yelp + h2 {
+	line-height: 36px;
+}
+
+.notice {
+	font-weight: bold;
+	font-size: 18px;
+	color: green;
+}
+
+.control-group {
+	margin-bottom: 10px;
+}
+
+.control-group:last-of-type {
+	margin-bottom: 0;
+}
+
+.control-label {
+	clear: left;
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.controls {
+	display: inline-block;
+}
+
+.settings_page_yelp_widget #api-options input[type="text"] {
+	width: 280px;
+}
+
+.settings_page_yelp_widget input.button-primary {
+	clear: left;
+	width: auto;
+	display: block;
+}
+
+.help-block {
+	color: #999;
+	font-size: 85%;
+	margin-top: 2px;
+}
+
+.wordimpress-link {
+	background: url('../images/wordimpress-logo.png') no-repeat center center transparent;
+	display: block;
+	text-align: center;
+	margin: 0 auto;
+	height: 75px;
+	width: 190px;
+}
+
+/*----------------------------------------
+ Premium License Metabox
+ ----------------------------------------*/
+
+#yelp-widget-pro-premium .code, #yelp-widget-pro-premium .wrap #icon-options-general, #icon-options-general + h2 {
+	display: none !important;
+}
+
+#yelp-widget-pro-premium .wrap p:first-of-type::after {
+	content: ' http://wordimpress.com';
+}
+
+#yelp-widget-pro-premium .controls {
+	width: 98%;
+}
+
+#yelp-widget-pro-premium input[type="text"] {
+	width: 98%;
+}
+
+#ywp-title-wrap {
+	position: relative;
+}
+
+.label {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: inline-block;
+	padding: 2px 4px;
+	font-size: 11.844px;
+	font-weight: bold;
+	line-height: 14px;
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	white-space: nowrap;
+	vertical-align: baseline;
+	background-color: #999;
+}
+
+.basic-label {
+	position: absolute;
+	top: 18px;
+	right: 0;
+	cursor: default;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.15);
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	font-size: 12px;
+	padding: 3px 6px;
+}
+
+.update-link {
+	position: absolute;
+	top: 20px;
+	right: 110px;
+	font-weight: bold;
+}
+
+.new-window {
+	background: url('../images/new-window-icon.png') no-repeat right 3px transparent;
+	padding-right: 13px;
+}
+
+/* Sidebar Sortables */
+
+#sidebar-sortables .postbox {
+	min-width: auto;
+}
+
+/* Alerts */
+.alert {
+	padding: 8px 14px;
+	color: #c09853;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	background-color: #fcf8e3;
+	border: 1px solid #fbeed5;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+.alert p {
+	margin: 0;
+}
+
+.alert-red {
+	color: #B94A48;
+	background-color: #F2DEDE;
+	border-color: #EED3D7;
+}
+
+.alert-red a {
+	color: #B94A48 !important;
+}
+
+.alert-success {
+	color: #468847;
+	background-color: #DFF0D8;
+	border-color: #D6E9C6;
+}
+
+.alert-info {
+	color: #3A87AD;
+	background-color: #D9EDF7;
+	border-color: #BCE8F1;
+}
+
+.google-plus {
+	margin-left: 20px;
+	display: inline;
+}
+
+/*----------------------------------------
+Tipsy
+-------------------------------------------*/
+
+.tooltip-info {
+	cursor: help;
+	margin: -3px 0 0 5px;
+	position: relative;
+	top: 3px;
+}
+
+.tipsy {
+	font-size: 10px;
+	position: absolute;
+	padding: 5px;
+	z-index: 100000;
+}
+
+.tipsy-inner {
+	background-color: #000;
+	color: #FFF;
+	max-width: 200px;
+	padding: 5px 8px 4px 8px;
+	text-align: center;
+}
+
+/* Rounded corners */
+.tipsy-inner {
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+/* Uncomment for shadow */
+/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+
+.tipsy-arrow {
+	position: absolute;
+	width: 0;
+	height: 0;
+	line-height: 0;
+	border: 5px dashed #000;
+}
+
+/* Rules to colour arrows */
+.tipsy-arrow-n {
+	border-bottom-color: #000;
+}
+
+.tipsy-arrow-s {
+	border-top-color: #000;
+}
+
+.tipsy-arrow-e {
+	border-left-color: #000;
+}
+
+.tipsy-arrow-w {
+	border-right-color: #000;
+}
+
+.tipsy-n .tipsy-arrow {
+	top: 0px;
+	left: 50%;
+	margin-left: -5px;
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-nw .tipsy-arrow {
+	top: 0;
+	left: 10px;
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-ne .tipsy-arrow {
+	top: 0;
+	right: 10px;
+	border-bottom-style: solid;
+	border-top: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-s .tipsy-arrow {
+	bottom: 0;
+	left: 50%;
+	margin-left: -5px;
+	border-top-style: solid;
+	border-bottom: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-sw .tipsy-arrow {
+	bottom: 0;
+	left: 10px;
+	border-top-style: solid;
+	border-bottom: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-se .tipsy-arrow {
+	bottom: 0;
+	right: 10px;
+	border-top-style: solid;
+	border-bottom: none;
+	border-left-color: transparent;
+	border-right-color: transparent;
+}
+
+.tipsy-e .tipsy-arrow {
+	right: 0;
+	top: 50%;
+	margin-top: -5px;
+	border-left-style: solid;
+	border-right: none;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+.tipsy-w .tipsy-arrow {
+	left: 0;
+	top: 50%;
+	margin-top: -5px;
+	border-right-style: solid;
+	border-left: none;
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+/* Social Media */
+
+.social-items-wrap > div {
+	display: inline-block;
+}
+
+.google-plus {
+	margin-left: 20px;
+	display: inline;
+}
+
+/* Metaboxes */
+.js .postbox .hndle {
+	cursor: default;
+}
+
+.handlediv {
+	display: none;
+}
