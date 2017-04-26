@@ -30,8 +30,8 @@ function yelp_widget_activate() {
 function yelp_widget_add_options_page() {
 	// Add the menu option under Settings, shows up as "Yelp API Settings" (second param)
 	$page = add_submenu_page( 'options-general.php', //The parent page of this menu
-		__( 'Yelp Widget Pro Settings', 'ywp' ), //The Menu Title
-		__( 'Yelp Widget Pro', 'ywp' ), //The Page Title
+		__( 'Yelp Widget Pro Settings', 'ywp' ), //The Page Title
+		__( 'Yelp Reviews', 'ywp' ), //The Menu Title
 		'manage_options', // The capability required for access to this item
 		'yelp_widget', // the slug to use for the page in the URL
 		'yelp_widget_options_form' ); // The function to call to render the page
@@ -162,6 +162,14 @@ function yelp_widget_options_form() {
 		</div>
 		<form id="yelp-settings" method="post" action="options.php">
 
+			<?php
+			// Tells Wordpress that the options we registered are being
+			// handled by this form
+			settings_fields( 'yelp_widget_settings' );
+
+			// Retrieve stored options, if any
+			$options = get_option( 'yelp_widget_settings' ); ?>
+
 			<div class="metabox-holder">
 
 				<div class="postbox-container" style="width:75%">
@@ -173,19 +181,20 @@ function yelp_widget_options_form() {
 							<h3 class="hndle"><span><?php _e( 'Yelp Widget Pro Introduction', 'ywp' ); ?></span></h3>
 
 							<div class="inside">
-								<p><?php _e( 'Thanks for choosing Yelp Widget Pro! <strong>To start using Yelp Widget Pro you must have a valid Yelp API key</strong>.  Don\'t worry, it\'s <em>free</em> and very easy to get one! For instructions, please check out the <a href="http://wordimpress.com/docs/yelp-widget-pro/#how-to-request-a-yelp-api-key" target="_blank" class="new-window">How to Request a Yelp API Key</a> screencast.', 'ywp' ); ?></p>
+								<p>
+								<?php
+								$widgets_url = admin_url( 'widgets.php' );
+								$link = sprintf( wp_kses( __( 'Thanks for choosing Yelp Widget Pro! To get started, head on over to your <a href="%s">Widgets page</a> and add Yelp Widget Pro to one of your active widget areas.', 'ywp' ), array(  'a' => array( 'href' => array() ) ) ), esc_url( $widgets_url ) );
+								echo $link;
+								?>
+								</p>
 
-								<p><strong><?php _e( 'Yelp API Activation Instructions:', 'ywp' ); ?></strong></p>
+								<p><strong><?php _e( 'Need Support?', 'ywp' ); ?></strong></p>
 
-								<ol>
-									<li><?php _e( 'Sign into Yelp or create an account if you don\'t have one already', 'ywp' ); ?></li>
-									<li><?php _e( 'Once logged in, <a href="http://www.yelp.com/developers/getting_started/api_access" target="_blank" class="new-window">sign up for API access', 'ywp' ); ?></a></li>
-									<li><?php _e( 'After you have been granted an API key copy-and-paste the API v2.0 information into the appropriate fields below', 'ywp' ); ?></li>
-									<li><?php _e( 'Click update to activate and begin using Yelp Widget Pro', 'ywp' ); ?></li>
-								</ol>
+								<p><?php _e( 'If you have any problems with this plugin or ideas for improvements, please use the <a href="https://wordpress.org/support/plugin/yelp-widget-pro">WordPress.org Support Forums</a> where you can search the existing topics or create one of your own.', 'ywp' ); ?></p>
 
 								<p>
-									<strong><?php _e( 'Like this plugin?  Give it a like on Facebook:', 'ywp' ); ?></strong>
+									<strong><?php _e( 'Like this plugin? Follow along with WordImpress:', 'ywp' ); ?></strong>
 								</p>
 
 								<div class="social-items-wrap">
@@ -228,59 +237,6 @@ function yelp_widget_options_form() {
 						</div>
 						<!-- /#yelp-widget-intro -->
 
-						<div class="postbox" id="api-options">
-
-							<h3 class="hndle"><span><?php _e( 'Yelp API v2.0 Information', 'ywp' ); ?></span></h3>
-
-							<div class="inside">
-								<?php
-								// Tells Wordpress that the options we registered are being
-								// handled by this form
-								settings_fields( 'yelp_widget_settings' );
-
-								// Retrieve stored options, if any
-								$options = get_option( 'yelp_widget_settings' ); ?>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_consumer_key"><?php _e( 'Consumer Key', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_consumer_key" name="yelp_widget_settings[yelp_widget_consumer_key]" value="<?php echo yelp_widget_option( 'yelp_widget_consumer_key', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_consumer_secret"><?php _e( 'Consumer Secret', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_consumer_secret" name="yelp_widget_settings[yelp_widget_consumer_secret]" value="<?php echo yelp_widget_option( 'yelp_widget_consumer_secret', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_token"><?php _e( 'Token', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_token" name="yelp_widget_settings[yelp_widget_token]" value="<?php echo yelp_widget_option( 'yelp_widget_token', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_token_secret"><?php _e( 'Token Secret', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_token_secret" name="yelp_widget_settings[yelp_widget_token_secret]" value="<?php echo yelp_widget_option( 'yelp_widget_token_secret', $options ); ?>" />
-									</div>
-								</div>
-							</div>
-							<!-- /.inside -->
-						</div>
-						<!-- /#api-settings -->
-
 						<div class="postbox" id="yelp-widget-options">
 
 							<h3 class="hndle"><span>Yelp Widget Pro Settings</span></h3>
@@ -321,21 +277,12 @@ function yelp_widget_options_form() {
 
 							<div class="inside">
 
-								<p><?php _e( 'Yelp Widget Premium is a significant upgrade to Yelp Widget Pro that adds many features that will allow you to further customize your widgets with Google Maps, Yelp review snippets, additional graphics and display options plus so much more! Also included is priority support, auto updates, and well documented shortcodes to display Yelp in any page or post', 'ywp' ); ?>.</p>
+								<p><?php _e( '<a href="http://wordimpress.com/plugins/yelp-widget-pro/">Yelp Widget Premium</a> is a significant upgrade to Yelp Widget Pro that adds features such as Yelp review lists, Google Maps, and more!', 'ywp' ); ?>.</p>
+
+								<p><?php _e( 'Also included is Priority Support, updates, and well-documented shortcodes to display Yelp in any page or post', 'ywp' ); ?>.</p>
 							</div>
 						</div>
 						<!-- /.premium-metabox -->
-
-						<div id="yelp-widget-pro-support" class="postbox">
-							<div class="handlediv" title="Click to toggle"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Need Support?', 'ywp' ); ?></span></h3>
-
-							<div class="inside">
-								<p><?php _e( 'If you have any problems with this plugin or ideas for improvements or enhancements, please use the WordImpress support forum: <a href="http://wordimpress.com/support/forum/yelp-widget-pro/" target="_blank" class="new-window">Support Forums</a>. Please note, support is prioritized for <a href="http://wordimpress.com/plugins/yelp-widget-pro/" title="Upgrade to Yelp Widget Premium" target="_blank" class="new-window">Premium Users</a>.', 'ywp' ); ?></p>
-							</div>
-							<!-- /.inside -->
-						</div>
-						<!-- /.yelp-widget-pro-support -->
 
 					</div>
 					<!-- /.sidebar-sortables -->
