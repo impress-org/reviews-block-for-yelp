@@ -7,7 +7,6 @@
  * Author: Devin Walker
  * Author URI: http://wordimpress.com/
  * License: GPLv2
-
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; version 2 of the License.
@@ -75,9 +74,6 @@ if ( ! class_exists( 'Yelp_Widget' ) ) {
 	require 'widget.php';
 }
 
-if ( is_admin() ) {
-	echo '<pre>';
-	var_dump(YELP_WIDGET_PRO_PATH . '/admin/admin.php');
-	echo '</pre>';
+if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/admin/admin.php' ) ) {
 	include YELP_WIDGET_PRO_PATH . '/admin/admin.php';
 }
