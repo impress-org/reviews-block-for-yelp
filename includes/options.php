@@ -162,6 +162,14 @@ function yelp_widget_options_form() {
 		</div>
 		<form id="yelp-settings" method="post" action="options.php">
 
+			<?php
+			// Tells Wordpress that the options we registered are being
+			// handled by this form
+			settings_fields( 'yelp_widget_settings' );
+
+			// Retrieve stored options, if any
+			$options = get_option( 'yelp_widget_settings' ); ?>
+
 			<div class="metabox-holder">
 
 				<div class="postbox-container" style="width:75%">
@@ -227,59 +235,6 @@ function yelp_widget_options_form() {
 							<!-- /.inside -->
 						</div>
 						<!-- /#yelp-widget-intro -->
-
-						<div class="postbox" id="api-options">
-
-							<h3 class="hndle"><span><?php _e( 'Yelp API v2.0 Information', 'ywp' ); ?></span></h3>
-
-							<div class="inside">
-								<?php
-								// Tells Wordpress that the options we registered are being
-								// handled by this form
-								settings_fields( 'yelp_widget_settings' );
-
-								// Retrieve stored options, if any
-								$options = get_option( 'yelp_widget_settings' ); ?>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_consumer_key"><?php _e( 'Consumer Key', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_consumer_key" name="yelp_widget_settings[yelp_widget_consumer_key]" value="<?php echo yelp_widget_option( 'yelp_widget_consumer_key', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_consumer_secret"><?php _e( 'Consumer Secret', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_consumer_secret" name="yelp_widget_settings[yelp_widget_consumer_secret]" value="<?php echo yelp_widget_option( 'yelp_widget_consumer_secret', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_token"><?php _e( 'Token', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_token" name="yelp_widget_settings[yelp_widget_token]" value="<?php echo yelp_widget_option( 'yelp_widget_token', $options ); ?>" />
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_token_secret"><?php _e( 'Token Secret', 'ywp' ); ?>: </label>
-									</div>
-									<div class="controls">
-										<input type="text" id="yelp_widget_token_secret" name="yelp_widget_settings[yelp_widget_token_secret]" value="<?php echo yelp_widget_option( 'yelp_widget_token_secret', $options ); ?>" />
-									</div>
-								</div>
-							</div>
-							<!-- /.inside -->
-						</div>
-						<!-- /#api-settings -->
 
 						<div class="postbox" id="yelp-widget-options">
 
