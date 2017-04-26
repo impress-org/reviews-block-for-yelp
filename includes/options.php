@@ -30,8 +30,8 @@ function yelp_widget_activate() {
 function yelp_widget_add_options_page() {
 	// Add the menu option under Settings, shows up as "Yelp API Settings" (second param)
 	$page = add_submenu_page( 'options-general.php', //The parent page of this menu
-		__( 'Yelp Widget Pro Settings', 'ywp' ), //The Menu Title
-		__( 'Yelp Widget Pro', 'ywp' ), //The Page Title
+		__( 'Yelp Widget Pro Settings', 'ywp' ), //The Page Title
+		__( 'Yelp Reviews', 'ywp' ), //The Menu Title
 		'manage_options', // The capability required for access to this item
 		'yelp_widget', // the slug to use for the page in the URL
 		'yelp_widget_options_form' ); // The function to call to render the page
