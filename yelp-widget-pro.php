@@ -53,7 +53,7 @@ function add_yelp_widget_css() {
 
 	$cssOption = get_option( 'yelp_widget_settings' );
 
-	if ( $cssOption && !array_key_exists('yelp_widget_disable_css', $cssOption) ) {
+	if ( ! $cssOption || ! array_key_exists('yelp_widget_disable_css', $cssOption) ) {
 
 		$url = plugins_url( YELP_PLUGIN_NAME . '/includes/style/yelp.css', dirname( __FILE__ ) );
 
