@@ -58,9 +58,7 @@ function add_yelp_widget_css() {
 
 	if ( ! $cssOption || ! array_key_exists( 'yelp_widget_disable_css', $cssOption ) ) {
 
-		$url = plugins_url( YELP_PLUGIN_NAME . '/includes/style/yelp.css', dirname( __FILE__ ) );
-
-		wp_register_style( 'yelp-widget', $url );
+		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/includes/style/yelp.css' );
 		wp_enqueue_style( 'yelp-widget' );
 
 	}
