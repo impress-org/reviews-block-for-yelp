@@ -92,7 +92,10 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 == Changelog ==
 
 = 1.4.3 =
-* Updated text in activation banner to reflect free version of plugin better
+* Fix: Support for businesses with strange characters with accents and such like `café-poland-columbia`
+* Tweak: No more API keys necessary to wor
+* Tweak: Cleaned up enqueing of scripts and styles.
+* Tweak: Updated text in activation banner to reflect free version of plugin better
 * Minor typo fixes and text updates
 
 = 1.4.2 =
