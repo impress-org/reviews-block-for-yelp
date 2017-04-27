@@ -70,7 +70,7 @@ class Yelp_Widget extends WP_Widget {
 		//Build URL Parameters
 		$urlparams = array(
 			'term'     => $term,
-			'id'       => $id,
+			'id'       => sanitize_title( $id ),
 			'location' => $location,
 			'limit'    => $limit,
 			'sort'     => $sort
