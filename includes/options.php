@@ -94,8 +94,8 @@ function ywp_add_plugin_page_links( $links, $file ) {
 
 function ywp_add_plugin_meta_links( $meta, $file ) {
 	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
-		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' title='" . __( 'Rate Yelp Widget Pro', 'ywp' ) . "'>" . __( 'Rate Plugin', 'ywp' ) . "</a>";
-		$meta[] = "<a href='http://wordimpress.com/plugins/yelp-widget-pro/' target='_blank' title='" . __( 'Upgrade to Yelp Widget Premium', 'ywp' ) . "'>" . __( 'Upgrade to Premium', 'ywp' ) . "</a>";
+		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'ywp' ) . "'>" . __( 'Rate Plugin', 'ywp' ) . "</a>";
+		$meta[] = "<a href='http://wordimpress.com/plugins/yelp-widget-pro/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to Yelp Widget Premium', 'ywp' ) . "'>" . __( 'Upgrade to Premium', 'ywp' ) . "</a>";
 	}
 
 	return $meta;
@@ -106,7 +106,7 @@ function ywp_get_support_forum_link( $linkText = '' ) {
 		$linkText = __( 'Support', 'ywp' );
 	}
 
-	return '<a href="http://wordimpress.com/support/forum/yelp-widget-pro/" target="_blank" title="Get Support">' . $linkText . '</a>';
+	return '<a href="http://wordimpress.com/support/forum/yelp-widget-pro/" target="_blank" rel="noopener noreferrer" title="Get Support">' . $linkText . '</a>';
 }
 
 function ywp_get_options_link( $linkText = '' ) {
@@ -123,7 +123,7 @@ function ywp_get_options_link( $linkText = '' ) {
  */
 function yelp_widget_init( $file ) {
 	// Register the yelp_widget settings as a group
-	register_setting( 'yelp_widget_settings', 'yelp_widget_settings' );
+	register_setting( 'yelp_widget_settings', 'yelp_widget_settings', array( 'sanitize_callback' => 'yelp_widget_clean' ) );
 
 	//call register settings function
 	add_action( 'admin_init', 'yelp_widget_options_css' );
@@ -149,6 +149,22 @@ function yelp_widget_option( $setting, $options ) {
 
 }
 
+/**
+ * Recursively sanitizes a given value.
+ *
+ * @since 1.5.0
+ *
+ * @param string|array $value Value to be sanitized.
+ * @return string|array Array of clean values or single clean value.
+ */
+function yelp_widget_clean( $value ) {
+	if ( is_array( $value ) ) {
+		return array_map( 'yelp_widget_clean', $value );
+	} else {
+		return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
+	}
+}
+
 
 // Generate the admin form
 function yelp_widget_options_form() {
@@ -162,7 +178,7 @@ function yelp_widget_options_form() {
             <h2><?php _e( 'Yelp Widget Pro Settings', 'ywp' ); ?> </h2>
             <label class="label basic-label">Basic Version</label>
             <a href="http://wordimpress.com/plugins/yelp-widget-pro/" title="Upgrade to Yelp Widget Premium"
-               target="_blank" class="update-link new-window">Upgrade to Premium</a>
+               target="_blank" rel="noopener noreferrer" class="update-link new-window">Upgrade to Premium</a>
         </div>
         <form id="yelp-settings" method="post" action="options.php">
 
@@ -185,22 +201,16 @@ function yelp_widget_options_form() {
                             <h3 class="hndle"><span><?php _e( 'Yelp Widget Pro Introduction', 'ywp' ); ?></span></h3>
 
                             <div class="inside">
+                                <h3><?php _e( 'Thanks for choosing Yelp Widget Pro!', 'ywp' ); ?></h3>
                                 <p>
-									<?php
-									$widgets_url = admin_url( 'widgets.php' );
-									$link        = sprintf( wp_kses( __( 'Thanks for choosing Yelp Widget Pro! To get started, head on over to your <a href="%s">Widgets page</a> and add Yelp Widget Pro to one of your active widget areas.', 'ywp' ), array( 'a' => array( 'href' => array() ) ) ), esc_url( $widgets_url ) );
-									echo $link;
-									?>
+                                    <strong><?php _e( 'To get started, follow the steps below:', 'ywp' ); ?></strong>
                                 </p>
 
-                                <p><strong><?php _e( 'Need Support?', 'ywp' ); ?></strong></p>
-
-                                <p><?php _e( 'If you have any problems with this plugin or ideas for improvements, please use the <a href="https://wordpress.org/support/plugin/yelp-widget-pro">WordPress.org Support Forums</a> where you can search the existing topics or create one of your own.', 'ywp' ); ?></p>
-
-                                <p>
-                                    <strong><?php _e( 'Like this plugin? Follow along with WordImpress:', 'ywp' ); ?></strong>
-                                </p>
-
+                                <ol>
+                                    <li><?php _e( 'First, <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">create your own Yelp app</a>. The app is required to access Yelp listings.', 'ywp' ); ?></li>
+                                    <li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'ywp' ); ?></li>
+                                    <li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listing now.', 'ywp' ); ?></li>
+                                </ol>
                                 <div class="social-items-wrap">
 
                                     <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FWordImpress%2F353658958080509&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=220596284639969"
@@ -253,6 +263,16 @@ function yelp_widget_options_form() {
                             <h3 class="hndle"><span>Yelp Widget Pro Settings</span></h3>
 
                             <div class="inside">
+                                <div class="control-group">
+									<div class="control-label">
+										<label for="yelp_widget_fusion_api">Yelp API Key:<img src="<?php echo YELP_WIDGET_PRO_URL . '/includes/images/help.png' ?>" title="<?php _e( 'This is necessary to get reviews from Yelp.', 'ywp' ); ?>" class="tooltip-info" width="16" height="16" /></label>
+									</div>
+									<div class="controls">
+										<?php $ywpFusionAPI = empty( $options['yelp_widget_fusion_api'] ) ? '' : $options['yelp_widget_fusion_api']; ?>
+										<p><input type="text" id="yelp_widget_fusion_api" name="yelp_widget_settings[yelp_widget_fusion_api]" value="<?php echo $ywpFusionAPI; ?>" size="45"/><br />
+										<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">Get a Yelp API Key by creating your own Yelp App</a></small></p>
+									</div>
+								</div>
                                 <div class="control-group">
                                     <div class="control-label">
                                         <label for="yelp_widget_disable_css">Disable Plugin CSS Output:<img
