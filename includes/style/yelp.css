@@ -105,6 +105,7 @@
 
 .yelp-business .yelp-branding img {
 	display: block;
+	box-shadow:none;
 }
 
 .yelp-address-wrap {
