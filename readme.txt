@@ -91,6 +91,12 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 == Changelog ==
 
+= 1.5.0 =
+* Update: Replace Yelp API v2 with Yelp API v3 (Fusion) for remote requests.
+* Update: Add responsive star images so ratings display sharper on high-resolution displays.
+* Update: Add responsive Yelp logo so logo dislpays sharper on high-resolution displays.
+* Fix: Widget would get stuck in Business mode after toggling back to Search mode. Toggling now works as expected.
+
 = 1.4.3 =
 * Fix: Support for businesses with strange characters with accents and such like `café-poland-columbia`
 * Tweak: No more API keys necessary to wor
