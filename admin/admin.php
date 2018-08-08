@@ -2,283 +2,201 @@
 
 /* Display a notice that can be dismissed */
 
-add_action('admin_notices', 'ywp_activation_admin_notice');
+add_action( 'admin_notices', 'ywp_activation_admin_notice' );
 
 function ywp_activation_admin_notice() {
-	global $current_user ;
-	$user_id = $current_user->ID;
-	/* Check that the user hasn't already clicked to ignore the message */
+	global $current_user;
 	global $pagenow;
-	if ( $pagenow == 'plugins.php' ) {
-		if (!get_user_meta($user_id, 'ywp_activation_ignore_notice')) { ?>
-			<style>
-				div.updated.ywp,
-				div.updated.ywp header,
-				div.updated.ywp header img,
-				div.updated.ywp header h3,
-				div.updated.ywp .dismiss,
-				.ywp-actions,
-				.ywp-action,
-				.ywp-action #mc_embed_signup,
-				div.updated.ywp .ywp-action span.dashicons:before {
-					-webkit-box-sizing: border-box;
-					/* Safari/Chrome, other WebKit */
-					-moz-box-sizing: border-box;
-					/* Firefox, other Gecko */
-					box-sizing: border-box;
-					/* Opera/IE 8+ */
-					width: 100%;
-					position: relative;
-					padding: 0;
-					margin: 0;
-					overflow: hidden;
-					float: none;
-					display: block;
-					text-align: left;
-				}
-				.ywp-action a,
-				.ywp-action a:hover,
-				div.updated.ywp .ywp-action.mailchimp:hover,
-				div.updated.ywp .ywp-action.mailchimp span {
-					-webkit-transition: all 500ms ease-in-out;
-					-moz-transition: all 500ms ease-in-out;
-					-ms-transition: all 500ms ease-in-out;
-					-o-transition: all 500ms ease-in-out;
-					transition: all 500ms ease-in-out;
-				}
-				div.updated.ywp {
-					margin: 1rem 0 2rem 0;
-				}
-				div.updated.ywp header h3 {
-					line-height: 1.4;
-				}
-				@media screen and (min-width: 280px) {
-					div.updated.ywp {
-						border: 0px;
-						background: transparent;
-						-webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
-						box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
-					}
-					div.updated.ywp header {
-						background: #bf3026;
-						color: white;
-						position: relative;
-						height: 5rem;
-					}
-					div.updated.ywp header img {
-						display: none;
-						max-width: 98px;
-						margin: 1rem;
-						float: left;
-					}
-					div.updated.ywp header h3 {
-						float: left;
-						max-width: 60%;
-						margin: 1rem;
-						display: inline-block;
-						color: white;
-					}
-					div.updated.ywp a.dismiss {
-						display: block;
-						position: absolute;
-						left: auto;
-						top: 0;
-						bottom: 0;
-						right: 0;
-						width: 6rem;
-						background: rgba(255, 255, 255, .15);
-						color: white;
-						text-align: center;
-					}
-					.ywp a.dismiss:before {
-						font-family: 'Dashicons';
-						content: "\f153";
-						display: inline-block;
-						position: absolute;
-						top: 50%;
 
-						transform: translate(-50%);
-						right: 40%;
-						margin: auto;
-						line-height: 0;
-					}
-					div.updated.ywp a.dismiss:hover {
-						color: #777;
-						background: rgba(255, 255, 255, .5)
-					}
+	// Check that the user hasn't already clicked to ignore the message
+	if ( 'plugins.php' === $pagenow && ! get_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice' ) ) : ?>
+		<style>
+			div.updated.wpbr {
+				border-left: 4px solid #3498db;
+				background: #FFF;
+				margin: 1rem 0 2rem 0;
+				-webkit-box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+				box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.1);
+				overflow: hidden;
+			}
 
-					/* END ACTIVATION HEADER
-					 * START ACTIONS
-					 */
-					div.updated.ywp .ywp-action {
-						display: table;
-					}
-					.ywp-action a,
-					.ywp-action #mc_embed_signup {
-						background: rgba(0,0,0,.1);
-						color: rgba(51, 51, 51, 1);
-						padding: 0 1rem 0 6rem;
-						height: 4rem;
-						display: table-cell;
-						vertical-align: middle;
-					}
-					.ywp-action.mailchimp {
-						margin-bottom: -1.5rem;
-						top: -.5rem;
-					}
-					.ywp-action.mailchimp p {
-						margin: 9px 0 0 0;
-					}
+			div.updated.wpbr header {
+				position: relative;
+			}
 
-					.ywp-action #mc_embed_signup form {
-						display: inline-block;
-					}
+			div.updated.wpbr header h2 {
+				display: inline-block;
+				margin: 0 0 10px;
+			}
 
-					div.updated.ywp .ywp-action span {
-						display: block;
-						position: absolute;
-						left: 0;
-						top: 0;
-						bottom: 0;
-						height: 100%;
-						width: auto;
-					}
-					div.updated.ywp .ywp-action span.dashicons:before {
-						padding: 2rem 1rem;
-						color: #bf3026;
-						line-height: 0;
-						top: 50%;
-						transform: translateY(-50%);
-						background: rgba(163, 163, 163, .25);
-					}
-					div.updated.ywp .ywp-action a:hover,
-					div.updated.ywp .ywp-action.mailchimp:hover {
-						background: rgba(0,0,0,.2);
-					}
-					div.updated.ywp .ywp-action a {
-						text-decoration: none;
-					}
+			div.updated.wpbr header img.wpbr-logo {
+				max-width: 80px;
+				display: inline-block;
+				margin: 1rem;
+				float: left;
+			}
 
-					div.updated.ywp .ywp-action a,
-					div.updated.ywp .ywp-action #mc_embed_signup {
-						position: relative;
-						overflow: visible;
-					}
-					.ywp-action #mc_embed_signup form,
-					.ywp-action #mc_embed_signup form input#mce-EMAIL {
-						width: 100%;
-					}
-					div.updated.ywp .mailchimp form input#mce-EMAIL + input.submit-button {
-						display: block;
-						position: relative;
-						top: -1.75rem;
-						float: right;
-						right: 4px;
-						border: 0;
-						background: #cccccc;
-						border-radius: 2px;
-						font-size: 10px;
-						color: white;
-						cursor: pointer;
-					}
+			div.updated.wpbr .wpbr-intro-text {
+				font-size: 12px;
+				margin: 0 0 12px;
+			}
 
-					div.updated.ywp .mailchimp form input#mce-EMAIL:focus + input.submit-button {
-						background: #bf3026;
-					}
+			.wpbr-banner-icon {
+				width: 20px;
+				height: 20px;
+				float: left;
+				margin: -1px 5px 0 0;
+				fill: #0073aa;
+			}
 
-					.ywp-action #mc_embed_signup form input#mce-EMAIL div#placeholder,
-					input#mce-EMAIL:-webkit-input-placeholder {opacity: 0;}
-				}
-				@media screen and (min-width: 780px) {
-					div.updated.ywp header h3 {line-height: 3;}
+			.wpbr-actions {
+				margin: 15px 0 15px 1rem;
+				padding: 0;
+				float: left;
+				width: auto;
+			}
 
-					div.updated.ywp .mailchimp form input#mce-EMAIL + input.submit-button {
-						top: -1.55rem;
-					}
-					div.updated.ywp header img {
-						display: inline-block;
-					}
-					div.updated.ywp header h3 {
-						max-width: 50%;
-					}
-					.ywp-action {
-						width: 30%;
-						float: left;
-					}
-					div.updated.ywp .ywp-action a {
-						
-					}
-					.ywp-action a,
-					.ywp-action #mc_embed_signup {
-						padding: 0 1rem 0 4rem;
-					}
-					div.updated.ywp .ywp-action span.dashicons:before {
+			.wpbr-action a {
+				text-decoration: none;
+			}
 
-					}
-					div.updated.ywp .ywp-action.mailchimp {
-						width: 40%;
-					}
-				}
-			</style>
-			<div class="updated ywp">
-				<header>
-					<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/includes/images/yelp-logo-transparent-icon.png"  class="yelp-logo"/>
-					<h3><?php _e('Thanks for installing Yelp Widget Pro (Free Version)!','ywp'); ?></h3>
-					<?php printf(__('<a href="%1$s" class="dismiss"></a>', 'ywp'), '?ywp_nag_ignore=0'); ?>
-				</header>
-				<div class="ywp-actions">
-					<div class="ywp-action">
-						<a href="<?php echo admin_url(); ?>options-general.php?page=yelp_widget">
-							<span class="dashicons dashicons-admin-settings"></span><?php _e('Go to Settings','ywp'); ?>
-						</a>
-					</div>
+			.wpbr-upsell-action a {
+				color: #ee4835;
+				font-weight: bold;
+			}
 
-					<div class="ywp-action">
-						<a href="https://wordimpress.com/plugins/yelp-widget-pro/" target="_blank">
-							<span class="dashicons dashicons-download"></span>
-							<?php _e('Upgrade to Premium Version','ywp'); ?>
-						</a>
-					</div>
+			.wpbr-upsell-action svg {
+				fill: #ee4835;
+			}
 
-					<div class="ywp-action mailchimp">
-						<script>
-							jQuery(function ($) {
-								var mcemail = $('#mce-EMAIL').val();
-							}
-						</script>
+			.wpbr-action {
+				float: left;
+				padding: 4px 20px 0 0;
+				width: auto;
+			}
+
+			/* MailChimp Signup */
+			.wpbr-action.mailchimp {
+				margin: 0;
+				padding: 0;
+			}
+
+			.mc-field-group {
+				width: 270px;
+				overflow: hidden;
+			}
+
+			#mc-embedded-subscribe {
+				float: left;
+				margin: 0 0 0 7px;
+				position: relative;
+				top: 1px;
+			}
+
+			#mce-EMAIL {
+				float: left;
+			}
+
+			/* Dismiss button */
+			div.updated.wpbr a {
+				outline: none;
+			}
+			div.updated.wpbr a.dismiss {
+				display: block;
+				position: absolute;
+				left: auto;
+				top: 10px;
+				right: 0;
+				color: #cacaca;
+				text-align: center;
+			}
+
+			.wpbr a.dismiss:before {
+				font-family: 'Dashicons';
+				content: "\f153";
+				font-size: 20px;
+				display: inline-block;
+			}
+
+			div.updated.wpbr a.dismiss:hover {
+				color: #777;
+			}
+
+
+		</style>
+		<div class="updated wpbr">
+			<header>
+				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/includes/images/platform-icon-wpbr.png" class="wpbr-logo" />
+				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'ywp' ), '?wpbr_nag_ignore=0' ); ?>
+
+				<div class="wpbr-actions">
+					<?php $current_user = wp_get_current_user(); ?>
+					<h2><?php printf( __( 'Welcome to Yelp Widget Pro by <a href="%s" target="_blank">WP Business Reviews</a>', 'ywp' ), 'https://wpbusinessreviews.com' ); ?></h2>
+					<p class="wpbr-intro-text">Display your Yelp reviews on your WordPress website. Subscribe to our mailing list for update information and more:</p>
+					<div class="wpbr-action mailchimp">
 						<div id="mc_embed_signup">
-							<span class="dashicons dashicons-edit"></span>
-							<form action="//wordimpress.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=cf1af2563c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-								<div class="mc-field-group">
-									<p><small><?php _e('Get notified of plugin updates:','ywp'); ?></small></p>
-									<input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder="my.email@wordpress.com">
-									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="submit-button">
-									<input type="hidden" value="2" name="group[13857]" id="mce-group[13857]-13857-3" checked="checked">
-								</div>
-								<div id="mce-responses" class="clear">
-									<div class="response" id="mce-error-response" style="display:none"></div>
-									<div class="response" id="mce-success-response" style="display:none"></div>
-								</div>
-								<div style="position: absolute; left: -5000px;">
-									<input type="text" name="b_3ccb75d68bda4381e2f45794c_83609e2883" value="">
+							<form action="https://wpbusinessreviews.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=08a835d189" method="post"
+							      id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+								<div id="mc_embed_signup_scroll">
+
+									<div class="mc-field-group">
+										<input type="email" value="<?php echo $current_user->user_email; ?>" name="EMAIL" class="required email" id="mce-EMAIL">
+										<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-small">
+									</div>
+
+									<div style="position: absolute; left: -5000px;" aria-hidden="true">
+										<input type="text" name="b_3ccb75d68bda4381e2f45794c_08a835d189"
+										       tabindex="-1" value=""></div>
 								</div>
 							</form>
 						</div>
 					</div>
+
+					<div class="wpbr-action">
+						<a href="<?php echo admin_url( 'options-general.php?page=yelp_widget' ); ?>">
+							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+								<rect x="0" fill="none" width="20" height="20" />
+								<g>
+									<path d="M18 16V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1zM8 11h1c.55 0 1 .45 1 1s-.45 1-1 1H8v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13H6c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V11zm5-2h-1c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1c.55 0 1 .45 1 1s-.45 1-1 1h-1v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V9z" />
+								</g>
+							</svg>
+							<?php _e( 'Go to Settings', 'ywp' ); ?>
+						</a>
+					</div>
+
+					<div class="wpbr-action wpbr-upsell-action">
+						<a href="https://wpbusinessreviews.com/" target="_blank">
+							<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+								<rect x="0" fill="none" width="20"
+								      height="20" />
+								<g>
+									<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" />
+								</g>
+							</svg><?php _e( 'Upgrade to WP Business Reviews', 'ywp' ); ?>
+						</a>
+					</div>
+
 				</div>
-			</div>
-		<?php
-		}
-	}
+
+			</header>
+		</div>
+	<?php
+	endif;
 }
 
-add_action('admin_init', 'ywp_nag_ignore');
 
-function ywp_nag_ignore() {
+/**
+ * Nag ignore.
+ *
+ * When the
+ */
+function wpbr_nag_ignore() {
 	global $current_user;
-	$user_id = $current_user->ID;
-	/* If user clicks to ignore the notice, add that to their user meta */
-	if ( isset($_GET['ywp_nag_ignore']) && '0' == $_GET['ywp_nag_ignore'] ) {
-		add_user_meta($user_id, 'ywp_activation_ignore_notice', 'true', true);
+
+	// If user clicks to ignore the notice, add that to their user meta
+	if ( isset( $_GET['wpbr_nag_ignore'] ) && '0' == $_GET['wpbr_nag_ignore'] ) {
+		add_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice', 'true', true );
 	}
 }
+
+add_action( 'admin_init', 'wpbr_nag_ignore' );
