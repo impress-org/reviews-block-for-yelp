@@ -37,9 +37,7 @@ if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
  * Adds Yelp Widget Pro Options Page
  */
 require_once dirname( __FILE__ ) . '/includes/options.php';
-if ( ! class_exists( 'OAuthToken', false ) ) {
-	require_once dirname( __FILE__ ) . '/lib/oauth.php';
-}
+
 
 /**
  * Localize the Plugin for Other Languages
@@ -50,14 +48,13 @@ load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( __FI
 /**
  * Adds Yelp Widget Pro Stylesheets
  */
-
 function add_yelp_widget_css() {
 
 	$cssOption = get_option( 'yelp_widget_settings' );
 
 	if ( ! $cssOption || ! array_key_exists( 'yelp_widget_disable_css', $cssOption ) ) {
 
-		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/includes/style/yelp.css' );
+		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/assets/style/yelp.css' );
 		wp_enqueue_style( 'yelp-widget' );
 
 	}
@@ -69,10 +66,10 @@ add_action( 'wp_print_styles', 'add_yelp_widget_css' );
 /**
  * Get the Widget
  */
-if ( ! class_exists( 'Yelp_Widget' ) ) {
-	require 'widget.php';
+if ( ! class_exists( 'Yelp_Widget' ) && file_exists( YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php' ) ) {
+	require_once YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php';
 }
 
-if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin.php' ) ) {
-	include YELP_WIDGET_PRO_PATH . '/includes/admin.php';
+if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin/admin.php' ) ) {
+	include YELP_WIDGET_PRO_PATH . '/includes/admin/admin.php';
 }

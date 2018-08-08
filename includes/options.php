@@ -52,7 +52,7 @@ function yelp_options_scripts() {
 	wp_enqueue_script( 'yelp_widget_options_js' );
 
 	// register our stylesheet
-	wp_register_style( 'yelp_widget_options_css', plugins_url( 'includes/style/options.css', dirname( __FILE__ ) ) );
+	wp_register_style( 'yelp_widget_options_css', plugins_url( 'assets/style/options.css', dirname( __FILE__ ) ) );
 	// It will be called only on plugin admin page, enqueue our stylesheet here
 	wp_enqueue_style( 'yelp_widget_options_css' );
 }
@@ -65,7 +65,7 @@ function yelp_widget_scripts( $hook ) {
 		wp_register_script( 'yelp_widget_admin_scripts', plugins_url( 'assets/js/admin-widget.js', dirname( __FILE__ ) ) );
 		wp_enqueue_script( 'yelp_widget_admin_scripts' );
 
-		wp_register_style( 'yelp_widget_admin_css', plugins_url( 'includes/style/admin-widget.css', dirname( __FILE__ ) ) );
+		wp_register_style( 'yelp_widget_admin_css', plugins_url( 'assets/style/admin-widget.css', dirname( __FILE__ ) ) );
 		wp_enqueue_style( 'yelp_widget_admin_css' );
 	}
 }

@@ -2,6 +2,8 @@
 
 /**
  * Adds Yelp Widget Pro Widget
+ *
+ * Class Yelp_Widget
  */
 class Yelp_Widget extends WP_Widget {
 
@@ -12,7 +14,7 @@ class Yelp_Widget extends WP_Widget {
 		parent::__construct(
 			'yelp_widget', // Base ID
 			'Yelp Widget Pro', // Name
-			array( 'description' => __( 'Display Yelp business ratings and reviews on your Website.', 'yelp-widget-pro' ), ) // Args
+			array( 'description' => __( 'Display Yelp business ratings and reviews on your Website.', 'yelp-widget-pro' ) ) // Args
 		);
 	}
 
@@ -64,10 +66,10 @@ class Yelp_Widget extends WP_Widget {
 			// Check for an existing copy of our cached/transient data
 			if ( ( $response = get_transient( $transient ) ) == false ) {
 
-				//Get Time to Cache Data
+				// Get Time to Cache Data
 				$expiration = $cache;
 
-				//Assign Time to appropriate Math
+				// Assign Time to appropriate Math
 				switch ( $expiration ) {
 					case '1 Hour':
 						$expiration = 3600;
@@ -101,10 +103,9 @@ class Yelp_Widget extends WP_Widget {
 
 				set_transient( $transient, $response, $expiration );
 			}
-
 		} else {
 
-			//No Cache option enabled
+			// No Cache option enabled
 			if ( $displayOption == '1' ) {
 				// Widget is in Business mode.
 				$response = yelp_widget_fusion_get_business( $fusion_api_key, $id );
@@ -114,12 +115,11 @@ class Yelp_Widget extends WP_Widget {
 			}
 		}
 
-
 		/*
 		 * Output Yelp Widget Pro
 		 */
 
-		//Widget Output
+		// Widget Output
 		echo $before_widget;
 
 		// if the title is set & the user hasn't disabled title output
@@ -136,7 +136,7 @@ class Yelp_Widget extends WP_Widget {
 		// Instantiate output var
 		$output = '';
 
-		//Check Yelp API response for an error
+		// Check Yelp API response for an error
 		if ( isset( $response->error ) ) {
 			$output .= $yelp->handle_yelp_api_error( $response );
 		} //Verify results have been returned
@@ -147,7 +147,6 @@ class Yelp_Widget extends WP_Widget {
 			 * Response from Yelp is Valid - Output Widget
 			 */
 			else {
-
 
 				// Open link in new window if set
 				if ( $targetBlank == 1 ) {
@@ -162,41 +161,47 @@ class Yelp_Widget extends WP_Widget {
 					$noFollow = '';
 				}
 
-				//Begin Setting Output Variable by Looping Data from Yelp
+				// Begin Setting Output Variable by Looping Data from Yelp
 				for ( $x = 0; $x < count( $businesses ); $x ++ ) {
 					?>
 
-					<div class="yelp yelp-business <?php echo $align;
+					<div class="yelp yelp-business 
+					<?php
+					echo $align;
 
-					//Set profile image size
+					// Set profile image size
 					switch ( $profileImgSize ) {
 
 						case '40x40':
-							echo "ywp-size-40";
+							echo 'ywp-size-40';
 							break;
 						case '60x60':
-							echo "ywp-size-60";
+							echo 'ywp-size-60';
 							break;
 						case '80x80':
-							echo "ywp-size-80";
+							echo 'ywp-size-80';
 							break;
 						case '100x100':
-							echo "ywp-size-100";
+							echo 'ywp-size-100';
 							break;
 						default:
-							echo "ywp-size-60";
+							echo 'ywp-size-60';
 					}
 
-
-					?>">
+					?>
+					">
 						<div class="biz-img-wrap">
-							<img class="picture" src="<?php if ( ! empty( $businesses[ $x ]->image_url ) ) {
+							<img class="picture" src="
+							<?php
+							if ( ! empty( $businesses[ $x ]->image_url ) ) {
 								echo esc_attr( $businesses[ $x ]->image_url );
 							} else {
 								echo YELP_WIDGET_PRO_URL . '/assets/images/blank-biz.png';
-							}; ?>"
+							};
+							?>
+							"
 								<?php
-								//Set profile image size
+								// Set profile image size
 								switch ( $profileImgSize ) {
 
 									case '40x40':
@@ -213,50 +218,58 @@ class Yelp_Widget extends WP_Widget {
 										break;
 									default:
 										echo "width='60' height='60'";
-								} ?> /></div>
+								}
+								?>
+							/></div>
 						<div class="info">
-							<a class="name" <?php echo $targetBlank . $noFollow; ?> href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>" title="<?php echo esc_attr( $businesses[ $x ]->name ); ?> Yelp page"><?php echo $businesses[ $x ]->name; ?></a>
+							<a class="name" <?php echo $targetBlank . $noFollow; ?> href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>"
+							   title="<?php echo esc_attr( $businesses[ $x ]->name ); ?> Yelp page"><?php echo $businesses[ $x ]->name; ?></a>
 							<?php yelp_widget_fusion_stars( $businesses[ $x ]->rating ); ?>
-							<span class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?> <?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
-							<a class="yelp-branding" href="<?php echo esc_url( $businesses[ $x ]->url ); ?>" <?php echo $targetBlank . $noFollow; ?>><?php yelp_widget_fusion_logo(); ?></a>
+							<span class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?><?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
+							<a class="yelp-branding"
+							   href="<?php echo esc_url( $businesses[ $x ]->url ); ?>" <?php echo $targetBlank . $noFollow; ?>><?php yelp_widget_fusion_logo(); ?></a>
 						</div>
 
 						<?php
-						//Does the User want to display Address?
+						// Does the User want to display Address?
 						if ( $address == 1 ) {
 							?>
 							<div class="yelp-address-wrap">
 								<address>
 									<?php
-									//Iterate through Address Array
+									// Iterate through Address Array
 									foreach ( $businesses[ $x ]->location->display_address as $addressItem ) {
 
-										echo $addressItem . "<br/>";
-									} ?>
+										echo $addressItem . '<br/>';
+									}
+									?>
 									<address>
 							</div>
 
-						<?php
+							<?php
 						} //endif address
 
-						//Phone
+						// Phone
 						if ( $phone == 1 ) {
 							?>
 
-							<p class="ywp-phone"><?php
-								//echo pretty display_phone (only avail in biz API)
+							<p class="ywp-phone">
+								<?php
+								// echo pretty display_phone (only avail in biz API)
 								if ( ! empty( $businesses[ $x ]->display_phone ) ) {
 									echo $businesses[ $x ]->display_phone;
 								} else {
 									echo $businesses[ $x ]->phone;
-								}  ?></p>
+								}
+								?>
+							</p>
 
 
-						<?php } //endif phone	?>
+						<?php } //endif phone ?>
 
 					</div><!--/.yelp-->
 
-				<?php
+					<?php
 
 				} //end for
 			}
@@ -270,8 +283,14 @@ class Yelp_Widget extends WP_Widget {
 
 
 	/**
-	 * @DESC: Saves the widget options
-	 * @SEE WP_Widget::update
+	 * Saves the widget options
+	 *
+	 * @see WP_Widget::update
+	 *
+	 * @param array $new_instance
+	 * @param array $old_instance
+	 *
+	 * @return array
 	 */
 	function update( $new_instance, $old_instance ) {
 		$instance                         = $old_instance;
@@ -297,7 +316,12 @@ class Yelp_Widget extends WP_Widget {
 
 	/**
 	 * Back-end widget form.
+	 *
 	 * @see WP_Widget::form()
+	 *
+	 * @param array $instance
+	 *
+	 * @return string|void
 	 */
 	function form( $instance ) {
 
@@ -317,15 +341,18 @@ class Yelp_Widget extends WP_Widget {
 		$noFollow       = ! isset( $instance['no_follow'] ) ? '' : esc_attr( $instance['no_follow'] );
 		$cache          = ! isset( $instance['cache'] ) ? '' : esc_attr( $instance['cache'] );
 
-
 		$apiOptions = get_option( 'yelp_widget_settings' );
 
-		include( 'includes/widget-form.php' );
+		ob_start();
+		include YELP_WIDGET_PRO_PATH . '/includes/widget-form.php';
+		echo ob_get_clean();
 
 	} //end form function
 
-		/*
+	/**
 	 * Handle Yelp Error Messages
+	 *
+	 * @param $response
 	 */
 	public function handle_yelp_api_error( $response ) {
 
@@ -345,7 +372,7 @@ class Yelp_Widget extends WP_Widget {
 		} //output standard error
 		else {
 			if ( ! empty( $response->error->code ) ) {
-				$output .= $response->error->code . ": ";
+				$output .= $response->error->code . ': ';
 			}
 			if ( ! empty( $response->error->description ) ) {
 				$output .= $response->error->description;
@@ -372,7 +399,7 @@ function yelp_widget_curl( $signed_url ) {
 	// Send Yelp API Call using WP's HTTP API
 	$data = wp_remote_get( $signed_url );
 
-	//Use curl only if necessary
+	// Use curl only if necessary
 	if ( empty( $data['body'] ) ) {
 
 		$ch = curl_init( $signed_url );
@@ -404,6 +431,7 @@ function yelp_widget_curl( $signed_url ) {
  * @param string $limit    Number of businesses to return.
  * @param string $sort_by  Optional. Sort the results by one of the these modes:
  *                         best_match, rating, review_count or distance. Defaults to best_match.
+ *
  * @return array Associative array containing the response body.
  */
 function yelp_widget_fusion_search( $key, $term, $location, $limit, $sort_by ) {
@@ -432,8 +460,8 @@ function yelp_widget_fusion_search( $key, $term, $location, $limit, $sort_by ) {
 	);
 
 	$args = array(
-		'user-agent'     => '',
-		'headers' => array(
+		'user-agent' => '',
+		'headers'    => array(
 			'authorization' => 'Bearer ' . $key,
 		),
 	);
@@ -448,16 +476,17 @@ function yelp_widget_fusion_search( $key, $term, $location, $limit, $sort_by ) {
  *
  * @since 1.5.0
  *
- * @param string $key             Yelp Fusion API Key.
- * @param string $id              The Yelp business ID.
+ * @param string $key Yelp Fusion API Key.
+ * @param string $id  The Yelp business ID.
+ *
  * @return array Associative array containing the response body.
  */
 function yelp_widget_fusion_get_business( $key, $id ) {
 	$url = 'https://api.yelp.com/v3/businesses/' . $id;
 
 	$args = array(
-		'user-agent'     => '',
-		'headers' => array(
+		'user-agent' => '',
+		'headers'    => array(
 			'authorization' => 'Bearer ' . $key,
 		),
 	);
@@ -472,7 +501,7 @@ function yelp_widget_fusion_get_business( $key, $id ) {
  *
  * @since 1.5.0
  *
- * @see wp_safe_remote_get()
+ * @see   wp_safe_remote_get()
  *
  * @return array Associative array containing the response body.
  */
@@ -484,7 +513,6 @@ function yelp_widget_fusion_get( $url, $args = array() ) {
 	}
 
 	$body = json_decode( $response['body'] );
-
 
 	$response = yelp_update_http_for_ssl( $response );
 	$response = json_decode( $response['body'] );
@@ -503,6 +531,7 @@ function yelp_widget_fusion_get( $url, $args = array() ) {
  * @since 1.5.0
  *
  * @param int|float $rating Numerical rating between 0 and 5 in increments of 0.5.
+ *
  * @return string Responsive image element.
  */
 function yelp_widget_fusion_stars( $rating = 0 ) {
@@ -545,7 +574,6 @@ function yelp_widget_fusion_logo() {
 
 /**
  * Function update http for SSL
- *
  */
 function yelp_update_http_for_ssl( $data ) {
 
