@@ -44,7 +44,7 @@ if ( ! class_exists( 'OAuthToken', false ) ) {
 /**
  * Localize the Plugin for Other Languages
  */
-load_plugin_textdomain( 'ywp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 
 /**
@@ -73,6 +73,6 @@ if ( ! class_exists( 'Yelp_Widget' ) ) {
 	require 'widget.php';
 }
 
-if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/admin/admin.php' ) ) {
-	include YELP_WIDGET_PRO_PATH . '/admin/admin.php';
+if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin.php' ) ) {
+	include YELP_WIDGET_PRO_PATH . '/includes/admin.php';
 }

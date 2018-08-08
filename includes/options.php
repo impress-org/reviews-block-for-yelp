@@ -30,8 +30,8 @@ function yelp_widget_add_options_page() {
 	// Add the menu option under Settings, shows up as "Yelp API Settings" (second param)
 	$page = add_submenu_page(
 		'options-general.php', // The parent page of this menu
-		__( 'Yelp Widget Pro Settings', 'ywp' ), // The Page Title
-		__( 'Yelp Reviews', 'ywp' ), // The Menu Title
+		__( 'Yelp Widget Pro Settings', 'yelp-widget-pro' ), // The Page Title
+		__( 'Yelp Reviews', 'yelp-widget-pro' ), // The Menu Title
 		'manage_options', // The capability required for access to this item
 		'yelp_widget', // the slug to use for the page in the URL
 		'yelp_widget_options_form'
@@ -48,7 +48,7 @@ function yelp_widget_add_options_page() {
 function yelp_options_scripts() {
 
 	// register admin JS
-	wp_register_script( 'yelp_widget_options_js', plugins_url( 'includes/js/options.js', dirname( __FILE__ ) ) );
+	wp_register_script( 'yelp_widget_options_js', plugins_url( 'assets/js/options.js', dirname( __FILE__ ) ) );
 	wp_enqueue_script( 'yelp_widget_options_js' );
 
 	// register our stylesheet
@@ -62,7 +62,7 @@ function yelp_options_scripts() {
  */
 function yelp_widget_scripts( $hook ) {
 	if ( $hook == 'widgets.php' ) {
-		wp_register_script( 'yelp_widget_admin_scripts', plugins_url( 'includes/js/admin-widget.js', dirname( __FILE__ ) ) );
+		wp_register_script( 'yelp_widget_admin_scripts', plugins_url( 'assets/js/admin-widget.js', dirname( __FILE__ ) ) );
 		wp_enqueue_script( 'yelp_widget_admin_scripts' );
 
 		wp_register_style( 'yelp_widget_admin_css', plugins_url( 'includes/style/admin-widget.css', dirname( __FILE__ ) ) );
@@ -71,52 +71,6 @@ function yelp_widget_scripts( $hook ) {
 }
 
 add_action( 'admin_enqueue_scripts', 'yelp_widget_scripts' );
-
-/**
- * Add links to Plugin listings view
- *
- * @param $links
- *
- * @return mixed
- */
-function ywp_add_plugin_page_links( $links, $file ) {
-	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
-		// Add Widget Page link to our plugin
-		$link = ywp_get_options_link();
-		array_unshift( $links, $link );
-
-		// Add Support Forum link to our plugin
-		$link = ywp_get_support_forum_link();
-		array_unshift( $links, $link );
-	}
-
-	return $links;
-}
-
-function ywp_add_plugin_meta_links( $meta, $file ) {
-	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
-		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'ywp' ) . "'>" . __( 'Rate Plugin', 'ywp' ) . '</a>';
-		$meta[] = "<a href='http://wordimpress.com/plugins/yelp-widget-pro/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to Yelp Widget Premium', 'ywp' ) . "'>" . __( 'Upgrade to Premium', 'ywp' ) . '</a>';
-	}
-
-	return $meta;
-}
-
-function ywp_get_support_forum_link( $linkText = '' ) {
-	if ( empty( $linkText ) ) {
-		$linkText = __( 'Support', 'ywp' );
-	}
-
-	return '<a href="http://wordimpress.com/support/forum/yelp-widget-pro/" target="_blank" rel="noopener noreferrer" title="Get Support">' . $linkText . '</a>';
-}
-
-function ywp_get_options_link( $linkText = '' ) {
-	if ( empty( $linkText ) ) {
-		$linkText = __( 'Settings', 'ywp' );
-	}
-
-	return '<a href="options-general.php?page=yelp_widget">' . $linkText . '</a>';
-}
 
 
 /**
@@ -133,8 +87,6 @@ function yelp_widget_init( $file ) {
 }
 
 
-add_filter( 'plugin_row_meta', 'ywp_add_plugin_meta_links', 10, 2 );
-add_filter( 'plugin_action_links', 'ywp_add_plugin_page_links', 10, 2 );
 
 // Output the yelp_widget option setting value
 function yelp_widget_option( $setting, $options ) {
@@ -178,7 +130,7 @@ function yelp_widget_options_form() { ?>
 		<!-- Plugin Title -->
 		<div id="ywp-title-wrap">
 			<div id="icon-yelp" class=""></div>
-			<h2><?php _e( 'Yelp Widget Pro Settings', 'ywp' ); ?> </h2>
+			<h2><?php _e( 'Yelp Widget Pro Settings', 'yelp-widget-pro' ); ?> </h2>
 			<label class="label basic-label">Basic Version</label>
 			<a href="https://wpbusinessreviews.com/" title="Upgrade to Yelp Widget Premium"
 			   target="_blank" rel="noopener noreferrer" class="update-link new-window">Upgrade to WP Business Reviews</a>
@@ -203,18 +155,18 @@ function yelp_widget_options_form() { ?>
 					<div id="main-sortables" class="meta-box-sortables ui-sortable">
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Yelp Widget Pro Introduction', 'ywp' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'Yelp Widget Pro Introduction', 'yelp-widget-pro' ); ?></span></h3>
 
 							<div class="inside">
-								<h3><?php _e( 'Thanks for choosing Yelp Widget Pro!', 'ywp' ); ?></h3>
+								<h3><?php _e( 'Thanks for choosing Yelp Widget Pro!', 'yelp-widget-pro' ); ?></h3>
 								<p>
-									<strong><?php _e( 'To get started, follow the steps below:', 'ywp' ); ?></strong>
+									<strong><?php _e( 'To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
 								</p>
 
 								<ol>
-									<li><?php _e( 'First, <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">create your own Yelp app</a>. The app is required to access Yelp listings.', 'ywp' ); ?></li>
-									<li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'ywp' ); ?></li>
-									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listing now.', 'ywp' ); ?></li>
+									<li><?php _e( 'First, <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">create your own Yelp app</a>. The app is required to access Yelp listings.', 'yelp-widget-pro' ); ?></li>
+									<li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'yelp-widget-pro' ); ?></li>
+									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listing now.', 'yelp-widget-pro' ); ?></li>
 								</ol>
 								<div class="social-items-wrap">
 
@@ -237,26 +189,7 @@ function yelp_widget_options_form() { ?>
 																				}
 																			}( document, 'script', 'twitter-wjs' );
 									</script>
-									<div class="google-plus">
-										<!-- Place this tag where you want the +1 button to render. -->
-										<div class="g-plusone" data-size="medium" data-annotation="inline"
-										     data-width="200"
-										     data-href="https://plus.google.com/117062083910623146392"></div>
 
-
-										<!-- Place this tag after the last +1 button tag. -->
-										<script type="text/javascript">
-																					(function() {
-																						var po = document.createElement( 'script' );
-																						po.type = 'text/javascript';
-																						po.async = true;
-																						po.src = 'https://apis.google.com/js/plusone.js';
-																						var s = document.getElementsByTagName( 'script' )[ 0 ];
-																						s.parentNode.insertBefore( po, s );
-																					})();
-										</script>
-									</div>
-									<!--/.google-plus -->
 								</div>
 								<!--/.social-items-wrap -->
 
@@ -272,23 +205,23 @@ function yelp_widget_options_form() { ?>
 							<div class="inside">
 								<div class="control-group">
 									<div class="control-label">
-										<label for="yelp_widget_fusion_api">Yelp API Key:<img src="<?php echo YELP_WIDGET_PRO_URL . '/includes/images/help.png'; ?>" title="<?php
-											_e( 'This is necessary to get reviews from Yelp.', 'ywp' ); ?>" class="tooltip-info" width="16" height="16" /></label>
+										<label for="yelp_widget_fusion_api">Yelp API Key:<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>" title="<?php
+											_e( 'This is necessary to get reviews from Yelp.', 'yelp-widget-pro' ); ?>" class="tooltip-info" width="16" height="16" /></label>
 									</div>
 									<div class="controls">
 										<?php $ywpFusionAPI = empty( $options['yelp_widget_fusion_api'] ) ? '' : $options['yelp_widget_fusion_api']; ?>
 										<p><input type="text" id="yelp_widget_fusion_api" name="yelp_widget_settings[yelp_widget_fusion_api]" value="<?php echo $ywpFusionAPI; ?>"
 										          size="45" /><br />
 											<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank"
-											          rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'ywp' ); ?></a></small>
+											          rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'yelp-widget-pro' ); ?></a></small>
 										</p>
 									</div>
 								</div>
 								<div class="control-group">
 									<div class="control-label">
 										<label for="yelp_widget_disable_css">Disable Plugin CSS Output:<img
-													src="<?php echo YELP_WIDGET_PRO_URL . '/includes/images/help.png'; ?>"
-													title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'ywp' ); ?>"
+													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
+													title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'yelp-widget-pro' ); ?>"
 													class="tooltip-info" width="16" height="16" /></label>
 									</div>
 									<div class="controls">
@@ -311,7 +244,7 @@ function yelp_widget_options_form() { ?>
 						<div class="control-group">
 							<div class="controls">
 								<input class="button-primary" type="submit" name="submit-button"
-								       value="<?php _e( 'Update', 'ywp' ); ?>" />
+								       value="<?php _e( 'Update', 'yelp-widget-pro' ); ?>" />
 							</div>
 						</div>
 					</div>
@@ -323,13 +256,13 @@ function yelp_widget_options_form() { ?>
 
 						<div id="yelp-widget-pro-premium" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br></div>
-							<h3 class="hndle"><span><?php _e( 'WP Business Reviews', 'ywp' ); ?></span></h3>
+							<h3 class="hndle"><span><?php _e( 'WP Business Reviews', 'yelp-widget-pro' ); ?></span></h3>
 
 							<div class="inside">
 
-								<p><?php _e( '<a href="https://wpbusinessreviews.com">WP Business Reviews</a> is a significant upgrade to Yelp Widget Pro that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!', 'ywp' ); ?></p>
+								<p><?php _e( '<a href="https://wpbusinessreviews.com">WP Business Reviews</a> is a significant upgrade to Yelp Widget Pro that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!', 'yelp-widget-pro' ); ?></p>
 
-								<p><?php _e( 'Also included is Priority Support, updates, and well-documented shortcodes to display your Yelp reviews on any page or post.', 'ywp' ); ?></p>
+								<p><?php _e( 'Also included is Priority Support, updates, and well-documented shortcodes to display your Yelp reviews on any page or post.', 'yelp-widget-pro' ); ?></p>
 							</div>
 						</div>
 						<!-- /.premium-metabox -->

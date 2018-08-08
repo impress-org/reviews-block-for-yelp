@@ -12,7 +12,7 @@ class Yelp_Widget extends WP_Widget {
 		parent::__construct(
 			'yelp_widget', // Base ID
 			'Yelp Widget Pro', // Name
-			array( 'description' => __( 'Display Yelp business ratings and reviews on your Website.', 'ywp' ), ) // Args
+			array( 'description' => __( 'Display Yelp business ratings and reviews on your Website.', 'yelp-widget-pro' ), ) // Args
 		);
 	}
 
@@ -193,7 +193,7 @@ class Yelp_Widget extends WP_Widget {
 							<img class="picture" src="<?php if ( ! empty( $businesses[ $x ]->image_url ) ) {
 								echo esc_attr( $businesses[ $x ]->image_url );
 							} else {
-								echo YELP_WIDGET_PRO_URL . '/includes/images/blank-biz.png';
+								echo YELP_WIDGET_PRO_URL . '/assets/images/blank-biz.png';
 							}; ?>"
 								<?php
 								//Set profile image size
@@ -217,7 +217,7 @@ class Yelp_Widget extends WP_Widget {
 						<div class="info">
 							<a class="name" <?php echo $targetBlank . $noFollow; ?> href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>" title="<?php echo esc_attr( $businesses[ $x ]->name ); ?> Yelp page"><?php echo $businesses[ $x ]->name; ?></a>
 							<?php yelp_widget_fusion_stars( $businesses[ $x ]->rating ); ?>
-							<span class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?> <?php _e( 'reviews', 'ywp' ); ?></span>
+							<span class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?> <?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
 							<a class="yelp-branding" href="<?php echo esc_url( $businesses[ $x ]->url ); ?>" <?php echo $targetBlank . $noFollow; ?>><?php yelp_widget_fusion_logo(); ?></a>
 						</div>
 
@@ -331,12 +331,12 @@ class Yelp_Widget extends WP_Widget {
 
 		$output = '<div class="yelp-error">';
 		if ( $response->error->code == 'EXCEEDED_REQS' ) {
-			$output .= __( 'The default Yelp API has exhausted its daily limit. Please enable your own API Key in your Yelp Widget Pro settings.', 'ywp' );
+			$output .= __( 'The default Yelp API has exhausted its daily limit. Please enable your own API Key in your Yelp Widget Pro settings.', 'yelp-widget-pro' );
 		} elseif ( $response->error->code == 'BUSINESS_UNAVAILABLE' ) {
-			$output .= __( '<strong>Error:</strong> Business information is unavailable. Either you mistyped the Yelp biz ID or the business does not have any reviews.', 'ywp' );
+			$output .= __( '<strong>Error:</strong> Business information is unavailable. Either you mistyped the Yelp biz ID or the business does not have any reviews.', 'yelp-widget-pro' );
 		} elseif ( $response->error->code == 'TOKEN_MISSING' ) {
 			$output .= sprintf(
-				__( '%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s', 'ywp' ),
+				__( '%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s', 'yelp-widget-pro' ),
 				'<strong>',
 				'</strong>',
 				'<a href="' . YWP_SETTINGS_URL . '">',
@@ -515,7 +515,7 @@ function yelp_widget_fusion_stars( $rating = 0 ) {
 		$image_name = $floor_rating;
 	}
 
-	$uri_image_name = YELP_WIDGET_PRO_URL . '/includes/images/stars/regular_' . $image_name;
+	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/images/stars/regular_' . $image_name;
 	$single         = $uri_image_name . $ext;
 	$double         = $uri_image_name . '@2x' . $ext;
 	$triple         = $uri_image_name . '@3x' . $ext;
@@ -535,7 +535,7 @@ function yelp_widget_fusion_stars( $rating = 0 ) {
 function yelp_widget_fusion_logo() {
 	$image_name     = 'yelp-widget-logo';
 	$ext            = '.png';
-	$uri_image_name = YELP_WIDGET_PRO_URL . '/includes/images/' . $image_name;
+	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/images/' . $image_name;
 	$single         = $uri_image_name . $ext;
 	$double         = $uri_image_name . '@2x' . $ext;
 	$srcset         = "{$single}, {$double} 2x";

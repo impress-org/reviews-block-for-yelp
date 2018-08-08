@@ -7,7 +7,7 @@ global $options;
 
 <div id="yelp-widget-pro-premium" class="postbox">
 	<div class="handlediv" title="Click to toggle"><br></div>
-	<h3 class="hndle"><span><?php _e( 'Yelp Widget Premium', 'ywp' ); ?></span></h3>
+	<h3 class="hndle"><span><?php _e( 'Yelp Widget Premium', 'yelp-widget-pro' ); ?></span></h3>
 
 	<div class="inside">
 		<?php
@@ -36,11 +36,11 @@ global $options;
 			echo $licensing->license_response( $response );  ?>
 
 			<div class="control-group">
-				<p><?php _e( 'If you have purchased a license for Yelp Widget Premium you may enter it in below to enable premium features:', 'ywp' ); ?></p>
+				<p><?php _e( 'If you have purchased a license for Yelp Widget Premium you may enter it in below to enable premium features:', 'yelp-widget-pro' ); ?></p>
 
 				<div class="control-label">
-					<label for="yelp_widget_premium_email"><?php _e( 'License Email', 'ywp' ); ?>
-						<img src="<?php echo YELP_WIDGET_PRO_URL . '/includes/images/help.png' ?>" title="<?php _e( 'This is the address you purchased the license key with and received email confirmation.', 'ywp' ); ?>" class="tooltip-info" width="16" height="16" /></label>
+					<label for="yelp_widget_premium_email"><?php _e( 'License Email', 'yelp-widget-pro' ); ?>
+						<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png' ?>" title="<?php _e( 'This is the address you purchased the license key with and received email confirmation.', 'yelp-widget-pro' ); ?>" class="tooltip-info" width="16" height="16" /></label>
 				</div>
 
 				<div class="controls">
@@ -52,8 +52,8 @@ global $options;
 			<!--/.control-group -->
 			<div class="control-group">
 				<div class="control-label">
-					<label for="yelp_widget_premium_license"><?php _e( 'License Key', 'ywp' ); ?>
-						<img src="<?php echo YELP_WIDGET_PRO_URL . '/includes/images/help.png' ?>" title="<?php _e( 'The license key can be found in your confirmation email. If you lost your license you can <a href=\'http://wordimpress.com/lost-licence/\'>request it sent by email</a>.', 'ywp' ); ?>" class="tooltip-info" width="16" height="16" /></label>
+					<label for="yelp_widget_premium_license"><?php _e( 'License Key', 'yelp-widget-pro' ); ?>
+						<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png' ?>" title="<?php _e( 'The license key can be found in your confirmation email. If you lost your license you can <a href=\'http://wordimpress.com/lost-licence/\'>request it sent by email</a>.', 'yelp-widget-pro' ); ?>" class="tooltip-info" width="16" height="16" /></label>
 				</div>
 
 				<div class="controls">
@@ -71,11 +71,11 @@ global $options;
 					if ( $licenseStatus == 1 ) {
 						?>
 
-						<input class="button" id="deactivate" type="submit" name="submit-button" value="<?php _e( 'Deactivate', 'ywp' ); ?>" />
+						<input class="button" id="deactivate" type="submit" name="submit-button" value="<?php _e( 'Deactivate', 'yelp-widget-pro' ); ?>" />
 
 					<?php } else { ?>
 
-						<input class="button" id="activate" type="submit" name="submit-button" value="<?php _e( 'Activate', 'ywp' ); ?>" />
+						<input class="button" id="activate" type="submit" name="submit-button" value="<?php _e( 'Activate', 'yelp-widget-pro' ); ?>" />
 
 					<?php } ?>
 
