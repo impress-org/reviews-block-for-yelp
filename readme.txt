@@ -4,30 +4,24 @@ Donate link: http://wordimpress.com/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp widget pro
 Requires at least: 4.2
 Tested up to: 4.9
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 
 Yelp Widget Pro makes it easy for you to add business listings to your website or blog via an easy-to-use and intuitive widget.
 
 == Description ==
 
-
-
 = Yelp Widget Pro =
 Yelp Widget Pro allows you to easily display Yelp profiles for any business on your website or blog using an intuitive and easily configurable widget. Yelp Widget Pro users are able to display business names, ratings, review counts and profile images in any WordPress sidebar. Customize the widget to display one or many listings from Yelp based on location.
 
-This widget supports for Yelp v2.0's Search and Business API methods. Yelp Widget Pro allows for multiple widgets within the same or separate sidebars. No coding knowledge required.
+This widget supports for Yelp's Search and Business API methods. Yelp Widget Pro allows for multiple widgets within the same or separate sidebars. No coding knowledge is required.
 
-Yelp Widget Pro is actively supported and developed. The open source version is available for free to the WordPress community. For additional options and priority support please consider [upgrading to Yelp Widget Premium](http://wordimpress.com/plugins/yelp-widget-pro/). If you like this plugin please [rate it on WordPress.org](http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro/).
+Yelp Widget Pro is actively supported and developed. The open source version is available for free to the WordPress community. For additional options and priority support please consider [upgrading to WP Business Reviews](https://wpbusinessreviews.com). If you like this plugin please [rate it on WordPress.org](http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro/).
 
 = WP Business Reviews =
 
-*WP Business Reviews* is a **significant upgrade** to *Yelp Widget Pro* that adds many features that will allow you to further customize how you display reviews on your WordPress website. Also included is priority support, auto updates, and well documented shortcode to display Yelp in any page or post.
+*WP Business Reviews* is a **significant upgrade** to *Yelp Widget Pro* that adds many features that will allow you to further customize how you display reviews on your WordPress website.
 
 [Upgrade to WP Business Reviews](https://wpbusinessreviews.com "Upgrade to WP Business Reviews")
-
-= Features =
-
-1.
 
 == Installation ==
 
@@ -67,7 +61,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 == Changelog ==
 
-= 1.5.1 =
+= 1.6.0 =
 * We have recently launched a new premium plugin for reviews called [WP Business Reviews](https://wpbusinessreviews.com/?plugin=yelp-widget-pro). You can use this new WordPress review plugin to display your best reviews from platforms like Google, Yelp, and Facebook right on your website.
 * Tweak: Modified upsells for new WP Business Reviews plugin.
 
