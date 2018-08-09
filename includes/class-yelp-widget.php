@@ -20,7 +20,7 @@ class Yelp_Widget extends WP_Widget {
 		);
 
 		// Hooks
-		add_action( 'wp_enqueue_scripts', array($this, 'public_scripts') );
+		add_action( 'wp_enqueue_scripts', array( $this, 'public_scripts' ) );
 		add_action( 'admin_init', array( $this, 'widget_settings' ) );
 
 	}
@@ -58,7 +58,7 @@ class Yelp_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::widget()
 	 *
-	 * @param array $args     Widget arguments.
+	 * @param array $args Widget arguments.
 	 * @param array $instance Saved values from database.
 	 */
 	function widget( $args, $instance ) {
@@ -131,7 +131,7 @@ class Yelp_Widget extends WP_Widget {
 
 				// Cache data wasn't there, so regenerate the data and save the transient
 				if ( $displayOption == '1' ) {
-					$response = yelp_widget_fusion_get_business( $fusion_api_key, $id, $reviewsOption );
+					$response = yelp_widget_fusion_get_business( $fusion_api_key, $id );
 				} else {
 					$response = yelp_widget_fusion_search( $fusion_api_key, $term, $location, $limit, $sort );
 				}
@@ -150,7 +150,7 @@ class Yelp_Widget extends WP_Widget {
 			}
 		}
 
-		/*
+		/**
 		 * Output Yelp Widget Pro
 		 */
 
@@ -257,10 +257,12 @@ class Yelp_Widget extends WP_Widget {
 								?>
 							/></div>
 						<div class="info">
-							<a class="name" <?php echo $targetBlank . $noFollow; ?> href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>"
+							<a class="name" <?php echo $targetBlank . $noFollow; ?>
+							   href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>"
 							   title="<?php echo esc_attr( $businesses[ $x ]->name ); ?> Yelp page"><?php echo $businesses[ $x ]->name; ?></a>
 							<?php yelp_widget_fusion_stars( $businesses[ $x ]->rating ); ?>
-							<span class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?><?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
+							<span
+								class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?> <?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
 							<a class="yelp-branding"
 							   href="<?php echo esc_url( $businesses[ $x ]->url ); ?>" <?php echo $targetBlank . $noFollow; ?>><?php yelp_widget_fusion_logo(); ?></a>
 						</div>
@@ -460,11 +462,11 @@ function yelp_widget_curl( $signed_url ) {
  *
  * @since 1.5.0
  *
- * @param string $key      Yelp Fusion API Key.
- * @param string $term     The search term, usually a business name.
+ * @param string $key Yelp Fusion API Key.
+ * @param string $term The search term, usually a business name.
  * @param string $location The location within which to search.
- * @param string $limit    Number of businesses to return.
- * @param string $sort_by  Optional. Sort the results by one of the these modes:
+ * @param string $limit Number of businesses to return.
+ * @param string $sort_by Optional. Sort the results by one of the these modes:
  *                         best_match, rating, review_count or distance. Defaults to best_match.
  *
  * @return array Associative array containing the response body.
@@ -512,7 +514,7 @@ function yelp_widget_fusion_search( $key, $term, $location, $limit, $sort_by ) {
  * @since 1.5.0
  *
  * @param string $key Yelp Fusion API Key.
- * @param string $id  The Yelp business ID.
+ * @param string $id The Yelp business ID.
  *
  * @return array Associative array containing the response body.
  */
