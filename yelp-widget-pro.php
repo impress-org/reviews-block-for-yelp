@@ -41,8 +41,6 @@ if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
 load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( YELP_PLUGIN_FILE ) ) . '/languages/' );
 
 
-
-
 /**
  * Delete options when uninstalled.
  */

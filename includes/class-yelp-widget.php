@@ -16,8 +16,43 @@ class Yelp_Widget extends WP_Widget {
 			'Yelp Widget Pro', // Name
 			array( 'description' => __( 'Display Yelp business ratings and reviews on your Website.', 'yelp-widget-pro' ) ) // Args
 		);
+
+		// Hooks
+		add_action( 'admin_enqueue_scripts', array( $this, 'yelp_widget_scripts' ), 1, 1 );
+		add_action( 'admin_init', array( $this, 'yelp_widget_settings' ) );
+
 	}
 
+	/**
+	 * Initiate the Yelp Widget
+	 *
+	 * @param $file
+	 */
+	function yelp_widget_settings( $file ) {
+
+		// Register the yelp_widget settings as a group
+		register_setting( 'yelp_widget_settings', 'yelp_widget_settings', array( 'sanitize_callback' => 'yelp_widget_clean' ) );
+
+	}
+
+	/**
+	 * Load Widget JS Script ONLY on Widget page
+	 *
+	 * @param $hook
+	 */
+	function yelp_widget_scripts( $hook ) {
+
+		if ( 'widgets.php' === $hook ) {
+			wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/assets/js/admin-widget.js' );
+			wp_enqueue_script( 'yelp_widget_admin_scripts' );
+
+			wp_register_script( 'yelp_widget_admin_tipsy', YELP_WIDGET_PRO_URL . '/assets/js/tipsy.js' );
+			wp_enqueue_script( 'yelp_widget_admin_tipsy' );
+
+			wp_register_style( 'yelp_widget_admin_css', YELP_WIDGET_PRO_URL . '/assets/style/admin-widget.css' );
+			wp_enqueue_style( 'yelp_widget_admin_css' );
+		}
+	}
 
 	/**
 	 * Front-end display of widget.
@@ -166,7 +201,7 @@ class Yelp_Widget extends WP_Widget {
 				for ( $x = 0; $x < count( $businesses ); $x ++ ) {
 					?>
 
-					<div class="yelp yelp-business 
+					<div class="yelp yelp-business
 					<?php
 					echo $align;
 

@@ -43,40 +43,7 @@ function yelp_options_scripts() {
 	wp_enqueue_style( 'yelp_widget_options_css' );
 }
 
-/**
- * Load Widget JS Script ONLY on Widget page
- *
- * @param $hook
- */
-function yelp_widget_scripts( $hook ) {
-	if ( 'widgets.php' === $hook ) {
-		wp_register_script( 'yelp_widget_admin_scripts', plugins_url( 'assets/js/admin-widget.js', dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'yelp_widget_admin_scripts' );
 
-		wp_register_script( 'yelp_widget_admin_tipsy', plugins_url( 'assets/js/tipsy.js', dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'yelp_widget_admin_tipsy' );
-
-		wp_register_style( 'yelp_widget_admin_css', plugins_url( 'assets/style/admin-widget.css', dirname( __FILE__ ) ) );
-		wp_enqueue_style( 'yelp_widget_admin_css' );
-	}
-}
-
-add_action( 'admin_enqueue_scripts', 'yelp_widget_scripts' );
-
-
-/**
- * Initiate the Yelp Widget
- *
- * @param $file
- */
-function yelp_widget_init( $file ) {
-
-	// Register the yelp_widget settings as a group
-	register_setting( 'yelp_widget_settings', 'yelp_widget_settings', array( 'sanitize_callback' => 'yelp_widget_clean' ) );
-
-}
-
-add_action( 'admin_init', 'yelp_widget_init' );
 
 /**
  * Outputs the yelp_widget option setting value.
