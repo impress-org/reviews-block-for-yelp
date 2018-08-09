@@ -23,6 +23,8 @@ Yelp Widget Pro is actively supported and developed. The open source version is 
 
 [Upgrade to WP Business Reviews](https://wpbusinessreviews.com "Upgrade to WP Business Reviews")
 
+[youtube https://www.youtube.com/watch?v=3xNJX5cjdQ0]
+
 == Installation ==
 
 1. Upload the `yelp-widget-pro` folder and it's contents to the `/wp-content/plugins/` directory or install via the WP plugins panel in your WordPress admin dashboard
