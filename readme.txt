@@ -4,7 +4,7 @@ Donate link: http://wordimpress.com/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp widget pro
 Requires at least: 4.2
 Tested up to: 4.9
-Stable tag: 1.6.0
+Stable tag: 2.0.0
 
 Yelp Widget Pro makes it easy for you to add business listings to your website or blog via an easy-to-use and intuitive widget.
 
@@ -63,7 +63,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 == Changelog ==
 
-= 1.6.0 =
+= 2.0.0 =
 * We have recently launched a new premium plugin for reviews called [WP Business Reviews](https://wpbusinessreviews.com/?plugin=yelp-widget-pro). You can use this new WordPress review plugin to display your best reviews from platforms like Google, Yelp, and Facebook right on your website.
 * Tweak: Modified upsells for new WP Business Reviews plugin.
 

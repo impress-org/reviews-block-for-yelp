@@ -18,31 +18,30 @@ function yelp_widget_add_options_page() {
 		'yelp_widget_options_form'
 	); // The function to call to render the page
 
-	/* Using registered $page handle to hook script load */
-	add_action( 'admin_print_scripts-' . $page, 'yelp_options_scripts' );
-
 }
 
 add_action( 'admin_menu', 'yelp_widget_add_options_page' );
 
 /**
- * Add Yelp Widget Pro option scripts to admin head - will only be loaded on plugin options page
+ * Enqueue scripts.
+ *
+ * Add Yelp Widget Pro option scripts to admin head only the the appropriate pages.
+ *
+ * @param $hook
  */
-function yelp_options_scripts() {
+function wpbr_yelp_admin_scripts( $hook ) {
 
-	// register admin JS
-	wp_register_script( 'yelp_widget_options_js', plugins_url( 'assets/js/options.js', dirname( __FILE__ ) ) );
-	wp_enqueue_script( 'yelp_widget_options_js' );
+	if ( 'widgets.php' === $hook || 'settings_page_yelp_widget' === $hook ) {
+		wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/assets/dist/js/admin-main.js' );
+		wp_enqueue_script( 'yelp_widget_admin_scripts' );
 
-	wp_register_script( 'yelp_widget_options_tipsy', plugins_url( 'assets/js/tipsy.js', dirname( __FILE__ ) ) );
-	wp_enqueue_script( 'yelp_widget_options_tipsy' );
+		wp_register_style( 'yelp_widget_admin_css', YELP_WIDGET_PRO_URL . '/assets/dist/css/admin-main.css' );
+		wp_enqueue_style( 'yelp_widget_admin_css' );
+	}
 
-	// register our stylesheet
-	wp_register_style( 'yelp_widget_options_css', plugins_url( 'assets/style/options.css', dirname( __FILE__ ) ) );
-	// It will be called only on plugin admin page, enqueue our stylesheet here
-	wp_enqueue_style( 'yelp_widget_options_css' );
 }
 
+add_action( 'admin_enqueue_scripts', 'wpbr_yelp_admin_scripts', 10, 1 );
 
 
 /**
@@ -95,13 +94,14 @@ function yelp_widget_options_form() { ?>
 		<div id="ywp-title-wrap">
 			<div id="icon-yelp" class=""></div>
 			<h2><?php _e( 'Yelp Widget Pro Settings', 'yelp-widget-pro' ); ?> </h2>
-			<a href="https://wpbusinessreviews.com/" class="wpbr-option-page-upsell" title="Upgrade to Yelp Widget Premium"
+			<a href="https://wpbusinessreviews.com/" class="wpbr-option-page-upsell"
+			   title="Upgrade to Yelp Widget Premium"
 			   target="_blank" rel="noopener noreferrer" class="update-link new-window">
 				<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<rect x="0" fill="none" width="20"
-					      height="20" />
+					      height="20"/>
 					<g>
-						<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" />
+						<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z"/>
 					</g>
 				</svg><?php _e( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ); ?></a>
 		</div>
@@ -125,7 +125,8 @@ function yelp_widget_options_form() { ?>
 					<div id="main-sortables" class="meta-box-sortables ui-sortable">
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
-							<h3 class="hndle"><span><?php _e( 'Yelp Widget Pro Introduction', 'yelp-widget-pro' ); ?></span></h3>
+							<h3 class="hndle">
+								<span><?php _e( 'Yelp Widget Pro Introduction', 'yelp-widget-pro' ); ?></span></h3>
 
 							<div class="inside">
 								<h3><?php _e( 'Thanks for choosing Yelp Widget Pro!', 'yelp-widget-pro' ); ?></h3>
@@ -150,23 +151,29 @@ function yelp_widget_options_form() { ?>
 							<div class="inside">
 								<div class="control-group">
 									<div class="control-label">
-										<label for="yelp_widget_fusion_api">Yelp API Key:<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>" title="<?php
-											_e( 'This is necessary to get reviews from Yelp.', 'yelp-widget-pro' ); ?>" class="tooltip-info" width="16" height="16" /></label>
+										<label for="yelp_widget_fusion_api">Yelp API Key:<img
+												src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+												title="<?php
+												_e( 'This is necessary to get reviews from Yelp.', 'yelp-widget-pro' ); ?>"
+												class="tooltip-info" width="16" height="16"/></label>
 									</div>
 									<div class="controls">
 										<?php $ywpFusionAPI = empty( $options['yelp_widget_fusion_api'] ) ? '' : $options['yelp_widget_fusion_api']; ?>
-										<input type="text" id="yelp_widget_fusion_api" name="yelp_widget_settings[yelp_widget_fusion_api]" value="<?php echo $ywpFusionAPI; ?>"
-										          size="45" /><br />
-											<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank"
-											          rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'yelp-widget-pro' ); ?></a></small>
+										<input type="text" id="yelp_widget_fusion_api"
+										       name="yelp_widget_settings[yelp_widget_fusion_api]"
+										       value="<?php echo $ywpFusionAPI; ?>"
+										       size="45"/><br/>
+										<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank"
+										          rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'yelp-widget-pro' ); ?></a>
+										</small>
 									</div>
 								</div>
 								<div class="control-group">
 									<div class="control-label">
 										<label for="yelp_widget_disable_css">Disable Plugin CSS Output:<img
-													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
-													title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'yelp-widget-pro' ); ?>"
-													class="tooltip-info" width="16" height="16" /></label>
+												src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+												title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'yelp-widget-pro' ); ?>"
+												class="tooltip-info" width="16" height="16"/></label>
 									</div>
 									<div class="controls">
 										<input type="checkbox" id="yelp_widget_disable_css"
@@ -188,7 +195,7 @@ function yelp_widget_options_form() { ?>
 						<div class="control-group">
 							<div class="controls">
 								<input class="button-primary" type="submit" name="submit-button"
-								       value="<?php _e( 'Update', 'yelp-widget-pro' ); ?>" />
+								       value="<?php _e( 'Update', 'yelp-widget-pro' ); ?>"/>
 							</div>
 						</div>
 					</div>

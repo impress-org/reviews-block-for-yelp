@@ -134,7 +134,7 @@ function ywp_activation_admin_notice() {
 		</style>
 		<div class="updated wpbr">
 			<header>
-				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/images/platform-icon-wpbr.png" class="wpbr-logo" />
+				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png" class="wpbr-logo" />
 				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?wpbr_nag_ignore=0' ); ?>
 
 				<div class="wpbr-actions">

@@ -9,6 +9,8 @@ class Yelp_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
+	 *
+	 * Yelp_Widget constructor.
 	 */
 	public function __construct() {
 		parent::__construct(
@@ -18,8 +20,8 @@ class Yelp_Widget extends WP_Widget {
 		);
 
 		// Hooks
-		add_action( 'admin_enqueue_scripts', array( $this, 'yelp_widget_scripts' ), 1, 1 );
-		add_action( 'admin_init', array( $this, 'yelp_widget_settings' ) );
+		add_action( 'wp_enqueue_scripts', array($this, 'public_scripts') );
+		add_action( 'admin_init', array( $this, 'widget_settings' ) );
 
 	}
 
@@ -28,7 +30,7 @@ class Yelp_Widget extends WP_Widget {
 	 *
 	 * @param $file
 	 */
-	function yelp_widget_settings( $file ) {
+	function widget_settings( $file ) {
 
 		// Register the yelp_widget settings as a group
 		register_setting( 'yelp_widget_settings', 'yelp_widget_settings', array( 'sanitize_callback' => 'yelp_widget_clean' ) );
@@ -36,22 +38,19 @@ class Yelp_Widget extends WP_Widget {
 	}
 
 	/**
-	 * Load Widget JS Script ONLY on Widget page
+	 * Register + Enqueue Yelp Widget Pro scripts
 	 *
-	 * @param $hook
+	 * Loads CSS + JS on the frontend.
 	 */
-	function yelp_widget_scripts( $hook ) {
+	function public_scripts() {
 
-		if ( 'widgets.php' === $hook ) {
-			wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/assets/js/admin-widget.js' );
-			wp_enqueue_script( 'yelp_widget_admin_scripts' );
+		$css_option = get_option( 'yelp_widget_settings' );
 
-			wp_register_script( 'yelp_widget_admin_tipsy', YELP_WIDGET_PRO_URL . '/assets/js/tipsy.js' );
-			wp_enqueue_script( 'yelp_widget_admin_tipsy' );
-
-			wp_register_style( 'yelp_widget_admin_css', YELP_WIDGET_PRO_URL . '/assets/style/admin-widget.css' );
-			wp_enqueue_style( 'yelp_widget_admin_css' );
+		if ( ! $css_option || ! array_key_exists( 'yelp_widget_disable_css', $css_option ) ) {
+			wp_register_style( 'yelp-widget-pro', YELP_WIDGET_PRO_URL . '/assets/dist/css/public-main.css' );
+			wp_enqueue_style( 'yelp-widget-pro' );
 		}
+
 	}
 
 	/**
@@ -232,7 +231,7 @@ class Yelp_Widget extends WP_Widget {
 							if ( ! empty( $businesses[ $x ]->image_url ) ) {
 								echo esc_attr( $businesses[ $x ]->image_url );
 							} else {
-								echo YELP_WIDGET_PRO_URL . '/assets/images/blank-biz.png';
+								echo YELP_WIDGET_PRO_URL . '/assets/dist/images/blank-biz.png';
 							};
 							?>
 							"
@@ -421,8 +420,8 @@ class Yelp_Widget extends WP_Widget {
 	}
 }
 
-/*
- * @DESC: Register Yelp Widget Pro widget
+/**
+ * Register Yelp Widget Pro.
  */
 add_action( 'widgets_init', create_function( '', 'register_widget( "Yelp_Widget" );' ) );
 
@@ -539,7 +538,7 @@ function yelp_widget_fusion_get_business( $key, $id ) {
  *
  * @see   wp_safe_remote_get()
  *
- * @return array Associative array containing the response body.
+ * @return bool|array Associative array containing the response body.
  */
 function yelp_widget_fusion_get( $url, $args = array() ) {
 	$response = wp_safe_remote_get( $url, $args );
@@ -578,7 +577,7 @@ function yelp_widget_fusion_stars( $rating = 0 ) {
 		$image_name = $floor_rating;
 	}
 
-	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/images/stars/regular_' . $image_name;
+	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/dist/images/stars/regular_' . $image_name;
 	$single         = $uri_image_name . $ext;
 	$double         = $uri_image_name . '@2x' . $ext;
 	$triple         = $uri_image_name . '@3x' . $ext;
@@ -598,7 +597,7 @@ function yelp_widget_fusion_stars( $rating = 0 ) {
 function yelp_widget_fusion_logo() {
 	$image_name     = 'yelp-widget-logo';
 	$ext            = '.png';
-	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/images/' . $image_name;
+	$uri_image_name = YELP_WIDGET_PRO_URL . '/assets/dist/images/' . $image_name;
 	$single         = $uri_image_name . $ext;
 	$double         = $uri_image_name . '@2x' . $ext;
 	$srcset         = "{$single}, {$double} 2x";
@@ -625,23 +624,3 @@ function yelp_update_http_for_ssl( $data ) {
 	return $data;
 
 }
-
-
-/**
- * Register + Enqueue Yelp Widget Pro scripts
- *
- * Loads CSS + JS on the frontend.
- */
-function add_yelp_widget_css() {
-
-	$css_option = get_option( 'yelp_widget_settings' );
-
-	if ( ! $css_option || ! array_key_exists( 'yelp_widget_disable_css', $css_option ) ) {
-		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/assets/style/yelp.css' );
-		wp_enqueue_style( 'yelp-widget' );
-	}
-
-}
-
-add_action( 'wp_print_styles', 'add_yelp_widget_css' );
-
