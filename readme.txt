@@ -4,46 +4,24 @@ Donate link: http://wordimpress.com/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp widget pro
 Requires at least: 4.2
 Tested up to: 4.9
-Stable tag: 1.5.0
+Stable tag: 1.6.0
 
 Yelp Widget Pro makes it easy for you to add business listings to your website or blog via an easy-to-use and intuitive widget.
 
 == Description ==
 
-= Yelp Widget Premium =
-[Upgrade to Yelp Widget Premium](http://wordimpress.com/plugins/yelp-widget-pro/ "Upgrade to Yelp Widget Premium")
-
-[youtube http://www.youtube.com/watch?v=47ARrKb7rL8]
-
-[View the Online Demo](http://yelpwidgetpro.wordimpress.com/ "View the Online Demo of Yelp Widget Pro")
-
-*Yelp Widget Premium* is a **significant upgrade** to *Yelp Widget Pro* that adds many features that will allow you to further customize your widgets with Google Maps, Yelp review snippets, additional graphics and display options plus so much more! Also included is priority support, auto updates, and well documented shortcode to display Yelp in any page or post.
-
 = Yelp Widget Pro =
 Yelp Widget Pro allows you to easily display Yelp profiles for any business on your website or blog using an intuitive and easily configurable widget. Yelp Widget Pro users are able to display business names, ratings, review counts and profile images in any WordPress sidebar. Customize the widget to display one or many listings from Yelp based on location.
 
-This widget supports for Yelp v2.0's Search and Business API methods. Yelp Widget Pro allows for multiple widgets within the same or separate sidebars. No coding knowledge required.
+This widget supports for Yelp's Search and Business API methods. Yelp Widget Pro allows for multiple widgets within the same or separate sidebars. No coding knowledge is required.
 
-Yelp Widget Pro is actively supported and developed. The open source version is available for free to the WordPress community. For additional options and priority support please consider [upgrading to Yelp Widget Premium](http://wordimpress.com/plugins/yelp-widget-pro/). If you like this plugin please [rate it on WordPress.org](http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro/).
+Yelp Widget Pro is actively supported and developed. The open source version is available for free to the WordPress community. For additional options and priority support please consider [upgrading to WP Business Reviews](https://wpbusinessreviews.com). If you like this plugin please [rate it on WordPress.org](http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro/).
 
-= Features =
+= WP Business Reviews =
 
-1. Display Content by Yelp Business ID or Search Term.
-2. Option to Cache Data to Save API Requests
-3. Option to disable widget output title
-4. Option to disable plugin CSS
-5. Clean and easy-to-configure user interface
-6. Actively developed and improved
-7. Option to open links in new window
-8. Option to no-follow links for all the SEOs
+*WP Business Reviews* is a **significant upgrade** to *Yelp Widget Pro* that adds many features that will allow you to further customize how you display reviews on your WordPress website.
 
-= Other Business Reviews Plugins =
-
-Why limit your reviews to just Yelp Reviews? Check out our other free business reviews plugins to add to your site as well:
-
-* [Google Places Review](https://wordpress.org/plugins/google-places-reviews "Google Places Reviews")
-* [Yellow Pages Reviews](https://wordpress.org/plugins/yellow-pages-reviews/ "Yellow Pages Reviews")
-* Get all three of our Premium Business Reviews plugins for one low price. [Premium Business Reviews Bundle](https://wordimpress.com/plugins/business-reviews-bundle/?utm_source=WordPress.org&utm_medium=readme&utm_campaign=Yelp%20Reviews%20Repo "Premium Business Reviews Bundle")
+[Upgrade to WP Business Reviews](https://wpbusinessreviews.com "Upgrade to WP Business Reviews")
 
 == Installation ==
 
@@ -54,14 +32,6 @@ Why limit your reviews to just Yelp Reviews? Check out our other free business r
 Note: If you have Wordpress 2.7 or above you can simply go to 'Plugins' &gt; 'Add New' in the WordPress admin and search for "Yelp Widget Pro" and install it from there.
 
 == Frequently Asked Questions ==
-
-= How do I upgrade to the Premium version? =
-
-You can update to the premium version of Yelp Widget Pro by [clicking here](http://wordimpress.com/plugins/yelp-widget-pro/). Once you upgrade you will be emailed a license key which will allow you to enable auto updates.
-
-= I've purchased the Premium version. How do I use it? =
-
-First you should remove the free version of the plugin by deactivating and deleting the plugin. Don't worry, none of your data will be lost. Next, download the premium version zip file from your [WordImpress purchase history page](http://wordimpress.com/checkout/purchase-history/) or from the successful purchase email which includes your license key and download link. After that, goto the plugin settings and input your license key to activate.
 
 = Why should I use this plugin? =
 
@@ -81,7 +51,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 == Screenshots ==
 
-1. A view of the Yelp Widget Pro Settings page displaying the metabox to enter in your Yelp API v2.0 Information
+1. A view of the Yelp Widget Pro Settings page displaying the metabox to enter in your Yelp API key.
 
 2. Many plugins don't have the option to disable CSS - this one does.  If you want to style the plugin to suit your needs then enable this option.
 
@@ -90,6 +60,10 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 4. How the widget looks in a website sidebar
 
 == Changelog ==
+
+= 1.6.0 =
+* We have recently launched a new premium plugin for reviews called [WP Business Reviews](https://wpbusinessreviews.com/?plugin=yelp-widget-pro). You can use this new WordPress review plugin to display your best reviews from platforms like Google, Yelp, and Facebook right on your website.
+* Tweak: Modified upsells for new WP Business Reviews plugin.
 
 = 1.5.0 =
 * Update: Replace Yelp API v2 with Yelp API v3 (Fusion) for remote requests.
