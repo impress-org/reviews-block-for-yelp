@@ -21,47 +21,48 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-define( 'YELP_PLUGIN_NAME', 'yelp-widget-pro' );
-
+if ( ! defined( 'YELP_PLUGIN_FILE' ) ) {
+	define( 'YELP_PLUGIN_FILE', __FILE__ );
+}
 if ( ! defined( 'YELP_PLUGIN_NAME_PLUGIN' ) ) {
-	define( 'YELP_PLUGIN_NAME_PLUGIN', plugin_basename( __FILE__ ) );
+	define( 'YELP_PLUGIN_NAME_PLUGIN', plugin_basename( YELP_PLUGIN_FILE ) );
 }
 if ( ! defined( 'YELP_WIDGET_PRO_PATH' ) ) {
-	define( 'YELP_WIDGET_PRO_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+	define( 'YELP_WIDGET_PRO_PATH', untrailingslashit( plugin_dir_path( YELP_PLUGIN_FILE ) ) );
 }
 if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
-	define( 'YELP_WIDGET_PRO_URL', plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) );
+	define( 'YELP_WIDGET_PRO_URL', plugins_url( basename( plugin_dir_path( YELP_PLUGIN_FILE ) ), basename( YELP_PLUGIN_FILE ) ) );
 }
-
-/**
- * Adds Yelp Widget Pro Options Page
- */
-require_once dirname( __FILE__ ) . '/includes/options.php';
 
 
 /**
  * Localize the Plugin for Other Languages
  */
-load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( YELP_PLUGIN_FILE ) ) . '/languages/' );
+
+
 
 
 /**
- * Adds Yelp Widget Pro Stylesheets
+ * Delete options when uninstalled.
  */
-function add_yelp_widget_css() {
-
-	$css_option = get_option( 'yelp_widget_settings' );
-
-	if ( ! $css_option || ! array_key_exists( 'yelp_widget_disable_css', $css_option ) ) {
-
-		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/assets/style/yelp.css' );
-		wp_enqueue_style( 'yelp-widget' );
-
-	}
-
+function yelp_widget_uninstall() {
+	delete_option( 'yelp_widget_settings' );
+	delete_option( 'yelp_widget_consumer_key' );
+	delete_option( 'yelp_widget_consumer_secret' );
+	delete_option( 'yelp_widget_token' );
+	delete_option( 'yelp_widget_token_secret' );
 }
 
-add_action( 'wp_print_styles', 'add_yelp_widget_css' );
+register_uninstall_hook( __FILE__, 'yelp_widget_uninstall' );
+
+
+/**
+ * Adds Yelp Widget Pro Options Page
+ */
+if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin-settings.php' ) ) {
+	require_once YELP_WIDGET_PRO_PATH . '/includes/admin-settings.php';
+}
 
 /**
  * Get the Widget
@@ -70,6 +71,8 @@ if ( ! class_exists( 'Yelp_Widget' ) && file_exists( YELP_WIDGET_PRO_PATH . '/in
 	require_once YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php';
 }
 
-if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin/admin.php' ) ) {
-	include YELP_WIDGET_PRO_PATH . '/includes/admin/admin.php';
+if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php' ) ) {
+	include YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php';
 }
+
+

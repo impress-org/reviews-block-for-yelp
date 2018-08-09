@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Plugin listing page code.
+ *
+ * Contains activation banner and plugin meta links.
+ */
 
 /**
  * Plugin activation banner.
@@ -9,7 +13,10 @@ function ywp_activation_admin_notice() {
 	global $pagenow;
 
 	// Check that the user hasn't already clicked to ignore the message
-	if ( 'plugins.php' === $pagenow && ! get_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice' ) ) : ?>
+	if (
+		'plugins.php' === $pagenow
+		&& ! get_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice' )
+	) : ?>
 		<style>
 			div.updated.wpbr {
 				border-left: 4px solid #3498db;
@@ -101,6 +108,7 @@ function ywp_activation_admin_notice() {
 			div.updated.wpbr a {
 				outline: none;
 			}
+
 			div.updated.wpbr a.dismiss {
 				display: block;
 				position: absolute;
@@ -203,7 +211,6 @@ function wpbr_nag_ignore() {
 add_action( 'admin_init', 'wpbr_nag_ignore' );
 
 
-
 /**
  * Add links to Plugin listings view
  *
@@ -242,7 +249,7 @@ add_filter( 'plugin_action_links', 'ywp_add_plugin_page_links', 10, 2 );
 function ywp_add_plugin_meta_links( $meta, $file ) {
 	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
 		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'yelp-widget-pro' ) . "'>" . __( 'Rate Plugin', 'yelp-widget-pro' ) . '</a>';
-		$meta[] = "<a href='https://wpbusinessreviews.com/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to Yelp Widget Premium', 'yelp-widget-pro' ) . "'>" . __( 'Upgrade to WP Business Reviews',	'yelp-widget-pro'	) . '</a>';
+		$meta[] = "<a href='https://wpbusinessreviews.com/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to Yelp Widget Premium', 'yelp-widget-pro' ) . "'>" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . '</a>';
 	}
 
 	return $meta;

@@ -1,31 +1,12 @@
 <?php
 /**
- * Admin options page. Creates a page to set your OAuth settings for the Yelp API v2.
+ * Admin options page.
  */
 
-register_activation_hook( __FILE__, 'yelp_widget_activate' );
-register_uninstall_hook( __FILE__, 'yelp_widget_uninstall' );
-add_action( 'admin_init', 'yelp_widget_init' );
-add_action( 'admin_menu', 'yelp_widget_add_options_page' );
 
-
-// Delete options when uninstalled
-function yelp_widget_uninstall() {
-	delete_option( 'yelp_widget_settings' );
-	delete_option( 'yelp_widget_consumer_key' );
-	delete_option( 'yelp_widget_consumer_secret' );
-	delete_option( 'yelp_widget_token' );
-	delete_option( 'yelp_widget_token_secret' );
-}
-
-// Run function when plugin is activated
-function yelp_widget_activate() {
-
-	$options = get_option( 'yelp_widget_settings' );
-
-}
-
-// Yelp Options Page
+/**
+ * Yelp Options Page.
+ */
 function yelp_widget_add_options_page() {
 	// Add the menu option under Settings, shows up as "Yelp API Settings" (second param)
 	$page = add_submenu_page(
@@ -42,6 +23,8 @@ function yelp_widget_add_options_page() {
 
 }
 
+add_action( 'admin_menu', 'yelp_widget_add_options_page' );
+
 /**
  * Add Yelp Widget Pro option scripts to admin head - will only be loaded on plugin options page
  */
@@ -51,6 +34,9 @@ function yelp_options_scripts() {
 	wp_register_script( 'yelp_widget_options_js', plugins_url( 'assets/js/options.js', dirname( __FILE__ ) ) );
 	wp_enqueue_script( 'yelp_widget_options_js' );
 
+	wp_register_script( 'yelp_widget_options_tipsy', plugins_url( 'assets/js/tipsy.js', dirname( __FILE__ ) ) );
+	wp_enqueue_script( 'yelp_widget_options_tipsy' );
+
 	// register our stylesheet
 	wp_register_style( 'yelp_widget_options_css', plugins_url( 'assets/style/options.css', dirname( __FILE__ ) ) );
 	// It will be called only on plugin admin page, enqueue our stylesheet here
@@ -59,11 +45,16 @@ function yelp_options_scripts() {
 
 /**
  * Load Widget JS Script ONLY on Widget page
+ *
+ * @param $hook
  */
 function yelp_widget_scripts( $hook ) {
-	if ( $hook == 'widgets.php' ) {
+	if ( 'widgets.php' === $hook ) {
 		wp_register_script( 'yelp_widget_admin_scripts', plugins_url( 'assets/js/admin-widget.js', dirname( __FILE__ ) ) );
 		wp_enqueue_script( 'yelp_widget_admin_scripts' );
+
+		wp_register_script( 'yelp_widget_admin_tipsy', plugins_url( 'assets/js/tipsy.js', dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'yelp_widget_admin_tipsy' );
 
 		wp_register_style( 'yelp_widget_admin_css', plugins_url( 'assets/style/admin-widget.css', dirname( __FILE__ ) ) );
 		wp_enqueue_style( 'yelp_widget_admin_css' );
@@ -75,20 +66,26 @@ add_action( 'admin_enqueue_scripts', 'yelp_widget_scripts' );
 
 /**
  * Initiate the Yelp Widget
+ *
+ * @param $file
  */
 function yelp_widget_init( $file ) {
+
 	// Register the yelp_widget settings as a group
 	register_setting( 'yelp_widget_settings', 'yelp_widget_settings', array( 'sanitize_callback' => 'yelp_widget_clean' ) );
 
-	// call register settings function
-	add_action( 'admin_init', 'yelp_widget_options_css' );
-	add_action( 'admin_init', 'yelp_widget_options_scripts' );
-
 }
 
+add_action( 'admin_init', 'yelp_widget_init' );
 
-
-// Output the yelp_widget option setting value
+/**
+ * Outputs the yelp_widget option setting value.
+ *
+ * @param $setting
+ * @param $options
+ *
+ * @return mixed|string
+ */
 function yelp_widget_option( $setting, $options ) {
 	$value = '';
 	// If the old setting is set, output that
@@ -131,10 +128,17 @@ function yelp_widget_options_form() { ?>
 		<div id="ywp-title-wrap">
 			<div id="icon-yelp" class=""></div>
 			<h2><?php _e( 'Yelp Widget Pro Settings', 'yelp-widget-pro' ); ?> </h2>
-			<label class="label basic-label">Basic Version</label>
-			<a href="https://wpbusinessreviews.com/" title="Upgrade to Yelp Widget Premium"
-			   target="_blank" rel="noopener noreferrer" class="update-link new-window">Upgrade to WP Business Reviews</a>
+			<a href="https://wpbusinessreviews.com/" class="wpbr-option-page-upsell" title="Upgrade to Yelp Widget Premium"
+			   target="_blank" rel="noopener noreferrer" class="update-link new-window">
+				<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+					<rect x="0" fill="none" width="20"
+					      height="20" />
+					<g>
+						<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" />
+					</g>
+				</svg><?php _e( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ); ?></a>
 		</div>
+
 		<form id="yelp-settings" method="post" action="options.php">
 
 			<?php
@@ -150,7 +154,6 @@ function yelp_widget_options_form() { ?>
 			<div class="metabox-holder">
 
 				<div class="postbox-container" style="width:75%">
-
 
 					<div id="main-sortables" class="meta-box-sortables ui-sortable">
 						<div class="postbox" id="yelp-widget-intro">
@@ -168,31 +171,6 @@ function yelp_widget_options_form() { ?>
 									<li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'yelp-widget-pro' ); ?></li>
 									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listing now.', 'yelp-widget-pro' ); ?></li>
 								</ol>
-								<div class="social-items-wrap">
-
-									<iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FWordImpress%2F353658958080509&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;font&amp;colorscheme=light&amp;action=like&amp;height=21&amp;appId=220596284639969"
-									        scrolling="no" frameborder="0"
-									        style="border:none; overflow:hidden; width:100px; height:21px;"
-									        allowTransparency="true"></iframe>
-
-									<a href="https://twitter.com/wordimpress" class="twitter-follow-button"
-									   data-show-count="false">Follow @wordimpress</a>
-									<script>
-																			! function( d, s, id ) {
-																				var js, fjs = d.getElementsByTagName( s )[ 0 ],
-																					p = /^http:/.test( d.location ) ? 'http' : 'https';
-																				if ( ! d.getElementById( id ) ) {
-																					js = d.createElement( s );
-																					js.id = id;
-																					js.src = p + '://platform.twitter.com/widgets.js';
-																					fjs.parentNode.insertBefore( js, fjs );
-																				}
-																			}( document, 'script', 'twitter-wjs' );
-									</script>
-
-								</div>
-								<!--/.social-items-wrap -->
-
 							</div>
 							<!-- /.inside -->
 						</div>
@@ -210,11 +188,10 @@ function yelp_widget_options_form() { ?>
 									</div>
 									<div class="controls">
 										<?php $ywpFusionAPI = empty( $options['yelp_widget_fusion_api'] ) ? '' : $options['yelp_widget_fusion_api']; ?>
-										<p><input type="text" id="yelp_widget_fusion_api" name="yelp_widget_settings[yelp_widget_fusion_api]" value="<?php echo $ywpFusionAPI; ?>"
+										<input type="text" id="yelp_widget_fusion_api" name="yelp_widget_settings[yelp_widget_fusion_api]" value="<?php echo $ywpFusionAPI; ?>"
 										          size="45" /><br />
 											<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank"
 											          rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'yelp-widget-pro' ); ?></a></small>
-										</p>
 									</div>
 								</div>
 								<div class="control-group">
@@ -281,4 +258,3 @@ function yelp_widget_options_form() { ?>
 
 	<?php
 } //end yelp_widget_options_form
-?>

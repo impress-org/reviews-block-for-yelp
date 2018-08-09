@@ -13,7 +13,7 @@
 }
 
 .clearfix:after {
-	clear: both
+	clear: both;
 }
 
 .yelp-business, .yelp-widget-search-api .ywp-map-container {
@@ -105,7 +105,7 @@
 
 .yelp-business .yelp-branding img {
 	display: block;
-	box-shadow:none;
+	box-shadow: none;
 }
 
 .yelp-address-wrap {
@@ -148,7 +148,7 @@
 }
 
 .ywp-phone {
-	background:url('../images/phone_icon.png') no-repeat left center transparent;
-	margin:0 !important;
-	padding:0 0 0 18px;
+	background: url('../images/phone_icon.png') no-repeat left center transparent;
+	margin: 0 !important;
+	padding: 0 0 0 18px;
 }

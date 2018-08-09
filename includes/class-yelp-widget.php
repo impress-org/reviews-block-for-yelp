@@ -513,8 +513,6 @@ function yelp_widget_fusion_get( $url, $args = array() ) {
 		return false;
 	}
 
-	$body = json_decode( $response['body'] );
-
 	$response = yelp_update_http_for_ssl( $response );
 	$response = json_decode( $response['body'] );
 
@@ -575,6 +573,10 @@ function yelp_widget_fusion_logo() {
 
 /**
  * Function update http for SSL
+ *
+ * @param $data
+ *
+ * @return mixed
  */
 function yelp_update_http_for_ssl( $data ) {
 
@@ -588,3 +590,23 @@ function yelp_update_http_for_ssl( $data ) {
 	return $data;
 
 }
+
+
+/**
+ * Register + Enqueue Yelp Widget Pro scripts
+ *
+ * Loads CSS + JS on the frontend.
+ */
+function add_yelp_widget_css() {
+
+	$css_option = get_option( 'yelp_widget_settings' );
+
+	if ( ! $css_option || ! array_key_exists( 'yelp_widget_disable_css', $css_option ) ) {
+		wp_register_style( 'yelp-widget', YELP_WIDGET_PRO_URL . '/assets/style/yelp.css' );
+		wp_enqueue_style( 'yelp-widget' );
+	}
+
+}
+
+add_action( 'wp_print_styles', 'add_yelp_widget_css' );
+

@@ -20,14 +20,13 @@
 	<input type="radio" name="<?php echo $this->get_field_name( 'display_option' ); ?>" class="<?php echo $this->get_field_id( 'display_option' ); ?> search-api-option"
 		   value="0" <?php checked( '0', $displayOption ); ?>><span class="yelp-method-label"><?php _e( 'Search Method', 'yelp-widget-pro' ); ?></span><img
 				src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
-				title="<?php _e( 'Yelp\'s Search API allows you to display results of a specific search term. For more information <a href=\'http://wordimpress.com/docs/yelp-widget-pro/#search-method\' target=\'_blank\'>Click Here</a>', 'yelp-widget-pro' ); ?>"
-				class="tooltip-info" width="16" height="16" /><br />
+				title="<?php _e( 'Yelp\'s Search API allows you to display results of a specific search term.', 'yelp-widget-pro'); ?><br />
 	</span>
 	<span class="yelp-method-span business-api-option-wrap">
 	<input type="radio" name="<?php echo $this->get_field_name( 'display_option' ); ?>" class="<?php echo $this->get_field_id( 'display_option' ); ?> business-api-option"
 		   value="1" <?php checked( '1', $displayOption ); ?>><span class="yelp-method-label"><?php _e( 'Business Method', 'yelp-widget-pro' ); ?></span><img
 				src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
-				title="<?php _e( 'Yelp’s Business API allows business owners to display their Yelp reviews (up to 3), address, Google Map location, and more (premium version). For more information <a href=\'https://wordimpress.com/documentation/yelp-widget-pro/search-business-request-methods-expalined/\' target=\'_blank\'>Click Here</a>', 'yelp-widget-pro' ); ?>"
+				title="<?php _e( 'Yelp’s Business API allows business owners to display their Yelp reviews (up to 3), address, Google Map location, and more (premium version).', 'yelp-widget-pro' ); ?>"
 				class="tooltip-info" width="16" height="16" />
 	</span>
 </p>
@@ -113,7 +112,7 @@ if ( $displayOption == '1' ) {
 	<p>
 		<label for="<?php echo $this->get_field_id( 'id' ); ?>"><?php _e( 'Business ID:', 'yelp-widget-pro' ); ?>
 			<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
-				 title="<?php _e( 'The Business ID is the portion of the Yelp url after the \'http://www.yelp.com/biz/\' portion. For example, the following business\'s URL on Yelp is \'http://www.yelp.com/biz/the-barbeque-pit-seattle-2\' and the Business ID is \'the-barbeque-pit-seattle-2\'. For more information <a href=\'http://wordimpress.com/docs/yelp-widget-pro/#search-method\' target=\'_blank\'>Click Here</a>', 'yelp-widget-pro' ); ?>"
+				 title="<?php _e( 'The Business ID is the portion of the Yelp url after the \'http://www.yelp.com/biz/\' portion. For example, the following business\'s URL on Yelp is \'http://www.yelp.com/biz/the-barbeque-pit-seattle-2\' and the Business ID is \'the-barbeque-pit-seattle-2\'.', 'yelp-widget-pro' ); ?>"
 				 class="tooltip-info" width="16" height="16" /></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'id' ); ?>" name="<?php echo $this->get_field_name( 'id' ); ?>" type="text" value="<?php echo $id; ?>" />
 	</p>
