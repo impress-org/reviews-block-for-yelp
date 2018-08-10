@@ -1,2 +1,2 @@
-import 'admin-widget';
-import tipsy from 'tipsy';
+import './tipsy';
+import './admin-widget';

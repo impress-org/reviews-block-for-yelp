@@ -2,6 +2,8 @@
  * Yelp Widget Pro Backend JavaScripts
  */
 
+
+
 /**
  * Initialize the API Request Method widget radio input toggles
  */
