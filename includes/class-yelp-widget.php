@@ -65,8 +65,6 @@ class Yelp_Widget extends WP_Widget {
 
 		$yelp = new Yelp_Widget();
 
-		extract( $args );
-
 		// Get plugin options.
 		$options = get_option( 'yelp_widget_settings' );
 
@@ -94,7 +92,7 @@ class Yelp_Widget extends WP_Widget {
 		$cache          = $instance['cache'];
 
 		// If cache option is enabled, attempt to get response from transient.
-		if ( strtolower( $cache ) != 'none' ) {
+		if ( 'none' !== strtolower( $cache ) ) {
 
 			$transient = $displayOption . $term . $id . $location . $limit . $sort . $profileImgSize;
 
@@ -155,11 +153,11 @@ class Yelp_Widget extends WP_Widget {
 		 */
 
 		// Widget Output
-		echo $before_widget;
+		echo $args['before_widget'];
 
 		// if the title is set & the user hasn't disabled title output
 		if ( $title && $titleOutput != 1 ) {
-			echo $before_title . $title . $after_title;
+			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
 		if ( isset( $response->businesses ) ) {
@@ -168,29 +166,30 @@ class Yelp_Widget extends WP_Widget {
 			$businesses = array( $response );
 		}
 
-		// Instantiate output var
-		$output = '';
-
 		// Check Yelp API response for an error
 		if ( isset( $response->error ) ) {
-			$output .= $yelp->handle_yelp_api_error( $response );
-		} //Verify results have been returned
-		else {
-			if ( ! isset( $businesses[0] ) ) {
-				$output = '<div class="yelp-error">No results</div>';
-			} /**
-			 * Response from Yelp is Valid - Output Widget
-			 */
-			else {
 
-				// Open link in new window if set
+			echo $this->handle_yelp_api_error( $response );
+
+		} else {
+
+			// Verify results have been returned
+			if ( ! isset( $businesses[0] ) ) {
+				echo '<div class="yelp-error"> ' . __( 'No results found', 'yelp-widget-pro' ) . '</div>';
+			} else {
+
+				/**
+				 * The response from Yelp is valid - Output Widget:
+				 */
+
+				// Open link in new window if set.
 				if ( $targetBlank == 1 ) {
 					$targetBlank = 'target="_blank" ';
 				} else {
 					$targetBlank = '';
 				}
-				// Add nofollow relation if set
-				if ( $noFollow == 1 ) {
+				// Add nofollow relation if set.
+				if ( '1' === $noFollow ) {
 					$noFollow = 'rel="nofollow" ';
 				} else {
 					$noFollow = '';
@@ -203,7 +202,6 @@ class Yelp_Widget extends WP_Widget {
 					<div class="yelp yelp-business
 					<?php
 					echo $align;
-
 					// Set profile image size
 					switch ( $profileImgSize ) {
 
@@ -225,8 +223,8 @@ class Yelp_Widget extends WP_Widget {
 
 					?>
 					">
-						<div class="biz-img-wrap">
-							<img class="picture" src="
+						<div class="yelp-business-img-wrap">
+							<img class="yelp-business-img" src="
 							<?php
 							if ( ! empty( $businesses[ $x ]->image_url ) ) {
 								echo esc_attr( $businesses[ $x ]->image_url );
@@ -256,65 +254,64 @@ class Yelp_Widget extends WP_Widget {
 								}
 								?>
 							/></div>
-						<div class="info">
-							<a class="name" <?php echo $targetBlank . $noFollow; ?>
+						<div class="yelp-info-wrap">
+							<a class="yelp-business-name" <?php echo $targetBlank . $noFollow; ?>
 							   href="<?php echo esc_attr( $businesses[ $x ]->url ); ?>"
 							   title="<?php echo esc_attr( $businesses[ $x ]->name ); ?> Yelp page"><?php echo $businesses[ $x ]->name; ?></a>
 							<?php yelp_widget_fusion_stars( $businesses[ $x ]->rating ); ?>
 							<span
-								class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ); ?> <?php _e( 'reviews', 'yelp-widget-pro' ); ?></span>
+								class="review-count"><?php echo esc_attr( $businesses[ $x ]->review_count ) . '&nbsp;' . __( 'reviews', 'yelp-widget-pro' ); ?></span>
 							<a class="yelp-branding"
 							   href="<?php echo esc_url( $businesses[ $x ]->url ); ?>" <?php echo $targetBlank . $noFollow; ?>><?php yelp_widget_fusion_logo(); ?></a>
-						</div>
-
-						<?php
-						// Does the User want to display Address?
-						if ( $address == 1 ) {
-							?>
-							<div class="yelp-address-wrap">
-								<address>
-									<?php
-									// Iterate through Address Array
-									foreach ( $businesses[ $x ]->location->display_address as $addressItem ) {
-
-										echo $addressItem . '<br/>';
-									}
-									?>
-									<address>
-							</div>
 
 							<?php
-						} //endif address
 
-						// Phone
-						if ( $phone == 1 ) {
-							?>
+							// Does the User want to display Address?
+							if ( '1' === $address ) {
+								?>
+								<div class="yelp-address-wrap">
+									<address>
+									<?php
+										// Iterate through Address Array
+									foreach ( $businesses[ $x ]->location->display_address as $addressItem ) {
+										echo $addressItem . '<br/>';
+									}
+										?>
+										<address>
+								</div>
 
-							<p class="ywp-phone">
 								<?php
-								// echo pretty display_phone (only avail in biz API)
+							} //endif address
+
+							// Phone
+							if ( '1' === $phone ) {
+								?>
+								<p class="ywp-phone">
+								<?php
+									// echo pretty display_phone (only avail in biz API)
 								if ( ! empty( $businesses[ $x ]->display_phone ) ) {
 									echo $businesses[ $x ]->display_phone;
 								} else {
 									echo $businesses[ $x ]->phone;
 								}
-								?>
-							</p>
+									?>
+									</p>
 
 
-						<?php } //endif phone ?>
+							<?php } //endif phone ?>
+
+						</div>
+
 
 					</div><!--/.yelp-->
 
 					<?php
 
-				} //end for
+				} //end for.
 			}
-		} //Output Widget Contents
+		} //Output Widget Contents.
 
-		echo $output;
-
-		echo $after_widget;
+		echo $args['after_widget'];
 
 	}
 
@@ -425,11 +422,21 @@ class Yelp_Widget extends WP_Widget {
 /**
  * Register Yelp Widget Pro.
  */
-add_action( 'widgets_init', create_function( '', 'register_widget( "Yelp_Widget" );' ) );
+function ywp_register_widgets() {
+	register_widget( 'Yelp_Widget' );
+}
+
+add_action( 'widgets_init', 'ywp_register_widgets' );
 
 
 /**
- * @DESC: CURLs the Yelp API with our url parameters and returns JSON response
+ *
+ *
+ * CURLs the Yelp API with our url parameters and returns JSON response
+ *
+ * @param $signed_url
+ *
+ * @return array|mixed|object
  */
 function yelp_widget_curl( $signed_url ) {
 

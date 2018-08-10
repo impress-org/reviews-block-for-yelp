@@ -17,7 +17,7 @@ const config = {
 			'./assets/src/css/admin-main.scss'
 		],
 		'public-main': [
-			'./assets/src/js/public-main.js',
+			// './assets/src/js/public-main.js',
 			'./assets/src/css/public-main.scss'
 		]
 	},

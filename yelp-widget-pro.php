@@ -46,14 +46,9 @@ load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( YELP
  */
 function yelp_widget_uninstall() {
 	delete_option( 'yelp_widget_settings' );
-	delete_option( 'yelp_widget_consumer_key' );
-	delete_option( 'yelp_widget_consumer_secret' );
-	delete_option( 'yelp_widget_token' );
-	delete_option( 'yelp_widget_token_secret' );
 }
 
 register_uninstall_hook( YELP_PLUGIN_FILE, 'yelp_widget_uninstall' );
-
 
 /**
  * Adds Yelp Widget Pro Options Page
