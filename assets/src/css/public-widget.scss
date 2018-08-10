@@ -1,0 +1,119 @@
+/**
+ * Styling for display Yelp Widget Pro
+ */
+
+.yelp-business {
+  font-family: Arial, 'Lucida Grande', 'Bitstream Vera Sans', Verdana, sans-serif;
+  overflow: hidden;
+  width: auto;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px rgba(44, 62, 80, 0.12);
+  margin-bottom: 15px;
+  padding: 15px;
+
+  // Yelp Profile Image Sizes
+  &.ywp-size-40 .yelp-info-wrap {
+	margin-left: 51px;
+  }
+
+  &.ywp-size-60 .yelp-info-wrap {
+	margin-left: 72px;
+  }
+
+  &.ywp-size-80 .yelp-info-wrap {
+	margin-left: 93px;
+  }
+
+  &.ywp-size-100 .yelp-info-wrap {
+	margin-left: 112px;
+  }
+
+  .yelp-business-img-wrap {
+	float: left;
+	margin: 0;
+  }
+
+
+  img {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: transparent none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	float: none;
+
+	&.yelp-business-img {
+	  display: block;
+	  float: left;
+	  border-radius: 3px;
+	  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+	}
+
+  }
+
+  .yelp-info-wrap {
+	overflow: hidden;
+
+	a.yelp-business-name {
+	  display: block;
+	  float: none;
+	  font-size: 15px;
+	  line-height: 18px;
+	  font-weight: 600;
+	  margin: 0 0 6px;
+	  color: #C41200;
+	  text-decoration: none;
+	  box-shadow: none;
+
+	  &:hover {
+		text-decoration: underline;
+		box-shadow: none;
+	  }
+
+	}
+
+	.yelp-branding {
+	  clear: both;
+	  box-shadow: none;
+	  padding: 6px 0;
+	  display: block;
+	  margin: 0;
+	  img {
+		display: block;
+		box-shadow: none;
+	  }
+	}
+
+	.rating {
+	  float: left;
+	}
+
+	.review-count {
+	  color: #999;
+	  font-size: 11px;
+	  line-height: 1;
+	  margin: 3px 0 0 6px;
+	  float: left;
+	}
+
+	.ywp-phone {
+	  font-family: Arial, 'Lucida Grande', 'Bitstream Vera Sans', Verdana, sans-serif;
+	  font-size: 12px;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	.yelp-address-wrap address {
+	  margin: 0;
+	  padding: 0;
+	  font-size: 11px;
+	  clear: both;
+	  line-height: 16px;
+	}
+
+  }
+
+}

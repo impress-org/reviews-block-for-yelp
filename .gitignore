@@ -1,6 +1,5 @@
 .idea/*
 node_modules
+assets/dist/
 .jshintrc
-package.json
-.svn/*
 .DS_Store
