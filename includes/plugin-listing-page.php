@@ -142,6 +142,10 @@ function ywp_activation_admin_notice() {
 				#mce-EMAIL {
 					width: 150px;
 				}
+
+				.wpbr-intro-text br {
+					display: none;
+				}
 			}
 
 
