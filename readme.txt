@@ -1,6 +1,6 @@
 === Yelp Widget Pro ===
 Contributors: wordimpress, dlocc, webdevmattcrom
-Donate link: http://wordimpress.com/
+Donate link: https://impress.org/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp widget pro
 Requires at least: 4.2
 Tested up to: 4.9
