@@ -60,7 +60,7 @@ function ywp_activation_admin_notice() {
 				margin: 15px 0 15px 1rem;
 				padding: 0;
 				float: left;
-				width: auto;
+				width: 680px;
 			}
 
 			.wpbr-action a {
@@ -130,26 +130,48 @@ function ywp_activation_admin_notice() {
 				color: #777;
 			}
 
+			@media (max-width: 930px) {
+				div.updated.wpbr header img.wpbr-logo {
+					display: none;
+				}
+
+				.wpbr-actions {
+					width: auto;
+				}
+
+				#mce-EMAIL {
+					width: 150px;
+				}
+			}
+
 
 		</style>
 		<div class="updated wpbr">
 			<header>
-				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png" class="wpbr-logo" />
+				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png"
+				     class="wpbr-logo"/>
 				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?wpbr_nag_ignore=0' ); ?>
 
 				<div class="wpbr-actions">
 					<?php $current_user = wp_get_current_user(); ?>
 					<h2><?php printf( __( 'Welcome to Yelp Widget Pro by <a href="%s" target="_blank">WP Business Reviews</a>', 'yelp-widget-pro' ), 'https://wpbusinessreviews.com' ); ?></h2>
-					<p class="wpbr-intro-text">Display your Yelp reviews on your WordPress website. Subscribe to our mailing list for update information and more:</p>
+					<p class="wpbr-intro-text"><?php esc_html_e( 'Display Yelp business information and reviews on your WordPress website using this powerful widget.', 'yelp-widget-pro' ); ?>
+						<br><?php esc_html_e( 'Subscribe to our mailing list for important update information and more:', 'yelp-widget-pro' ); ?>
+					</p>
 					<div class="wpbr-action mailchimp">
 						<div id="mc_embed_signup">
-							<form action="https://wpbusinessreviews.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=08a835d189" method="post"
-							      id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+							<form
+								action="https://wpbusinessreviews.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=08a835d189"
+								method="post"
+								id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
+								target="_blank" novalidate>
 								<div id="mc_embed_signup_scroll">
 
 									<div class="mc-field-group">
-										<input type="email" value="<?php echo $current_user->user_email; ?>" name="EMAIL" class="required email" id="mce-EMAIL">
-										<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button button-small">
+										<input type="email" value="<?php echo $current_user->user_email; ?>"
+										       name="EMAIL" class="required email" id="mce-EMAIL">
+										<input type="submit" value="Subscribe" name="subscribe"
+										       id="mc-embedded-subscribe" class="button button-small">
 									</div>
 
 									<div style="position: absolute; left: -5000px;" aria-hidden="true">
@@ -162,10 +184,12 @@ function ywp_activation_admin_notice() {
 
 					<div class="wpbr-action">
 						<a href="<?php echo admin_url( 'options-general.php?page=yelp_widget' ); ?>">
-							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-								<rect x="0" fill="none" width="20" height="20" />
+							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"
+							     viewBox="0 0 20 20">
+								<rect x="0" fill="none" width="20" height="20"/>
 								<g>
-									<path d="M18 16V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1zM8 11h1c.55 0 1 .45 1 1s-.45 1-1 1H8v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13H6c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V11zm5-2h-1c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1c.55 0 1 .45 1 1s-.45 1-1 1h-1v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V9z" />
+									<path
+										d="M18 16V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1zM8 11h1c.55 0 1 .45 1 1s-.45 1-1 1H8v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13H6c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V11zm5-2h-1c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1c.55 0 1 .45 1 1s-.45 1-1 1h-1v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V9z"/>
 								</g>
 							</svg>
 							<?php _e( 'Go to Settings', 'yelp-widget-pro' ); ?>
@@ -174,11 +198,12 @@ function ywp_activation_admin_notice() {
 
 					<div class="wpbr-action wpbr-upsell-action">
 						<a href="https://wpbusinessreviews.com/" target="_blank">
-							<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+							<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"
+							     viewBox="0 0 20 20">
 								<rect x="0" fill="none" width="20"
-								      height="20" />
+								      height="20"/>
 								<g>
-									<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" />
+									<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z"/>
 								</g>
 							</svg><?php _e( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ); ?>
 						</a>
