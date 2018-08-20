@@ -63,8 +63,6 @@ class Yelp_Widget extends WP_Widget {
 	 */
 	function widget( $args, $instance ) {
 
-		$yelp = new Yelp_Widget();
-
 		// Get plugin options.
 		$options = get_option( 'yelp_widget_settings' );
 
@@ -76,28 +74,32 @@ class Yelp_Widget extends WP_Widget {
 
 		// Get Widget Options.
 		$title          = apply_filters( 'widget_title', $instance['title'] );
-		$displayOption  = $instance['display_option'];
-		$term           = $instance['term'];
-		$id             = $instance['id'];
-		$location       = $instance['location'];
-		$address        = $instance['display_address'];
-		$phone          = $instance['display_phone'];
-		$limit          = $instance['limit'];
-		$profileImgSize = $instance['profile_img_size'];
-		$sort           = $instance['sort'];
-		$align          = $instance['alignment'];
-		$titleOutput    = $instance['disable_title_output'];
-		$targetBlank    = $instance['target_blank'];
-		$noFollow       = $instance['no_follow'];
-		$cache          = $instance['cache'];
+		$displayOption  = isset( $instance['display_option'] ) ? $instance['display_option'] : '';
+		$term           = isset( $instance['term'] ) ? $instance['term'] : '';
+		$id             = isset( $instance['id'] ) ? $instance['id'] : '';
+		$location       = isset( $instance['location'] ) ? $instance['location'] : '';
+		$address        = isset( $instance['display_address'] ) ? $instance['display_address'] : '';
+		$phone          = isset( $instance['display_phone'] ) ? $instance['display_phone'] : '';
+		$limit          = isset( $instance['limit'] ) ? $instance['limit'] : '';
+		$profileImgSize = isset( $instance['profile_img_size'] ) ? $instance['profile_img_size'] : '';
+		$sort           = isset( $instance['sort'] ) ? $instance['sort'] : '';
+		$align          = isset( $instance['alignment'] ) ? $instance['alignment'] : '';
+		$reviewsOption  = isset( $instance['display_reviews'] ) ? esc_attr( $instance['display_reviews'] ) : '';
+		$titleOutput    = isset( $instance['disable_title_output'] ) ? $instance['disable_title_output'] : '';
+		$targetBlank    = isset( $instance['target_blank'] ) ? $instance['target_blank'] : '';
+		$noFollow       = isset( $instance['no_follow'] ) ? $instance['no_follow'] : '';
+		$cache          = isset( $instance['cache'] ) ? $instance['cache'] : '';
+
 
 		// If cache option is enabled, attempt to get response from transient.
 		if ( 'none' !== strtolower( $cache ) ) {
 
 			$transient = $displayOption . $term . $id . $location . $limit . $sort . $profileImgSize;
 
-			// Check for an existing copy of our cached/transient data
-			if ( ( $response = get_transient( $transient ) ) == false ) {
+			// Check for an existing copy of our cached/transient data.
+			$response = get_transient( $transient );
+
+			if ( false === $response ) {
 
 				// Get Time to Cache Data
 				$expiration = $cache;
@@ -128,8 +130,8 @@ class Yelp_Widget extends WP_Widget {
 				}
 
 				// Cache data wasn't there, so regenerate the data and save the transient
-				if ( $displayOption == '1' ) {
-					$response = yelp_widget_fusion_get_business( $fusion_api_key, $id );
+				if ( '1' === $displayOption ) {
+					$response = yelp_widget_fusion_get_business( $fusion_api_key, $id, $reviewsOption );
 				} else {
 					$response = yelp_widget_fusion_search( $fusion_api_key, $term, $location, $limit, $sort );
 				}
@@ -139,9 +141,9 @@ class Yelp_Widget extends WP_Widget {
 		} else {
 
 			// No Cache option enabled
-			if ( $displayOption == '1' ) {
+			if ( '1' === $displayOption ) {
 				// Widget is in Business mode.
-				$response = yelp_widget_fusion_get_business( $fusion_api_key, $id );
+				$response = yelp_widget_fusion_get_business( $fusion_api_key, $id, $reviewsOption );
 			} else {
 				// Widget is in Search mode.
 				$response = yelp_widget_fusion_search( $fusion_api_key, $term, $location, $limit, $sort );
@@ -175,7 +177,7 @@ class Yelp_Widget extends WP_Widget {
 
 			// Verify results have been returned
 			if ( ! isset( $businesses[0] ) ) {
-				echo '<div class="yelp-error"> ' . __( 'No results found', 'yelp-widget-pro' ) . '</div>';
+				echo '<div class="yelp-error">' . __( 'No results found', 'yelp-widget-pro' ) . '</div>';
 			} else {
 
 				/**
@@ -199,9 +201,7 @@ class Yelp_Widget extends WP_Widget {
 				for ( $x = 0; $x < count( $businesses ); $x ++ ) {
 					?>
 
-					<div class="yelp yelp-business
-					<?php
-					echo $align;
+					<div class="yelp yelp-business <?php echo $align;
 					// Set profile image size
 					switch ( $profileImgSize ) {
 
@@ -221,8 +221,7 @@ class Yelp_Widget extends WP_Widget {
 							echo 'ywp-size-60';
 					}
 
-					?>
-					">
+					?>">
 						<div class="yelp-business-img-wrap">
 							<img class="yelp-business-img" src="
 							<?php
@@ -271,11 +270,11 @@ class Yelp_Widget extends WP_Widget {
 								?>
 								<div class="yelp-address-wrap">
 									<address>
-									<?php
+										<?php
 										// Iterate through Address Array
-									foreach ( $businesses[ $x ]->location->display_address as $addressItem ) {
-										echo $addressItem . '<br/>';
-									}
+										foreach ( $businesses[ $x ]->location->display_address as $addressItem ) {
+											echo $addressItem . '<br/>';
+										}
 										?>
 										<address>
 								</div>
@@ -287,27 +286,83 @@ class Yelp_Widget extends WP_Widget {
 							if ( '1' === $phone ) {
 								?>
 								<p class="ywp-phone">
-								<?php
-									// echo pretty display_phone (only avail in biz API)
-								if ( ! empty( $businesses[ $x ]->display_phone ) ) {
-									echo $businesses[ $x ]->display_phone;
-								} else {
-									echo $businesses[ $x ]->phone;
-								}
-									?>
-									</p>
+									<a href="tel:<?php echo $businesses[ $x ]->phone; ?>"><?php
+										// echo pretty display_phone (only avail in biz API)
+										if ( ! empty( $businesses[ $x ]->display_phone ) ) {
+											echo $businesses[ $x ]->display_phone;
+										} else {
+											echo $businesses[ $x ]->phone;
+										}
+										?></a>
+								</p>
 
 
 							<?php } //endif phone ?>
 
 						</div>
 
+						<?php
+						/**
+						 * Display Reviews
+						 *
+						 * a) if reviews option is enabled
+						 * b + c) if review are present
+						 */
+						if (
+							'1' === $reviewsOption
+							&& isset( $businesses[0]->review_count )
+							&& isset( $businesses[0]->reviews )
+						) : ?>
 
-					</div><!--/.yelp-->
+							<div class="yelp-business-reviews">
+
+								<?php
+								/**
+								 * Display Reviews
+								 */
+								foreach ( $businesses[0]->reviews as $review ) {
+
+									$review_avatar = ! empty( $review->user->image_url ) ? $review->user->image_url : YELP_WIDGET_PRO_URL . '/assets/src/images/yelp-default-avatar.png';
+									?>
+
+									<div class="yelp-review yelper-avatar-60 clearfix">
+
+										<div class="yelp-review-avatar">
+
+											<img src="<?php echo $review_avatar; ?>" width="60" height="60"
+											     alt="<?php echo $review->user->name; ?>'s Review"/>
+											<span class="name"><?php echo $review->user->name; ?></span>
+										</div>
+
+										<div class="yelp-review-excerpt">
+											<?php yelp_widget_fusion_stars( $review->rating ); ?>
+											<time><?php echo date( 'n/j/Y', strtotime( $review->time_created ) ); ?></time>
+
+											<div class="yelp-review-excerpt-text">
+												<?php echo wpautop( $review->text ); ?>
+											</div>
+
+											<?php
+											//Read More Review
+											$reviewMoreText = apply_filters( 'ywp_review_readmore_text', __( 'Read More &raquo;', 'yelp-widget-pro' ) ); ?>
+											<a href="<?php echo esc_url( $review->url ); ?>"
+											   class="ywp-review-read-more" <?php echo $targetBlank . $noFollow; ?>><?php echo $reviewMoreText; ?></a>
+
+										</div>
+
+									</div>
+
+								<?php } //end foreach ?>
+
+							</div>
+
+						<?php endif; ?>
+
+					</div><!--/.yelp-business -->
 
 					<?php
 
-				} //end for.
+				}
 			}
 		} //Output Widget Contents.
 
@@ -328,21 +383,27 @@ class Yelp_Widget extends WP_Widget {
 	 */
 	function update( $new_instance, $old_instance ) {
 		$instance                         = $old_instance;
-		$instance['title']                = strip_tags( $new_instance['title'] );
-		$instance['display_option']       = strip_tags( $new_instance['display_option'] );
-		$instance['term']                 = strip_tags( $new_instance['term'] );
-		$instance['id']                   = strip_tags( $new_instance['id'] );
-		$instance['location']             = strip_tags( $new_instance['location'] );
-		$instance['display_address']      = strip_tags( $new_instance['display_address'] );
-		$instance['display_phone']        = strip_tags( $new_instance['display_phone'] );
-		$instance['limit']                = strip_tags( $new_instance['limit'] );
-		$instance['profile_img_size']     = strip_tags( $new_instance['profile_img_size'] );
-		$instance['sort']                 = strip_tags( $new_instance['sort'] );
-		$instance['alignment']            = strip_tags( $new_instance['alignment'] );
-		$instance['disable_title_output'] = strip_tags( $new_instance['disable_title_output'] );
-		$instance['target_blank']         = strip_tags( $new_instance['target_blank'] );
-		$instance['no_follow']            = strip_tags( $new_instance['no_follow'] );
-		$instance['cache']                = strip_tags( $new_instance['cache'] );
+		$instance['title']                = isset( $new_instance['title'] ) ? esc_attr( $new_instance['title'] ) : '';
+		$instance['display_option']       = isset( $new_instance['display_option'] ) ? esc_attr( $new_instance['display_option'] ) : '';
+		$instance['display_reviews']      = isset( $new_instance['display_reviews'] ) ? esc_attr( $new_instance['display_reviews'] ) : '';
+		$instance['term']                 = isset( $new_instance['term'] ) ? esc_attr( $new_instance['term'] ) : '';
+		$instance['id']                   = isset( $new_instance['id'] ) ? esc_attr( $new_instance['id'] ) : '';
+		$instance['location']             = isset( $new_instance['location'] ) ? esc_attr( $new_instance['location'] ) : '';
+		$instance['display_address']      = isset( $new_instance['display_address'] ) ? esc_attr( $new_instance['display_address'] ) : '';
+		$instance['display_phone']        = isset( $new_instance['display_phone'] ) ? esc_attr( $new_instance['display_phone'] ) : '';
+		$instance['limit']                = isset( $new_instance['limit'] ) ? esc_attr( $new_instance['limit'] ) : '';
+		$instance['profile_img_size']     = isset( $new_instance['profile_img_size'] ) ? esc_attr( $new_instance['profile_img_size'] ) : '';
+		$instance['sort']                 = isset( $new_instance['sort'] ) ? esc_attr( $new_instance['sort'] ) : '';
+		$instance['alignment']            = isset( $new_instance['alignment'] ) ? esc_attr( $new_instance['alignment'] ) : '';
+		$instance['disable_title_output'] = isset( $new_instance['disable_title_output'] ) ? esc_attr( $new_instance['disable_title_output'] ) : '';
+		$instance['target_blank']         = isset( $new_instance['target_blank'] ) ? esc_attr( $new_instance['target_blank'] ) : '';
+		$instance['no_follow']            = isset( $new_instance['no_follow'] ) ? esc_attr( $new_instance['no_follow'] ) : '';
+		$instance['cache']                = isset( $new_instance['cache'] ) ? esc_attr( $new_instance['cache'] ) : '';
+
+
+		// Delete cache on widget update.
+		$transient = $instance['display_option'] . $instance['term'] . $instance['id']  . $instance['location'] . $instance['limit'] . $instance['sort']  . $instance['profile_img_size'] ;
+		delete_transient( $transient );
 
 		return $instance;
 	}
@@ -357,31 +418,301 @@ class Yelp_Widget extends WP_Widget {
 	 *
 	 * @return string|void
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 
-		$title          = ! isset( $instance['title'] ) ? '' : esc_attr( $instance['title'] );
-		$displayOption  = ! isset( $instance['display_option'] ) ? '' : esc_attr( $instance['display_option'] );
-		$term           = ! isset( $instance['term'] ) ? '' : esc_attr( $instance['term'] );
-		$id             = ! isset( $instance['id'] ) ? '' : esc_attr( $instance['id'] );
-		$location       = ! isset( $instance['location'] ) ? '' : esc_attr( $instance['location'] );
-		$address        = ! isset( $instance['display_address'] ) ? '' : esc_attr( $instance['display_address'] );
-		$phone          = ! isset( $instance['display_phone'] ) ? '' : esc_attr( $instance['display_phone'] );
-		$limit          = ! isset( $instance['limit'] ) ? '' : esc_attr( $instance['limit'] );
-		$profileImgSize = ! isset( $instance['profile_img_size'] ) ? '' : esc_attr( $instance['profile_img_size'] );
-		$sort           = ! isset( $instance['sort'] ) ? '' : esc_attr( $instance['sort'] );
-		$align          = ! isset( $instance['alignment'] ) ? '' : esc_attr( $instance['alignment'] );
-		$titleOutput    = ! isset( $instance['disable_title_output'] ) ? '' : esc_attr( $instance['disable_title_output'] );
-		$targetBlank    = ! isset( $instance['target_blank'] ) ? '' : esc_attr( $instance['target_blank'] );
-		$noFollow       = ! isset( $instance['no_follow'] ) ? '' : esc_attr( $instance['no_follow'] );
-		$cache          = ! isset( $instance['cache'] ) ? '' : esc_attr( $instance['cache'] );
+		$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$displayOption  = isset( $instance['display_option'] ) ? esc_attr( $instance['display_option'] ) : '1';
+		$reviewsOption  = isset( $instance['display_reviews'] ) ? esc_attr( $instance['display_reviews'] ) : '1';
+		$term           = isset( $instance['term'] ) ? esc_attr( $instance['term'] ) : '';
+		$id             = isset( $instance['id'] ) ? esc_attr( $instance['id'] ) : '';
+		$location       = isset( $instance['location'] ) ? esc_attr( $instance['location'] ) : '';
+		$address        = isset( $instance['display_address'] ) ? esc_attr( $instance['display_address'] ) : '';
+		$phone          = isset( $instance['display_phone'] ) ? esc_attr( $instance['display_phone'] ) : '';
+		$limit          = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
+		$profileImgSize = isset( $instance['profile_img_size'] ) ? esc_attr( $instance['profile_img_size'] ) : '';
+		$sort           = isset( $instance['sort'] ) ? esc_attr( $instance['sort'] ) : '';
+		$titleOutput    = isset( $instance['disable_title_output'] ) ? esc_attr( $instance['disable_title_output'] ) : '';
+		$targetBlank    = isset( $instance['target_blank'] ) ? esc_attr( $instance['target_blank'] ) : '';
+		$noFollow       = isset( $instance['no_follow'] ) ? esc_attr( $instance['no_follow'] ) : '';
+		$cache          = isset( $instance['cache'] ) ? esc_attr( $instance['cache'] ) : ''; ?>
 
-		$apiOptions = get_option( 'yelp_widget_settings' );
+		<!-- Title -->
+		<p>
+			<label
+				for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Widget Title', 'yelp-widget-pro' ); ?></label>
+			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
+			       name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>"/>
+		</p>
 
-		ob_start();
-		include YELP_WIDGET_PRO_PATH . '/includes/widget-form.php';
-		echo ob_get_clean();
+		<!-- Listing Options -->
+		<p class="widget-api-option">
+			<label
+				for="<?php echo $this->get_field_id( 'display_option' ); ?>"><?php _e( 'Yelp API Request Method:', 'yelp-widget-pro' ); ?></label>
+			<br>
+			<span class="yelp-method-span business-api-option-wrap">
+				<input type="radio" name="<?php echo $this->get_field_name( 'display_option' ); ?>"
+				       class="<?php echo $this->get_field_id( 'display_option' ); ?> business-api-option"
+				       value="1" <?php checked( '1', $displayOption ); ?>>
+				<span class="yelp-method-label"><?php _e( 'Business Method', 'yelp-widget-pro' ); ?></span>
+				<img
+					src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					title="<?php _e( 'Yelp\'s Business API allows business owners to display their business information and 3 reviews.', 'yelp-widget-pro' ); ?>"
+					class="tooltip-info" width="16" height="16"/>
+			</span>
+			<br>
+			<span class="yelp-method-span search-api-option-wrap">
+				<input type="radio" name="<?php echo $this->get_field_name( 'display_option' ); ?>"
+				       class="<?php echo $this->get_field_id( 'display_option' ); ?> search-api-option"
+				       value="0" <?php checked( '0', $displayOption ); ?>>
+				<span class="yelp-method-label"><?php _e( 'Search Method', 'yelp-widget-pro' ); ?></span>
+				<img
+					src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					title="<?php _e( 'Yelp\'s Search API allows you to display results of a specific search term.', 'yelp-widget-pro' ); ?>"
+					class="tooltip-info" width="16" height="16"/>
+			</span>
+		</p>
 
-	} //end form function
+		<div class="toggle-api-option-1 toggle-item <?php echo ( '0' === $displayOption ) ? 'toggled' : ''; ?>">
+			<!-- Search Term -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'term' ); ?>"><?php _e( 'Search Term:', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'The term you would like to display results for, ie: \'Bars\', \'Daycare\', \'Restaurants\'.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info"
+					     width="16" height="16"/></label>
+				<input class="widefat" id="<?php echo $this->get_field_id( 'term' ); ?>"
+				       name="<?php echo $this->get_field_name( 'term' ); ?>" type="text" value="<?php echo $term; ?>"/>
+			</p>
+
+
+			<!-- Location -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'location' ); ?>"><?php _e( 'Location:', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'The city name you would like to to search, ie \'San Diego\', \'New York\', \'Miami\'.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16"
+					     height="16"/></label>
+				<input class="widefat" id="<?php echo $this->get_field_id( 'location' ); ?>"
+				       name="<?php echo $this->get_field_name( 'location' ); ?>" type="text"
+				       value="<?php echo $location; ?>"/>
+			</p>
+
+			<!-- Limit -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'limit' ); ?>"><?php _e( 'Number of Items:', 'yelp-widget-pro' ); ?></label>
+				<select name="<?php echo $this->get_field_name( 'limit' ); ?>"
+				        id="<?php echo $this->get_field_id( 'limit' ); ?>" class="widefat">
+					<?php
+					$options = array( '1', '2', '3', '4', '5', '6', '7', '8', '9', '10' );
+					foreach ( $options as $option ) {
+						?>
+
+						<option value="<?php echo $option; ?>" id="<?php echo $option; ?>"
+							<?php
+							if ( $limit == $option || empty( $limit ) && $option == '4' ) {
+								echo 'selected="selected"';
+							}
+							?>
+						><?php echo $option; ?></option>
+
+					<?php } ?>
+				</select>
+			</p>
+
+			<!-- Sort -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'sort' ); ?>"><?php _e( 'Sorting:', 'yelp-widget-pro' ); ?></label>
+
+				<select name="<?php echo $this->get_field_name( 'sort' ); ?>"
+				        id="<?php echo $this->get_field_id( 'sort' ); ?>" class="widefat">
+					<?php
+					$options = array(
+						__( 'Best Match', 'yelp-widget-pro' ),
+						__( 'Distance', 'yelp-widget-pro' ),
+						__( 'Highest Rated', 'yelp-widget-pro' )
+					);
+					// Counter for Option Values
+					$counter = 0;
+
+					foreach ( $options as $option ) {
+						echo '<option value="' . $counter . '" id="' . $option . '"', $sort == $counter ? ' selected="selected"' : '', '>', $option, '</option>';
+						$counter ++;
+					}
+					?>
+				</select>
+			</p>
+
+		</div><!-- /.toggle-api-option-1 -->
+
+
+		<div class="toggle-api-option-2 toggle-item <?php echo ( '1' === $displayOption ) ? 'toggled' : ''; ?>">
+			<!-- Business ID -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'id' ); ?>"><?php _e( 'Business ID:', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'The Business ID is the portion of the Yelp url after the \'http://www.yelp.com/biz/\' portion. For example, the following business\'s URL on Yelp is \'http://www.yelp.com/biz/the-barbeque-pit-seattle-2\' and the Business ID is \'the-barbeque-pit-seattle-2\'.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16" height="16"/></label>
+				<input class="widefat" id="<?php echo $this->get_field_id( 'id' ); ?>"
+				       name="<?php echo $this->get_field_name( 'id' ); ?>" type="text" value="<?php echo $id; ?>"/>
+			</p>
+
+			<!-- Display Reviews -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'display_reviews' ); ?>" class="reviews-toggle"
+				       name="<?php echo $this->get_field_name( 'display_reviews' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $reviewsOption ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'display_reviews' ); ?>"><?php _e( 'Display Business Reviews', 'yelp-widget-pro' ); ?></label>
+			</p>
+		</div>
+
+
+		<h4 class="yelp-toggler"><?php _e( 'Display Options:', 'yelp-widget-pro' ); ?><span></span></h4>
+
+		<div class="display-options toggle-item">
+
+			<!-- Profile Image Size -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'profile_img_size' ); ?>"><?php _e( 'Business Profile Image Size:', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'Customize the width and height of the business Yelp profile image.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16"
+					     height="16"/></label>
+				<select name="<?php echo $this->get_field_name( 'profile_img_size' ); ?>"
+				        id="<?php echo $this->get_field_id( 'profile_img_size' ); ?>" class="widefat">
+					<?php
+					$options = array( '40x40', '60x60', '80x80', '100x100' );
+					foreach ( $options as $option ) {
+						?>
+
+						<option value="<?php echo $option; ?>" id="<?php echo $option; ?>"
+							<?php
+							if ( $profileImgSize == $option || empty( $profileImgSize ) && $option == '60x60' ) {
+								echo 'selected="selected"';
+							}
+							?>
+						><?php echo $option; ?></option>
+
+					<?php } ?>
+				</select>
+			</p>
+
+			<!-- Disable address checkbox -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'display_address' ); ?>"
+				       name="<?php echo $this->get_field_name( 'display_address' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $address ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'display_address' ); ?>"><?php _e( 'Display Business Address', 'yelp-widget-pro' ); ?></label>
+			</p>
+
+			<!-- Display phone -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'display_phone' ); ?>"
+				       name="<?php echo $this->get_field_name( 'display_phone' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $phone ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'display_phone' ); ?>"><?php _e( 'Display Business Phone Number', 'yelp-widget-pro' ); ?></label>
+			</p>
+
+		</div>
+
+
+		<h4 class="yelp-toggler"><?php _e( 'Advanced Options', 'yelp-widget-pro' ); ?>: <span></span></h4>
+
+		<div class="advanced-options toggle-item">
+
+			<!-- Disable title output checkbox -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'disable_title_output' ); ?>"
+				       name="<?php echo $this->get_field_name( 'disable_title_output' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $titleOutput ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'disable_title_output' ); ?>"><?php _e( 'Disable Title Output', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'The title output is content within the \'Widget Title\' field above. Disabling the title output may be useful for some themes.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16" height="16"/></label>
+			</p>
+
+			<!-- Open Links in New Window -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'target_blank' ); ?>"
+				       name="<?php echo $this->get_field_name( 'target_blank' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $targetBlank ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'target_blank' ); ?>"><?php _e( 'Open Links in New Window', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'This option will add target=\'_blank\' to the widget\'s links. This is useful to keep users on your website.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16" height="16"/></label>
+			</p>
+			<!-- No Follow Links -->
+			<p>
+				<input id="<?php echo $this->get_field_id( 'no_follow' ); ?>"
+				       name="<?php echo $this->get_field_name( 'no_follow' ); ?>" type="checkbox"
+				       value="1" <?php checked( '1', $noFollow ); ?>/>
+				<label
+					for="<?php echo $this->get_field_id( 'no_follow' ); ?>"><?php _e( 'No Follow Links', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'This option will add rel=\'nofollow\' to the widget\'s outgoing links. This option may be useful for SEO.', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16" height="16"/></label>
+			</p>
+
+			<!-- Transient / Cache -->
+			<p>
+				<label
+					for="<?php echo $this->get_field_id( 'cache' ); ?>"><?php _e( 'Cache Data:', 'yelp-widget-pro' ); ?>
+					<img src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+					     title="<?php _e( 'Caching data will save Yelp data to your database in order to speed up response times and conserve API requests. The suggested settings is 1 Day. ', 'yelp-widget-pro' ); ?>"
+					     class="tooltip-info" width="16" height="16"/></label>
+				<select name="<?php echo $this->get_field_name( 'cache' ); ?>"
+				        id="<?php echo $this->get_field_id( 'cache' ); ?>" class="widefat">
+					<?php
+					$options = array(
+						__( 'None', 'yelp-widget-pro' ),
+						__( '1 Hour', 'yelp-widget-pro' ),
+						__( '3 Hours', 'yelp-widget-pro' ),
+						__( '6 Hours', 'yelp-widget-pro' ),
+						__( '12 Hours', 'yelp-widget-pro' ),
+						__( '1 Day', 'yelp-widget-pro' ),
+						__( '2 Days', 'yelp-widget-pro' ),
+						__( '1 Week', 'yelp-widget-pro' ),
+					);
+
+					foreach ( $options as $option ) {
+						?>
+						<option value="<?php echo $option; ?>" id="<?php echo $option; ?>"
+							<?php
+							if ( $cache == $option || empty( $cache ) && $option == '1 Day' ) {
+								echo ' selected="selected" ';
+							}
+							?>
+						>
+							<?php echo $option; ?>
+						</option>
+						<?php
+						$counter ++;
+					}
+					?>
+				</select>
+			</p>
+
+		</div>
+
+		<div class="pro-option">
+			<p>Upgrade to <a href="https://wpbusinessreviews.com" target="_blank" class="new-window"
+			                 title="<?php _e( 'Get immediate access after purchase to additional features, priority support, and auto updates.', 'yelp-widget-pro' ); ?>"><?php _e( 'WP Business Reviews', 'yelp-widget-pro' ); ?></a>
+			</p>
+		</div>
+
+		<?php
+
+	}
 
 	/**
 	 * Handle Yelp Error Messages
@@ -430,8 +761,6 @@ add_action( 'widgets_init', 'ywp_register_widgets' );
 
 
 /**
- *
- *
  * CURLs the Yelp API with our url parameters and returns JSON response
  *
  * @param $signed_url
@@ -518,15 +847,49 @@ function yelp_widget_fusion_search( $key, $term, $location, $limit, $sort_by ) {
 /**
  * Retrieves business details based on Yelp business ID.
  *
- * @since 1.5.0
+ * @since 2.0.0
+ *
+ * @param string $key Yelp Fusion API Key.
+ * @param string $id The Yelp business ID.
+ * @param int $reviews_option 1 if reviews should be displayed. 0 otherwise.
+ *
+ * @return array Associative array containing the response body.
+ */
+function yelp_widget_fusion_get_business( $key, $id, $reviews_option = 0 ) {
+	$url = 'https://api.yelp.com/v3/businesses/' . $id;
+
+	$args = array(
+		'user-agent' => '',
+		'headers'    => array(
+			'authorization' => 'Bearer ' . $key,
+		),
+	);
+
+	$response = yelp_widget_fusion_get( $url, $args );
+
+	if ( $reviews_option ) {
+		$reviews_response = yelp_fusion_get_reviews( $key, $id );
+
+		if ( ! empty( $reviews_response ) and isset( $reviews_response->reviews[0] ) ) {
+			$response->reviews = $reviews_response->reviews;
+		}
+	}
+
+	return $response;
+}
+
+/**
+ * Retrieves reviews based on Yelp business ID.
+ *
+ * @since 2.0.0
  *
  * @param string $key Yelp Fusion API Key.
  * @param string $id The Yelp business ID.
  *
  * @return array Associative array containing the response body.
  */
-function yelp_widget_fusion_get_business( $key, $id ) {
-	$url = 'https://api.yelp.com/v3/businesses/' . $id;
+function yelp_fusion_get_reviews( $key, $id ) {
+	$url = 'https://api.yelp.com/v3/businesses/' . $id . '/reviews';
 
 	$args = array(
 		'user-agent' => '',

@@ -65,6 +65,8 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 = 2.0.0 =
 * We have recently launched a new premium plugin for reviews called [WP Business Reviews](https://wpbusinessreviews.com/?plugin=yelp-widget-pro). You can use this new WordPress review plugin to display your best reviews from platforms like Google, Yelp, and Facebook right on your website.
+* New: You can now display up to 3 yelp reviews using the widget's Yelp API "Business" request method.
+* New: Modernized the styles for a more clean display with improved cross-theme compatibility.
 * Tweak: Modified upsells for new WP Business Reviews plugin.
 
 = 1.5.0 =

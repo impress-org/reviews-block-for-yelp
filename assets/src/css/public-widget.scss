@@ -12,6 +12,16 @@
   margin-bottom: 15px;
   padding: 15px;
 
+  a {
+	color: #333;
+	box-shadow: none;
+
+	&:hover {
+	  text-decoration: underline;
+	  box-shadow: none;
+	}
+  }
+
   // Yelp Profile Image Sizes
   &.ywp-size-40 .yelp-info-wrap {
 	margin-left: 51px;
@@ -34,15 +44,12 @@
 	margin: 0;
   }
 
-
   img {
 	padding: 0;
 	margin: 0;
 	border: none;
 	background: transparent none;
 	box-shadow: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
 	float: none;
 
 	&.yelp-business-img {
@@ -104,6 +111,14 @@
 	  font-size: 12px;
 	  margin: 0;
 	  padding: 0;
+	  > a {
+		text-decoration: underline;
+		box-shadow: none;
+		&:hover {
+		  text-decoration: underline;
+		  box-shadow: none;
+		}
+	  }
 	}
 
 	.yelp-address-wrap address {
@@ -116,4 +131,73 @@
 
   }
 
+}
+
+.yelp-error {
+
+}
+
+/* Reviewer Avatar */
+
+.yelp-business-reviews {
+  margin: 0;
+  clear: both;
+  display: block;
+  padding: 15px 0 0;
+}
+
+.yelp-review-avatar {
+  float: left;
+
+  img {
+	display: block;
+	border-radius: 3px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  > .name {
+	display: block;
+	margin: 0;
+	font-size: 11px;
+  }
+}
+
+.yelper-avatar-60 > .yelp-review-avatar,
+.yelper-avatar-60 > .yelp-review-avatar > img {
+  width: 60px;
+}
+
+.yelp-review-excerpt {
+  font-size: 12px;
+  margin: 0 0 0 75px;
+  padding: 0;
+  position: relative;
+}
+
+.yelp-review {
+  margin: 0 0 20px;
+  clear: left;
+
+  &:last-of-type {
+	margin-bottom: 0;
+  }
+}
+
+.yelp-review-excerpt-text > p {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.yelp-review-excerpt time {
+  font-size: 12px;
+  display: block;
+  margin: 0 0 6px;
+}
+
+a.ywp-review-read-more {
+  color: #C41200;
+  text-decoration: none;
+  box-shadow: none;
 }
