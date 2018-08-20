@@ -23,7 +23,7 @@ msgstr ""
 msgid "Yelp Reviews"
 msgstr ""
 
-#: includes/admin-settings.php:106, includes/plugin-listing-page.php:183, includes/plugin-listing-page.php:252
+#: includes/admin-settings.php:106, includes/plugin-listing-page.php:208, includes/plugin-listing-page.php:277
 msgid "Upgrade to WP Business Reviews"
 msgstr ""
 
@@ -270,34 +270,42 @@ msgstr ""
 msgid "%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s"
 msgstr ""
 
-#: includes/plugin-listing-page.php:138
+#: includes/plugin-listing-page.php:153
 msgid "<a href=\"%1$s\" class=\"dismiss\"></a>"
 msgstr ""
 
-#: includes/plugin-listing-page.php:142
+#: includes/plugin-listing-page.php:157
 msgid "Welcome to Yelp Widget Pro by <a href=\"%s\" target=\"_blank\">WP Business Reviews</a>"
 msgstr ""
 
-#: includes/plugin-listing-page.php:171
+#: includes/plugin-listing-page.php:158
+msgid "Display Yelp business information and reviews on your WordPress website using this powerful widget."
+msgstr ""
+
+#: includes/plugin-listing-page.php:159
+msgid "Subscribe to our mailing list for important update information and more:"
+msgstr ""
+
+#: includes/plugin-listing-page.php:195
 msgid "Go to Settings"
 msgstr ""
 
-#: includes/plugin-listing-page.php:226
+#: includes/plugin-listing-page.php:251
 msgid "Settings"
 msgstr ""
 
-#: includes/plugin-listing-page.php:230
+#: includes/plugin-listing-page.php:255
 msgid "Support"
 msgstr ""
 
-#: includes/plugin-listing-page.php:251
+#: includes/plugin-listing-page.php:276
 msgid "Rate Yelp Widget Pro"
 msgstr ""
 
-#: includes/plugin-listing-page.php:251
+#: includes/plugin-listing-page.php:276
 msgid "Rate Plugin"
 msgstr ""
 
-#: includes/plugin-listing-page.php:252
+#: includes/plugin-listing-page.php:277
 msgid "Upgrade to Yelp Widget Premium"
 msgstr ""
