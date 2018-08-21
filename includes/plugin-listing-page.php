@@ -9,13 +9,12 @@
  * Plugin activation banner.
  */
 function ywp_activation_admin_notice() {
-	global $current_user;
-	global $pagenow;
+	global $current_user, $pagenow;
 
 	// Check that the user hasn't already clicked to ignore the message
 	if (
 		'plugins.php' === $pagenow
-		&& ! get_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice' )
+		&& ! get_user_meta( $current_user->ID, 'ywp_activation_ignore_notice' )
 	) : ?>
 		<style>
 			div.updated.wpbr {
@@ -154,7 +153,7 @@ function ywp_activation_admin_notice() {
 			<header>
 				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png"
 				     class="wpbr-logo"/>
-				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?wpbr_nag_ignore=0' ); ?>
+				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?ywp_nag_ignore=0' ); ?>
 
 				<div class="wpbr-actions">
 					<?php $current_user = wp_get_current_user(); ?>
@@ -228,16 +227,16 @@ add_action( 'admin_notices', 'ywp_activation_admin_notice' );
  *
  * When the
  */
-function wpbr_nag_ignore() {
+function ywp_nag_ignore() {
 	global $current_user;
 
 	// If user clicks to ignore the notice, add that to their user meta
-	if ( isset( $_GET['wpbr_nag_ignore'] ) && '0' == $_GET['wpbr_nag_ignore'] ) {
-		add_user_meta( $current_user->ID, 'wpbr_activation_ignore_notice', 'true', true );
+	if ( isset( $_GET['ywp_nag_ignore'] ) && '0' == $_GET['ywp_nag_ignore'] ) {
+		add_user_meta( $current_user->ID, 'ywp_activation_ignore_notice', 'true', true );
 	}
 }
 
-add_action( 'admin_init', 'wpbr_nag_ignore' );
+add_action( 'admin_init', 'ywp_nag_ignore' );
 
 
 /**
