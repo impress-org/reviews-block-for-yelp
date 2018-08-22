@@ -152,7 +152,7 @@ function ywp_activation_admin_notice() {
 		<div class="updated wpbr">
 			<header>
 				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png"
-				     class="wpbr-logo"/>
+				     class="wpbr-logo" />
 				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?ywp_nag_ignore=0' ); ?>
 
 				<div class="wpbr-actions">
@@ -189,10 +189,10 @@ function ywp_activation_admin_notice() {
 						<a href="<?php echo admin_url( 'options-general.php?page=yelp_widget' ); ?>">
 							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"
 							     viewBox="0 0 20 20">
-								<rect x="0" fill="none" width="20" height="20"/>
+								<rect x="0" fill="none" width="20" height="20" />
 								<g>
 									<path
-										d="M18 16V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1zM8 11h1c.55 0 1 .45 1 1s-.45 1-1 1H8v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13H6c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V11zm5-2h-1c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1c.55 0 1 .45 1 1s-.45 1-1 1h-1v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V9z"/>
+										d="M18 16V4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h13c.55 0 1-.45 1-1zM8 11h1c.55 0 1 .45 1 1s-.45 1-1 1H8v1.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V13H6c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V11zm5-2h-1c-.55 0-1-.45-1-1s.45-1 1-1h1V5.5c0-.28.22-.5.5-.5s.5.22.5.5V7h1c.55 0 1 .45 1 1s-.45 1-1 1h-1v5.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V9z" />
 								</g>
 							</svg>
 							<?php _e( 'Go to Settings', 'yelp-widget-pro' ); ?>
@@ -204,9 +204,9 @@ function ywp_activation_admin_notice() {
 							<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"
 							     viewBox="0 0 20 20">
 								<rect x="0" fill="none" width="20"
-								      height="20"/>
+								      height="20" />
 								<g>
-									<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z"/>
+									<path d="M10 1l3 6 6 .75-4.12 4.62L16 19l-6-3-6 3 1.13-6.63L1 7.75 7 7z" />
 								</g>
 							</svg><?php _e( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ); ?>
 						</a>
@@ -277,7 +277,7 @@ add_filter( 'plugin_action_links', 'ywp_add_plugin_page_links', 10, 2 );
 function ywp_add_plugin_meta_links( $meta, $file ) {
 	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
 		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'yelp-widget-pro' ) . "'>" . __( 'Rate Plugin', 'yelp-widget-pro' ) . '</a>';
-		$meta[] = "<a href='https://wpbusinessreviews.com/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to Yelp Widget Premium', 'yelp-widget-pro' ) . "'>" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . '</a>';
+		$meta[] = "<a href='https://wpbusinessreviews.com/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . "'>" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . '</a>';
 	}
 
 	return $meta;

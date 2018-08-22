@@ -29,7 +29,7 @@ add_action( 'admin_menu', 'yelp_widget_add_options_page' );
  *
  * @param $hook
  */
-function wpbr_yelp_admin_scripts( $hook ) {
+function yelp_admin_scripts( $hook ) {
 
 	if ( 'widgets.php' === $hook || 'settings_page_yelp_widget' === $hook ) {
 		wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/assets/dist/js/admin-main.js' );
@@ -41,7 +41,7 @@ function wpbr_yelp_admin_scripts( $hook ) {
 
 }
 
-add_action( 'admin_enqueue_scripts', 'wpbr_yelp_admin_scripts', 10, 1 );
+add_action( 'admin_enqueue_scripts', 'yelp_admin_scripts', 10, 1 );
 
 
 /**
@@ -137,7 +137,7 @@ function yelp_widget_options_form() { ?>
 								<ol>
 									<li><?php _e( 'First, <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">create your own Yelp app</a>. The app is required to access Yelp listings.', 'yelp-widget-pro' ); ?></li>
 									<li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'yelp-widget-pro' ); ?></li>
-									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listing now.', 'yelp-widget-pro' ); ?></li>
+									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listings!', 'yelp-widget-pro' ); ?></li>
 								</ol>
 							</div>
 							<!-- /.inside -->
@@ -205,7 +205,7 @@ function yelp_widget_options_form() { ?>
 				<div class="alignright" style="width:24%">
 					<div id="sidebar-sortables" class="meta-box-sortables ui-sortable">
 
-						<div id="yelp-widget-pro-premium" class="postbox">
+						<div id="wpbr-upsell" class="postbox">
 							<div class="handlediv" title="Click to toggle"><br></div>
 							<h3 class="hndle"><span><?php _e( 'WP Business Reviews', 'yelp-widget-pro' ); ?></span></h3>
 
