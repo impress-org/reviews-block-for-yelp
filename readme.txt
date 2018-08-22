@@ -55,11 +55,9 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 1. A view of the Yelp Widget Pro Settings page displaying the metabox to enter in your Yelp API key.
 
-2. Many plugins don't have the option to disable CSS - this one does.  If you want to style the plugin to suit your needs then enable this option.
+2. Yelp Widget Pro expanded displaying all available options.
 
-3. Yelp Widget Pro expanded displaying all available options as of version 1.1
-
-4. How the widget looks in a website sidebar
+3. How the widget looks in a website sidebar.
 
 == Changelog ==
 
