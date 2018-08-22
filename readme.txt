@@ -37,11 +37,15 @@ Note: If you have Wordpress 2.7 or above you can simply go to 'Plugins' &gt; 'Ad
 
 = Why should I use this plugin? =
 
-Use this plugin if you have a website that would benefit in displaying search results for a Yelp search term.  For example, a travel website selling reservations could display the top resorts for a given destination.  A business website could also display their yelp business listing in their sidebar by using the Business ID search option
+A business website can use this plugin to display their yelp business listing and reviews in their sidebar by using the Business ID search option. You can also use this plugin if you have a website that would benefit in displaying search results for a Yelp search term.  For example, a travel website selling reservations could display the top resorts for a given destination.
 
 = How do I display only my business? =
 
 If you would like to display only your certain business then you must enter in your "Yelp Business ID" in the widget's ID input.  The ID of the business is the last part of the Yelp URL of its Yelp page. Ex: `http://www.yelp.com/biz/togos-sandwiches-san-diego-3`, the id is `togos-sandwiches-san-diego-3`.  This is the *only* parameter you need to set to use this method.
+
+= How do I get a Yelp API key? =
+
+In order for the plugin to access your Yelp reviews, you must have a valid Yelp API key. To get the key please review [how to create a Yelp API key](https://wpbusinessreviews.com/documentation/platforms/yelp/).
 
 = How do I disable the CSS =
 
@@ -49,7 +53,7 @@ If you would like to theme the widget yourself you should disable the plugin's C
 
 = The plugin looks funny in my sidebar, what's the deal? =
 
-Some themes may have very small sidebars and CSS styles that conflict or alter the styles within Yelp Widget Pro.  To correct any styling errors you can either disable the plugin's CSS all together or override the CSS selectors in use to make the widget appear how you'd like.  CSS-related issues are not actively supported as there's too many variations between the thousands of WordPress themes available.
+Some themes may have very small sidebars and CSS styles that conflict or alter the styles within Yelp Widget Pro.  To correct any styling errors you can either disable the plugin's CSS all together or override the CSS selectors in use to make the widget appear how you'd like.
 
 == Screenshots ==
 
