@@ -1,10 +1,10 @@
 === Yelp Widget Pro ===
-Contributors: wordimpress, dlocc, webdevmattcrom
+Contributors: impressorg, dlocc, webdevmattcrom
 Donate link: https://impress.org/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp reviews widget, yelp business reviews, yelp widget pro, business reviews, google reviews, google places reviews, facebook reviews, facebook page reviews
 Requires at least: 4.2
-Tested up to: 4.9
-Stable tag: 2.0.0
+Tested up to: 5.2
+Stable tag: 2.0.1
 
 Yelp Widget Pro makes it easy for you to display your Yelp reviews and business information on your website via an easy-to-use and intuitive widget.
 
@@ -65,6 +65,9 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 
 == Changelog ==
 
+= 2.0.1: May 16th, 2019 =
+* Maintenance: Reviewed plugin compatibility with WordPress 5.2 for compatibility and updated the plugin tested up to version.
+
 = 2.0.0 =
 * We have recently launched a new premium plugin for reviews called [WP Business Reviews](https://wpbusinessreviews.com/?plugin=yelp-widget-pro). You can use this new WordPress review plugin to display your best reviews from platforms like Google, Yelp, and Facebook right on your website.
 * New: You can now display up to 3 yelp reviews using the widget's Yelp API "Business" request method.
@@ -95,7 +98,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 * Fix: PHP Warning for array_key_exists check when get_option returns false
 
 = 1.4 =
-* New: Added WordImpress logo image to options page
+* New: Added Impress.org logo image to options page
 * Updated: Improved widget's UI for new WP 3.8 style
 * Updated: Reformatted all code to WP Coding Standards
 * Updated: Swapped Yelp icon URL for biz url rather than just yelp.com
@@ -156,7 +159,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 * Updated yelp_widget_curl() function to use WordPress' HTTP API first and backup as cURL
 * Integrating premium licencing logic; GPL compatible plugin
 * Fixed UI bug with widget API selection radio
-* Updated Facebook Like box to new WordImpress (no-ed) page
+* Updated Facebook Like box to new brand page
 * Grammatical fixes
 * Improved widget frontend CSS
 
@@ -164,7 +167,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 * Improved frontend widget display CSS with percentage-based element widths
 * Added business address display option to widget functionality
 * Cleaned up Widget UI: Added toggle option panels
-* Cleaned up options panel UI: Added metaboxes to hold content; fixed typo in introduction; added like box for WordImpressed
+* Cleaned up options panel UI: Added metaboxes to hold content; fixed typo in introduction; added like box for brand
 * Improved how scripts are loaded in the WordPress admin panel by only loaded them on the pages needed
 * Coming soon: Premium Add-ons! Themes, New Features and More.
 

@@ -1,6 +1,6 @@
 {
   "name": "yelp-widget-pro",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/WordImpress/Yelp-Widget-Pro.git"
+    "url": "git+https://github.com/impress-org/yelp-widget-pro.git"
   },
   "author": "Impress.org",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/WordImpress/Yelp-Widget-Pro/issues"
+    "url": "https://github.com/impress-org/yelp-widget-pro/issues"
   },
-  "homepage": "https://github.com/WordImpress/Yelp-Widget-Pro#readme",
+  "homepage": "https://github.com/impress-org/yelp-widget-pro#readme",
   "quokka": {
     "babel": true
   },
