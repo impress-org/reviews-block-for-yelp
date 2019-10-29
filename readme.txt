@@ -3,8 +3,8 @@ Contributors: impressorg, dlocc, webdevmattcrom
 Donate link: https://impress.org/
 Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp reviews widget, yelp business reviews, yelp widget pro, business reviews, google reviews, google places reviews, facebook reviews, facebook page reviews
 Requires at least: 4.2
-Tested up to: 5.2
-Stable tag: 2.0.1
+Tested up to: 5.3
+Stable tag: 2.0.2
 
 Yelp Widget Pro makes it easy for you to display your Yelp reviews and business information on your website via an easy-to-use and intuitive widget.
 
@@ -64,6 +64,9 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 3. How the widget looks in a website sidebar.
 
 == Changelog ==
+
+= 2.0.2: October 28th, 2019 =
+* Maintenance: Reviewed plugin compatibility with WordPress 5.3 for compatibility and updated the plugin tested up to version.
 
 = 2.0.1: May 16th, 2019 =
 * Maintenance: Reviewed plugin compatibility with WordPress 5.2 for compatibility and updated the plugin tested up to version.
