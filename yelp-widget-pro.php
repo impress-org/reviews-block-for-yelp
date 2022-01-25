@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: Yelp Widget Pro
+ * Plugin Name: Yelp Block
  * Plugin URI: http://wordpress.org/extend/plugins/yelp-widget-pro/
- * Description: Easily display Yelp business ratings with a simple and intuitive WordPress widget.
- * Version: 2.0.2
+ * Description: Easily display Yelp business ratings with a simple and intuitive WordPress block.
+ * Version: 3.0.0
  * Author: WP Business Reviews
  * Author URI: https://wpbusinessreviews.com/
  * License: GPLv2
@@ -34,7 +34,6 @@ if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
 	define( 'YELP_WIDGET_PRO_URL', plugins_url( basename( plugin_dir_path( YELP_PLUGIN_FILE ) ), basename( YELP_PLUGIN_FILE ) ) );
 }
 
-
 /**
  * Localize the Plugin for Other Languages
  */
@@ -53,19 +52,18 @@ register_uninstall_hook( YELP_PLUGIN_FILE, 'yelp_widget_uninstall' );
 /**
  * Adds Yelp Widget Pro Options Page
  */
-if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/admin-settings.php' ) ) {
+if ( is_admin() ) {
 	require_once YELP_WIDGET_PRO_PATH . '/includes/admin-settings.php';
+	require_once YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php';
 }
 
 /**
- * Get the Widget
+ * Get the widget if on WP 5.7.X or lower.
  */
-if ( ! class_exists( 'Yelp_Widget' ) && file_exists( YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php' ) ) {
+if (
+	! class_exists( 'Yelp_Widget' )
+	&& ! version_compare( $GLOBALS['wp_version'], '5.8', '>=' )
+) {
 	require_once YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php';
 }
-
-if ( is_admin() && file_exists( YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php' ) ) {
-	include YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php';
-}
-
 

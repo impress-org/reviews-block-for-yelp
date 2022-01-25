@@ -125,12 +125,12 @@ function yelp_widget_options_form() { ?>
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
 							<h3 class="hndle">
-								<span><?php _e( 'Yelp Widget Pro Introduction', 'yelp-widget-pro' ); ?></span></h3>
+								<span><?php _e( 'Yelp Block and Widget Introduction', 'yelp-widget-pro' ); ?></span>
+							</h3>
 
 							<div class="inside">
-								<h3><?php _e( 'Thanks for choosing Yelp Widget Pro!', 'yelp-widget-pro' ); ?></h3>
 								<p>
-									<strong><?php _e( 'To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
+									<strong><?php _e( 'Thanks for checking out the plugin! To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
 								</p>
 
 								<ol>
@@ -162,15 +162,17 @@ function yelp_widget_options_form() { ?>
 											   id="yelp_widget_fusion_api"
 											   name="yelp_widget_settings[yelp_widget_fusion_api]"
 											   value="<?php echo $ywpFusionAPI; ?>"
-											   size="45"/><br/>
-										<small><a href="https://www.yelp.com/developers/v3/manage_app" target="_blank"
-												  rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App', 'yelp-widget-pro' ); ?></a>
-										</small>
+											   size="45"/>
+										<p class="ywp-help-text"><a href="https://www.yelp.com/developers/v3/manage_app"
+																	target="_blank"
+																	rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App.', 'yelp-widget-pro' ); ?></a> <?php _e( 'Don\'t worry, the process is quick and easy.', 'yelp-widget-pro' ); ?>
+										</p>
 									</div>
 								</div>
 								<div class="control-group">
 									<div class="control-label">
-										<label for="yelp_widget_disable_css"><?php _e('Disable Plugin CSS Output:', 'yelp-widget-pro'); ?><img
+										<label for="yelp_widget_disable_css"><?php _e( 'Disable Plugin CSS Output:', 'yelp-widget-pro' ); ?>
+											<img
 													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
 													title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'yelp-widget-pro' ); ?>"
 													class="tooltip-info" width="16" height="16"/></label>

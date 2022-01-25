@@ -2,7 +2,7 @@
 Contributors: dlocc, webdevmattcrom
 Donate link: https://wpbusinessreviews.com
 Tags: yelp, yelp reviews, yelp block, yelp widget, yelp business listings, yelp business reviews, business reviews, google reviews, facebook reviews
-Requires at least: 4.8
+Requires at least: 5.0
 Tested up to: 5.9
 Stable tag: 3.0.0
 
