@@ -1,4 +1,4 @@
-# Copyright (C) 2019 Yelp Widget Pro
+# Copyright (C) 2022 Yelp Widget Pro
 # This file is distributed under the same license as the Yelp Widget Pro package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Team: WPBR <info@wpbusinessreviews.com>\n"
+"Language-Team: WPBR Support <support@wpbusinessreviews.com>\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yelp-widget-pro\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -47,9 +47,6 @@ msgstr ""
 msgid "Once you've created the app, copy the API Key from the <a href=\"https://www.yelp.com/developers/v3/manage_app\" target=\"_blank\" rel=\"noopener noreferrer\">My App</a> page. Save it in the Yelp API Key field below."
 msgstr ""
 
-#: includes/admin-settings.php:140
-msgstr ""
-
 #: includes/admin-settings.php:157
 msgid "This is necessary to get reviews from Yelp."
 msgstr ""
@@ -82,16 +79,16 @@ msgstr ""
 msgid "Display Yelp business ratings and reviews on your Website."
 msgstr ""
 
-#: includes/class-yelp-widget.php:180
-msgid "No results found"
-msgstr ""
-
 #: includes/class-yelp-widget.php:262
 msgid "reviews"
 msgstr ""
 
 #: includes/class-yelp-widget.php:347
 msgid "Read More &raquo;"
+msgstr ""
+
+#: includes/class-yelp-widget.php:180
+msgid "No results found"
 msgstr ""
 
 #: includes/class-yelp-widget.php:442
@@ -258,16 +255,16 @@ msgstr ""
 msgid "Get immediate access after purchase to additional features, priority support, and auto updates."
 msgstr ""
 
-#: includes/class-yelp-widget.php:726
-msgid "The default Yelp API has exhausted its daily limit. Please enable your own API Key in your Yelp Widget Pro settings."
+#: includes/class-yelp-widget.php:731
+msgid "%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s"
 msgstr ""
 
 #: includes/class-yelp-widget.php:728
 msgid "<strong>Error:</strong> Business information is unavailable. Either you mistyped the Yelp biz ID or the business does not have any reviews."
 msgstr ""
 
-#: includes/class-yelp-widget.php:731
-msgid "%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s"
+#: includes/class-yelp-widget.php:726
+msgid "The default Yelp API has exhausted its daily limit. Please enable your own API Key in your Yelp Widget Pro settings."
 msgstr ""
 
 #: includes/plugin-listing-page.php:156
