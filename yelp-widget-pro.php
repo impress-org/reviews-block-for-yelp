@@ -34,6 +34,28 @@ if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
 	define( 'YELP_WIDGET_PRO_URL', plugins_url( basename( plugin_dir_path( YELP_PLUGIN_FILE ) ), basename( YELP_PLUGIN_FILE ) ) );
 }
 
+// Yelp Block
+require_once YELP_WIDGET_PRO_PATH . '/includes/block/serverside.php';
+
+
+/**
+ * Registers the block using the metadata loaded from the `block.json` file.
+ * Behind the scenes, it registers also all assets, so they can be enqueued
+ * through the block editor in the corresponding context.
+ *
+ * @see https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/
+ */
+function create_yelp_block_init() {
+	register_block_type( __DIR__, [
+			'render_callback' => 'yelp_block_render_profile_block',
+		]
+	);
+}
+
+add_action( 'init', 'create_yelp_block_init' );
+
+
+
 /**
  * Localize the Plugin for Other Languages
  */

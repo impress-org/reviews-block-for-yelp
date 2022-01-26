@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/block.json",
+  "apiVersion": 2,
+  "name": "yelp-block/profile",
+  "version": "3.0.0",
+  "title": "Yelp Block",
+  "category": "widgets",
+  "icon": "star-filled",
+  "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "apiKeyState": {
+      "type" : "string",
+      "default": ""
+    },
+    "preview": {
+      "type" : "boolean",
+      "default": false
+    }
+  },
+  "example": {
+    "attributes": {
+      "preview": true
+    }
+  },
+  "textdomain": "yelp-block",
+  "editorScript": "file:./assets/dist/js/yelp-block.js",
+  "editorStyle": "file:./build/index.css",
+  "style": "file:./build/style-index.css"
+}

@@ -1,6 +1,6 @@
 {
-  "name": "yelp-widget-pro",
-  "version": "2.0.1",
+  "name": "yelp-block",
+  "version": "3.0.0",
   "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block or widget.",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/impress-org/yelp-widget-pro.git"
   },
-  "author": "Impress.org",
+  "author": "Devin Walker",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/impress-org/yelp-widget-pro/issues"
@@ -33,7 +33,6 @@
     "autoprefixer": "^9.8.0",
     "clean-webpack-plugin": "^4.0.0",
     "cross-env": "^5.2.1",
-    "copy-webpack-plugin": "^4.5.2",
     "imagemin-webpack-plugin": "^2.4.2",
     "laravel-mix": "^6.0.39",
     "postcss": "^8.4.4",
@@ -42,7 +41,15 @@
     "sass": "^1.43.3",
     "sass-loader": "^12.2.0",
     "webpack": "^5.60.0",
-    "wp-pot": "^1.9.2"
+    "wp-pot": "^1.9.2",
+    "@wordpress/block-editor": "^8.0.13",
+    "@wordpress/blocks": "^11.1.5",
+    "@wordpress/components": "^19.2.0",
+    "@wordpress/element": "^4.0.4",
+    "@wordpress/i18n": "^4.2.4",
+    "@wordpress/server-side-render": "^3.0.17"
   },
-  "dependencies": {}
+  "dependencies": {
+    "axios": "^0.25.0"
+  }
 }

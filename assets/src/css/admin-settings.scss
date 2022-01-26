@@ -9,10 +9,24 @@
 		max-width: 1080px;
 	}
 
+	.yelp-widget-api-key-steps {
+		margin-bottom:0;
+	}
+
 	p, ol li {
 		font-size: 14px;
 	}
 
+	.yelp-widget-api-key-label {
+		font-weight: 500;
+		margin: 0 0 10px;
+	}
+
+	.ywp-help-text {
+		font-style: italic;
+		padding: 10px 0;
+		margin: 0;
+	}
 }
 
 #icon-yelp {
@@ -119,12 +133,8 @@ Tipsy
 /* Rounded corners */
 .tipsy-inner {
 	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	font-size: 14px;
 }
-
-/* Uncomment for shadow */
-/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
 
 .tipsy-arrow {
 	position: absolute;
@@ -152,7 +162,7 @@ Tipsy
 }
 
 .tipsy-n .tipsy-arrow {
-	top: 0px;
+	top: 0;
 	left: 50%;
 	margin-left: -5px;
 	border-bottom-style: solid;

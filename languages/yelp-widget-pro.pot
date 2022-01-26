@@ -15,255 +15,263 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/admin-settings.php:14, includes/admin-settings.php:96
-msgid "Yelp Widget Pro Settings"
+#: includes/admin-settings.php:14
+msgid "Yelp Block and Widget Settings"
 msgstr ""
 
 #: includes/admin-settings.php:15
 msgid "Yelp Reviews"
 msgstr ""
 
-#: includes/admin-settings.php:106, includes/plugin-listing-page.php:211, includes/plugin-listing-page.php:280, includes/plugin-listing-page.php:280
+#: includes/admin-settings.php:95
+msgid "Yelp Block Settings"
+msgstr ""
+
+#: includes/admin-settings.php:105, includes/plugin-listing-page.php:211, includes/plugin-listing-page.php:280, includes/plugin-listing-page.php:280
 msgid "Upgrade to WP Business Reviews"
 msgstr ""
 
-#: includes/admin-settings.php:129
-msgid "Yelp Widget Pro Introduction"
+#: includes/admin-settings.php:128
+msgid "Yelp Block Introduction"
 msgstr ""
 
-#: includes/admin-settings.php:132
-msgid "Thanks for choosing Yelp Widget Pro!"
+#: includes/admin-settings.php:133
+msgid "Thanks for checking out the plugin! To get started, follow the steps below:"
 msgstr ""
 
-#: includes/admin-settings.php:134
-msgid "To get started, follow the steps below:"
-msgstr ""
-
-#: includes/admin-settings.php:138
+#: includes/admin-settings.php:137
 msgid "First, <a href=\"https://www.yelp.com/developers/v3/manage_app\" target=\"_blank\" rel=\"noopener noreferrer\">create your own Yelp app</a>. The app is required to access Yelp listings."
 msgstr ""
 
-#: includes/admin-settings.php:139
+#: includes/admin-settings.php:138
 msgid "Once you've created the app, copy the API Key from the <a href=\"https://www.yelp.com/developers/v3/manage_app\" target=\"_blank\" rel=\"noopener noreferrer\">My App</a> page. Save it in the Yelp API Key field below."
 msgstr ""
 
-#: includes/admin-settings.php:157
+#: includes/admin-settings.php:156
 msgid "This is necessary to get reviews from Yelp."
 msgstr ""
 
-#: includes/admin-settings.php:167
-msgid "Get a Yelp API Key by creating your own Yelp App"
+#: includes/admin-settings.php:168
+msgid "Get a Yelp API Key by creating your own Yelp App."
 msgstr ""
 
-#: includes/admin-settings.php:175
+#: includes/admin-settings.php:168
+msgid "Don't worry, the process is quick and easy."
+msgstr ""
+
+#: includes/admin-settings.php:174
+msgid "Disable Plugin CSS Output:"
+msgstr ""
+
+#: includes/admin-settings.php:177
 msgid "Disabling the widget's CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs."
 msgstr ""
 
-#: includes/admin-settings.php:198
+#: includes/admin-settings.php:200
 msgid "Update"
 msgstr ""
 
-#: includes/admin-settings.php:210, includes/class-yelp-widget.php:709
+#: includes/admin-settings.php:212, includes/class-yelp-widget.php:715
 msgid "WP Business Reviews"
 msgstr ""
 
-#: includes/admin-settings.php:214
-msgid "<a href=\"https://wpbusinessreviews.com\">WP Business Reviews</a> is a significant upgrade to Yelp Widget Pro that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!"
+#: includes/admin-settings.php:215
+msgid "<a href=\"https://wpbusinessreviews.com\">WP Business Reviews</a> is a significant upgrade to the Yelp Block that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!"
 msgstr ""
 
 #: includes/admin-settings.php:216
 msgid "Also included is Priority Support, updates, and well-documented shortcodes to display your Yelp reviews on any page or post."
 msgstr ""
 
-#: includes/class-yelp-widget.php:19
-msgid "Display Yelp business ratings and reviews on your Website."
+#: includes/class-yelp-widget.php:22
+msgid "Display Yelp business ratings and reviews on your website."
 msgstr ""
 
-#: includes/class-yelp-widget.php:262
+#: includes/class-yelp-widget.php:270
 msgid "reviews"
 msgstr ""
 
-#: includes/class-yelp-widget.php:347
+#: includes/class-yelp-widget.php:355
 msgid "Read More &raquo;"
 msgstr ""
 
-#: includes/class-yelp-widget.php:180
+#: includes/class-yelp-widget.php:188
 msgid "No results found"
 msgstr ""
 
-#: includes/class-yelp-widget.php:442
+#: includes/class-yelp-widget.php:448
 msgid "Widget Title"
 msgstr ""
 
-#: includes/class-yelp-widget.php:450
+#: includes/class-yelp-widget.php:456
 msgid "Yelp API Request Method:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:456
+#: includes/class-yelp-widget.php:462
 msgid "Business Method"
 msgstr ""
 
-#: includes/class-yelp-widget.php:459
+#: includes/class-yelp-widget.php:465
 msgid "Yelp's Business API allows business owners to display their business information and 3 reviews."
 msgstr ""
 
-#: includes/class-yelp-widget.php:467
+#: includes/class-yelp-widget.php:473
 msgid "Search Method"
 msgstr ""
 
-#: includes/class-yelp-widget.php:470
+#: includes/class-yelp-widget.php:476
 msgid "Yelp's Search API allows you to display results of a specific search term."
 msgstr ""
 
-#: includes/class-yelp-widget.php:479
+#: includes/class-yelp-widget.php:485
 msgid "Search Term:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:481
+#: includes/class-yelp-widget.php:487
 msgid "The term you would like to display results for, ie: 'Bars', 'Daycare', 'Restaurants'."
 msgstr ""
 
-#: includes/class-yelp-widget.php:492
+#: includes/class-yelp-widget.php:498
 msgid "Location:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:494
+#: includes/class-yelp-widget.php:500
 msgid "The city name you would like to to search, ie 'San Diego', 'New York', 'Miami'."
 msgstr ""
 
-#: includes/class-yelp-widget.php:505
+#: includes/class-yelp-widget.php:511
 msgid "Number of Items:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:528
+#: includes/class-yelp-widget.php:534
 msgid "Sorting:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:534
+#: includes/class-yelp-widget.php:540
 msgid "Best Match"
 msgstr ""
 
-#: includes/class-yelp-widget.php:535
+#: includes/class-yelp-widget.php:541
 msgid "Distance"
 msgstr ""
 
-#: includes/class-yelp-widget.php:536
+#: includes/class-yelp-widget.php:542
 msgid "Highest Rated"
 msgstr ""
 
-#: includes/class-yelp-widget.php:556
+#: includes/class-yelp-widget.php:562
 msgid "Business ID:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:558
+#: includes/class-yelp-widget.php:564
 msgid "The Business ID is the portion of the Yelp url after the 'http://www.yelp.com/biz/' portion. For example, the following business's URL on Yelp is 'http://www.yelp.com/biz/the-barbeque-pit-seattle-2' and the Business ID is 'the-barbeque-pit-seattle-2'."
 msgstr ""
 
-#: includes/class-yelp-widget.php:570
+#: includes/class-yelp-widget.php:576
 msgid "Display Business Reviews"
 msgstr ""
 
-#: includes/class-yelp-widget.php:575
+#: includes/class-yelp-widget.php:581
 msgid "Display Options:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:582
+#: includes/class-yelp-widget.php:588
 msgid "Business Profile Image Size:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:584
+#: includes/class-yelp-widget.php:590
 msgid "Customize the width and height of the business Yelp profile image."
 msgstr ""
 
-#: includes/class-yelp-widget.php:612
+#: includes/class-yelp-widget.php:618
 msgid "Display Business Address"
 msgstr ""
 
-#: includes/class-yelp-widget.php:621
+#: includes/class-yelp-widget.php:627
 msgid "Display Business Phone Number"
 msgstr ""
 
-#: includes/class-yelp-widget.php:627
+#: includes/class-yelp-widget.php:633
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/class-yelp-widget.php:637
+#: includes/class-yelp-widget.php:643
 msgid "Disable Title Output"
 msgstr ""
 
-#: includes/class-yelp-widget.php:639
+#: includes/class-yelp-widget.php:645
 msgid "The title output is content within the 'Widget Title' field above. Disabling the title output may be useful for some themes."
 msgstr ""
 
-#: includes/class-yelp-widget.php:649
+#: includes/class-yelp-widget.php:655
 msgid "Open Links in New Window"
 msgstr ""
 
-#: includes/class-yelp-widget.php:651
+#: includes/class-yelp-widget.php:657
 msgid "This option will add target='_blank' to the widget's links. This is useful to keep users on your website."
 msgstr ""
 
-#: includes/class-yelp-widget.php:660
+#: includes/class-yelp-widget.php:666
 msgid "No Follow Links"
 msgstr ""
 
-#: includes/class-yelp-widget.php:662
+#: includes/class-yelp-widget.php:668
 msgid "This option will add rel='nofollow' to the widget's outgoing links. This option may be useful for SEO."
 msgstr ""
 
-#: includes/class-yelp-widget.php:669
+#: includes/class-yelp-widget.php:675
 msgid "Cache Data:"
 msgstr ""
 
-#: includes/class-yelp-widget.php:671
+#: includes/class-yelp-widget.php:677
 msgid "Caching data will save Yelp data to your database in order to speed up response times and conserve API requests. The suggested settings is 1 Day. "
 msgstr ""
 
-#: includes/class-yelp-widget.php:677
+#: includes/class-yelp-widget.php:683
 msgid "None"
 msgstr ""
 
-#: includes/class-yelp-widget.php:678
+#: includes/class-yelp-widget.php:684
 msgid "1 Hour"
 msgstr ""
 
-#: includes/class-yelp-widget.php:679
+#: includes/class-yelp-widget.php:685
 msgid "3 Hours"
 msgstr ""
 
-#: includes/class-yelp-widget.php:680
+#: includes/class-yelp-widget.php:686
 msgid "6 Hours"
 msgstr ""
 
-#: includes/class-yelp-widget.php:681
+#: includes/class-yelp-widget.php:687
 msgid "12 Hours"
 msgstr ""
 
-#: includes/class-yelp-widget.php:682
+#: includes/class-yelp-widget.php:688
 msgid "1 Day"
 msgstr ""
 
-#: includes/class-yelp-widget.php:683
+#: includes/class-yelp-widget.php:689
 msgid "2 Days"
 msgstr ""
 
-#: includes/class-yelp-widget.php:684
+#: includes/class-yelp-widget.php:690
 msgid "1 Week"
 msgstr ""
 
-#: includes/class-yelp-widget.php:709
+#: includes/class-yelp-widget.php:715
 msgid "Get immediate access after purchase to additional features, priority support, and auto updates."
 msgstr ""
 
-#: includes/class-yelp-widget.php:731
+#: includes/class-yelp-widget.php:737
 msgid "%1$sSetup Required:%2$s Enter a Yelp Fusion API Key in the %3$splugin settings screen.%4$s"
 msgstr ""
 
-#: includes/class-yelp-widget.php:728
+#: includes/class-yelp-widget.php:734
 msgid "<strong>Error:</strong> Business information is unavailable. Either you mistyped the Yelp biz ID or the business does not have any reviews."
 msgstr ""
 
-#: includes/class-yelp-widget.php:726
+#: includes/class-yelp-widget.php:732
 msgid "The default Yelp API has exhausted its daily limit. Please enable your own API Key in your Yelp Widget Pro settings."
 msgstr ""
 

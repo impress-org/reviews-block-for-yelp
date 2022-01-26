@@ -92,7 +92,7 @@ function yelp_widget_options_form() { ?>
 		<!-- Plugin Title -->
 		<div id="ywp-title-wrap">
 			<div id="icon-yelp" class=""></div>
-			<h2><?php _e( 'Yelp Widget Pro Settings', 'yelp-widget-pro' ); ?> </h2>
+			<h2><?php _e( 'Yelp Block Settings', 'yelp-widget-pro' ); ?> </h2>
 			<a href="https://wpbusinessreviews.com/" class="wpbr-option-page-upsell"
 			   title="Upgrade to Yelp Widget Premium"
 			   target="_blank" rel="noopener noreferrer" class="update-link new-window">
@@ -125,7 +125,7 @@ function yelp_widget_options_form() { ?>
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
 							<h3 class="hndle">
-								<span><?php _e( 'Yelp Block and Widget Introduction', 'yelp-widget-pro' ); ?></span>
+								<span><?php _e( 'Yelp Block Introduction', 'yelp-widget-pro' ); ?></span>
 							</h3>
 
 							<div class="inside">
@@ -133,10 +133,10 @@ function yelp_widget_options_form() { ?>
 									<strong><?php _e( 'Thanks for checking out the plugin! To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
 								</p>
 
-								<ol>
+								<ol class="yelp-widget-api-key-steps">
 									<li><?php _e( 'First, <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">create your own Yelp app</a>. The app is required to access Yelp listings.', 'yelp-widget-pro' ); ?></li>
 									<li><?php _e( 'Once you\'ve created the app, copy the API Key from the <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer">My App</a> page. Save it in the Yelp API Key field below.', 'yelp-widget-pro' ); ?></li>
-									<li><?php _e( 'Head over to your <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">Widgets screen</a> to integrate your Yelp listings!', 'yelp-widget-pro' ); ?></li>
+									<li><?php _e( 'Head over to your posts, pages, CPTs, or <a href="' . esc_url( admin_url( 'widgets.php' ) ) . '">widgets screen</a> to integrate your Yelp listings via the block!', 'yelp-widget-pro' ); ?></li>
 								</ol>
 							</div>
 							<!-- /.inside -->
@@ -145,11 +145,11 @@ function yelp_widget_options_form() { ?>
 
 						<div class="postbox" id="yelp-widget-options">
 
-							<h3 class="hndle"><span>Yelp Widget Pro Settings</span></h3>
+							<h3 class="hndle"><span>Yelp Block Settings</span></h3>
 
 							<div class="inside">
 								<div class="control-group">
-									<div class="control-label">
+									<div class="control-label yelp-widget-api-key-label">
 										<label for="yelp_widget_fusion_api">Yelp API Key:<img
 													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
 													title="<?php
@@ -212,9 +212,7 @@ function yelp_widget_options_form() { ?>
 							<h3 class="hndle"><span><?php _e( 'WP Business Reviews', 'yelp-widget-pro' ); ?></span></h3>
 
 							<div class="inside">
-
-								<p><?php _e( '<a href="https://wpbusinessreviews.com">WP Business Reviews</a> is a significant upgrade to Yelp Widget Pro that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!', 'yelp-widget-pro' ); ?></p>
-
+								<p><?php _e( '<a href="https://wpbusinessreviews.com">WP Business Reviews</a> is a significant upgrade to the Yelp Block that adds features such as review mashups, the ability to add Yelp reviews manually, carousel formats, and additional review platforms such as Facebook, Google, and more!', 'yelp-widget-pro' ); ?></p>
 								<p><?php _e( 'Also included is Priority Support, updates, and well-documented shortcodes to display your Yelp reviews on any page or post.', 'yelp-widget-pro' ); ?></p>
 							</div>
 						</div>
