@@ -13,6 +13,7 @@ import { InspectorControls, MediaUpload, useBlockProps, MediaUploadCheck } from 
 import ServerSideRender from '@wordpress/server-side-render';
 import { dispatch, useSelect } from '@wordpress/data';
 import axios from 'axios';
+import apiFetch from '@wordpress/api-fetch';
 
 import './editor.scss';
 
@@ -28,37 +29,11 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const {
 		apiKeyState,
+		apiKeyValid,
 		preview,
 	} = attributes;
 
-	// Preview image when an admin hovers over the block.
-	if ( preview ) {
-		return (
-			<Fragment>
-				<img src={bfgPreviews.profile_preview}/>
-			</Fragment>
-		);
-	}
-
 	const [apiKeyLoading, setApiKeyLoading] = useState( false );
-
-	const removeMedia = () => {
-		setAttributes( {
-			mediaId: 0,
-			mediaUrl: ''
-		} );
-	};
-
-	const onSelectMedia = ( media ) => {
-		setAttributes( {
-			mediaId: media.id,
-			mediaUrl: media.url
-		} );
-	};
-
-	const media = useSelect( ( select ) => {
-		return select( 'core' ).getMedia( mediaId );
-	}, [onSelectMedia] );
 
 	const siteSettings = useSelect( ( select ) => {
 		return select( 'core' ).getEntityRecord( 'root', 'site' );
@@ -67,7 +42,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		if ( siteSettings ) {
 			const {
-				blocks_for_github_plugin_personal_token: apiKeyState,
+				yelp_block_api_key: apiKeyState,
 			} = siteSettings;
 			setAttributes( { apiKeyState: apiKeyState } );
 		}
@@ -76,51 +51,31 @@ export default function Edit( { attributes, setAttributes } ) {
 	const testApiKey = () => {
 		setApiKeyLoading( true );
 
-		// Check the API key entered.
-		axios.get( 'https://api.github.com/user', {
-			headers: {
-				Authorization: 'Bearer ' + apiKeyState
-			}
-		} ).then( ( response ) => {
-			// Admin entered a good token 👍.
-			// Save it and show a notice.
-			dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
-				blocks_for_github_plugin_personal_token: apiKeyState,
-			} )
-				.then(
-					( { blocks_for_github_plugin_personal_token: apiKeyState } ) => {
-						dispatch( 'core/notices' ).createErrorNotice( __( '🎉 Success! You have connected to the GitHub API.', 'yelp-block' ), {
-							isDismissible: true,
-							type: 'snackbar',
-						} );
-						setAttributes( { apiKeyState: apiKeyState } );
-						setApiKeyLoading( false );
-					}
-				)
-				.catch( ( error ) => {
-					dispatch( 'core/notices' ).createErrorNotice( error.message, {
+		// Save entered key.
+		dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
+			yelp_block_api_key: apiKeyState,
+		} ).then( () => {
+
+			// Fetch REST API to test key.
+			apiFetch( { path: `/yelp-block/v1/profile` } )
+				.then( ( response ) => {
+					dispatch( 'core/notices' ).createErrorNotice( __( '🎉 Success! You have connected to the Yelp API.', 'yelp-block' ), {
 						isDismissible: true,
 						type: 'snackbar',
 					} );
-					setAttributes( { apiKeyState: null } );
+					setAttributes( { apiKeyState: apiKeyState, apiKeyValid: true } );
+					setApiKeyLoading( false );
+				} )
+				.catch( ( error ) => {
+					const errorMessage = `${__( '🙈️ Yelp API Error:', 'blocks-for-github' )} ${error.message} ${__( 'Error Code:', 'blocks-for-github' )} ${error.code}`;
+					dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
+						isDismissible: true,
+						type: 'snackbar',
+					} );
+					setAttributes( { apiKeyState: '', apiKeyValid: false } );
 					setApiKeyLoading( false );
 				} );
-
-		} )
-			.catch( ( error ) => {
-				// Nice error message format (very explanatory 📢).
-				const errorMessage = `${__( '🙈️ GitHub API Error:', 'yelp-block' )} ${error.message} ${__( 'Error Code:', 'yelp-block' )} ${error.code}`;
-				// Delete entered API key. 🙅
-				dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
-					blocks_for_github_plugin_personal_token: null,
-				} );
-				// Show nice little toast notice if error occurs. 🥂
-				dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
-					isDismissible: true,
-					type: 'snackbar',
-				} );
-				setApiKeyLoading( false );
-			} );
+		} );
 	};
 
 	return (
@@ -135,7 +90,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								type={'password'}
 								help={
 									<>
-										{__( 'Please enter your Yelp API Key to use this block. To access or create a Yelp API key', 'yelp-block'
+										{__( 'Please enter your API key to use this block. To create an API key please', 'yelp-block'
 										)}{' '}
 										<a
 											href="https://www.yelp.com/developers/v3/manage_app"

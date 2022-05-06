@@ -24,23 +24,6 @@ class Yelp_Widget extends WP_Widget {
 
 		// Hooks
 		add_action( 'wp_enqueue_scripts', array( $this, 'public_scripts' ) );
-		add_action( 'admin_init', array( $this, 'widget_settings' ) );
-
-	}
-
-	/**
-	 * Initiate the Yelp Widget
-	 *
-	 * @param $file
-	 */
-	function widget_settings( $file ) {
-
-		// Register the yelp_widget settings as a group
-		register_setting(
-				'yelp_widget_settings',
-				'yelp_widget_settings',
-				array( 'sanitize_callback' => 'yelp_widget_clean' )
-		);
 
 	}
 
@@ -54,7 +37,7 @@ class Yelp_Widget extends WP_Widget {
 		$css_option = get_option( 'yelp_widget_settings' );
 
 		if ( ! $css_option || ! array_key_exists( 'yelp_widget_disable_css', $css_option ) ) {
-			wp_register_style( 'yelp-widget-pro', YELP_WIDGET_PRO_URL . '/assets/dist/css/public-main.css' );
+			wp_register_style( 'yelp-widget-pro', YELP_WIDGET_PRO_URL . '/build/public-main.css' );
 			wp_enqueue_style( 'yelp-widget-pro' );
 		}
 

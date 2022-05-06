@@ -1,8 +1,4 @@
 <?php
-/**
- * Admin options page.
- */
-
 
 /**
  * Yelp Options Page.
@@ -31,56 +27,16 @@ add_action( 'admin_menu', 'yelp_widget_add_options_page' );
 function yelp_admin_scripts( $hook ) {
 
 	if ( 'widgets.php' === $hook || 'settings_page_yelp_widget' === $hook ) {
-		wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/assets/dist/js/admin-main.js' );
+		wp_register_script( 'yelp_widget_admin_scripts', YELP_WIDGET_PRO_URL . '/build/yelp-widget-admin.js' );
 		wp_enqueue_script( 'yelp_widget_admin_scripts' );
 
-		wp_register_style( 'yelp_widget_admin_css', YELP_WIDGET_PRO_URL . '/assets/dist/css/admin-main.css' );
+		wp_register_style( 'yelp_widget_admin_css', YELP_WIDGET_PRO_URL . '/build/yelp-widget-admin-styles.css' );
 		wp_enqueue_style( 'yelp_widget_admin_css' );
 	}
 
 }
 
 add_action( 'admin_enqueue_scripts', 'yelp_admin_scripts', 10, 1 );
-
-
-/**
- * Outputs the yelp_widget option setting value.
- *
- * @param $setting
- * @param $options
- *
- * @return mixed|string
- */
-function yelp_widget_option( $setting, $options ) {
-	$value = '';
-	// If the old setting is set, output that
-	if ( get_option( $setting ) != '' ) {
-		$value = get_option( $setting );
-	} elseif ( is_array( $options ) ) {
-		$value = $options[ $setting ];
-	}
-
-	return $value;
-
-}
-
-/**
- * Recursively sanitizes a given value.
- *
- * @param string|array $value Value to be sanitized.
- *
- * @return string|array Array of clean values or single clean value.
- * @since 1.5.0
- *
- */
-function yelp_widget_clean( $value ) {
-	if ( is_array( $value ) ) {
-		return array_map( 'yelp_widget_clean', $value );
-	} else {
-		return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
-	}
-}
-
 
 /**
  * Admin Options.
@@ -111,16 +67,15 @@ function yelp_widget_options_form() { ?>
 			/**
 			 * Tells WordPress that the options we registered are being handled by this form.
 			 */
-			settings_fields( 'yelp_widget_settings' );
+			settings_fields( 'yelp_block_settings' );
 
 			// Retrieve stored options, if any...
-			$options = get_option( 'yelp_widget_settings' );
+			$options = get_option( 'yelp_block_settings' );
+
 			?>
 
 			<div class="metabox-holder">
-
 				<div class="postbox-container" style="width:75%">
-
 					<div id="main-sortables" class="meta-box-sortables ui-sortable">
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
@@ -151,7 +106,7 @@ function yelp_widget_options_form() { ?>
 								<div class="control-group">
 									<div class="control-label yelp-widget-api-key-label">
 										<label for="yelp_widget_fusion_api">Yelp API Key:<img
-													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
+													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
 													title="<?php
 													_e( 'This is necessary to get reviews from Yelp.', 'yelp-widget-pro' ); ?>"
 													class="tooltip-info" width="16" height="16"/></label>
@@ -169,26 +124,6 @@ function yelp_widget_options_form() { ?>
 										</p>
 									</div>
 								</div>
-								<div class="control-group">
-									<div class="control-label">
-										<label for="yelp_widget_disable_css"><?php _e( 'Disable Plugin CSS Output:', 'yelp-widget-pro' ); ?>
-											<img
-													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/dist/images/help.png'; ?>"
-													title="<?php _e( 'Disabling the widget\'s CSS output is useful for more complete control over customizing the widget styles. Helpful for integration into custom theme designs.', 'yelp-widget-pro' ); ?>"
-													class="tooltip-info" width="16" height="16"/></label>
-									</div>
-									<div class="controls">
-										<input type="checkbox" id="yelp_widget_disable_css"
-											   name="yelp_widget_settings[yelp_widget_disable_css]" value="1"
-												<?php
-												$cssOption = empty( $options['yelp_widget_disable_css'] ) ? '' : $options['yelp_widget_disable_css'];
-												checked( 1, $cssOption );
-												?>
-										/>
-									</div>
-								</div>
-								<!--/.control-group -->
-
 							</div>
 							<!-- /.inside -->
 						</div>

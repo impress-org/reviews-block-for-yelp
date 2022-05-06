@@ -8,25 +8,29 @@
   "icon": "star-filled",
   "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",
   "supports": {
-    "html": false
+	"html": false
   },
   "attributes": {
-    "apiKeyState": {
-      "type" : "string",
-      "default": ""
-    },
-    "preview": {
-      "type" : "boolean",
-      "default": false
-    }
+	"apiKeyState": {
+	  "type": "string",
+	  "default": ""
+	},
+	"apiKeyValid": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"preview": {
+	  "type": "boolean",
+	  "default": false
+	}
   },
   "example": {
-    "attributes": {
-      "preview": true
-    }
+	"attributes": {
+	  "preview": true
+	}
   },
   "textdomain": "yelp-block",
-  "editorScript": "file:./assets/dist/js/yelp-block.js",
-  "editorStyle": "file:./build/index.css",
-  "style": "file:./build/style-index.css"
+  "editorScript": "file:./build/yelp-block.js",
+  "editorStyle": "file:./build/yelp-block.css",
+  "style": "file:./build/style-yelp-block.css"
 }

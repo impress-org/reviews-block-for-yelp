@@ -81,28 +81,6 @@ function ywp_activation_admin_notice() {
 				width: auto;
 			}
 
-			/* MailChimp Signup */
-			.wpbr-action.mailchimp {
-				margin: 0;
-				padding: 0;
-			}
-
-			.mc-field-group {
-				width: 270px;
-				overflow: hidden;
-			}
-
-			#mc-embedded-subscribe {
-				float: left;
-				margin: 0 0 0 7px;
-				position: relative;
-				top: 1px;
-			}
-
-			#mce-EMAIL {
-				float: left;
-			}
-
 			/* Dismiss button */
 			div.updated.wpbr a {
 				outline: none;
@@ -151,40 +129,16 @@ function ywp_activation_admin_notice() {
 		</style>
 		<div class="updated wpbr">
 			<header>
-				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/dist/images/platform-icon-wpbr.png"
+				<img src="<?php echo YELP_WIDGET_PRO_URL; ?>/assets/images/platform-icon-wpbr.png"
 				     class="wpbr-logo" />
 				<?php printf( __( '<a href="%1$s" class="dismiss"></a>', 'yelp-widget-pro' ), '?ywp_nag_ignore=0' ); ?>
 
 				<div class="wpbr-actions">
 					<?php $current_user = wp_get_current_user(); ?>
 					<h2><?php printf( __( 'Welcome to Yelp Widget Pro by <a href="%s" target="_blank">WP Business Reviews</a>', 'yelp-widget-pro' ), 'https://wpbusinessreviews.com' ); ?></h2>
-					<p class="wpbr-intro-text"><?php esc_html_e( 'Display Yelp business information and reviews on your WordPress website using this powerful widget.', 'yelp-widget-pro' ); ?>
+					<p class="wpbr-intro-text"><?php esc_html_e( 'Display Yelp business information and reviews on your WordPress website using this powerful block.', 'yelp-widget-pro' ); ?>
 						<br><?php esc_html_e( 'Subscribe to our mailing list for important update information and more:', 'yelp-widget-pro' ); ?>
 					</p>
-					<div class="wpbr-action mailchimp">
-						<div id="mc_embed_signup">
-							<form
-								action="https://wpbusinessreviews.us3.list-manage.com/subscribe/post?u=3ccb75d68bda4381e2f45794c&amp;id=08a835d189"
-								method="post"
-								id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
-								target="_blank" novalidate>
-								<div id="mc_embed_signup_scroll">
-
-									<div class="mc-field-group">
-										<input type="email" value="<?php echo $current_user->user_email; ?>"
-										       name="EMAIL" class="required email" id="mce-EMAIL">
-										<input type="submit" value="Subscribe" name="subscribe"
-										       id="mc-embedded-subscribe" class="button button-small">
-									</div>
-
-									<div style="position: absolute; left: -5000px;" aria-hidden="true">
-										<input type="text" name="b_3ccb75d68bda4381e2f45794c_08a835d189"
-										       tabindex="-1" value=""></div>
-								</div>
-							</form>
-						</div>
-					</div>
-
 					<div class="wpbr-action">
 						<a href="<?php echo admin_url( 'options-general.php?page=yelp_widget' ); ?>">
 							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"

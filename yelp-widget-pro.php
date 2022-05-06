@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Yelp Block
  * Plugin URI: http://wordpress.org/extend/plugins/yelp-widget-pro/
- * Description: Easily display Yelp business ratings with a simple and intuitive WordPress block.
+ * Description: Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.
  * Version: 3.0.0
  * Author: WP Business Reviews
  * Author URI: https://wpbusinessreviews.com/
@@ -35,8 +35,71 @@ if ( ! defined( 'YELP_WIDGET_PRO_URL' ) ) {
 }
 
 // Yelp Block
-require_once YELP_WIDGET_PRO_PATH . '/includes/block/serverside.php';
+require_once YELP_WIDGET_PRO_PATH . '/src/block/serverside.php';
 
+
+/**
+ * Register the settings.
+ *
+ * @return void
+ */
+function yelp_block_plugin_settings() {
+	// Block settings:
+	register_setting(
+		'yelp_block_settings',
+		'yelp_block_api_key',
+		[
+			'default'      => '',
+			'show_in_rest' => true,
+			'type'         => 'string',
+		]
+	);
+
+	// Legacy settings:
+	register_setting(
+		'yelp_widget_settings',
+		'yelp_widget_settings',
+		[
+			'default'      => '',
+			'show_in_rest' => true,
+			'type'         => 'string',
+		]
+	);
+}
+
+add_action( 'init', 'yelp_block_plugin_settings' );
+
+/**
+ * Migrate the old widget settings to the new block settings.
+ */
+function yelp_block_activate() {
+
+	// Migrate old settings to new settings (non-serialized).
+	$newSettings = get_option( 'yelp_block_api_key' );
+	$oldSettings = get_option( 'yelp_widget_settings' );
+	$migrated    = get_option( 'yelp_block_api_key_migrated' );
+
+	if (
+		( isset( $oldSettings['yelp_widget_fusion_api'] ) && ! empty( $oldSettings['yelp_widget_fusion_api'] ) )
+		&& empty( $newSettings )
+		&& ! $migrated
+	) {
+		update_option( 'yelp_block_api_key', $oldSettings['yelp_widget_fusion_api'] );
+		add_option( 'yelp_block_api_key_migrated', true );
+	}
+
+}
+
+register_activation_hook( __FILE__, 'yelp_block_activate' );
+
+/**
+ * Delete options when uninstalled.
+ */
+function yelp_widget_uninstall() {
+	delete_option( 'yelp_widget_settings' );
+}
+
+register_uninstall_hook( YELP_PLUGIN_FILE, 'yelp_widget_uninstall' );
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -55,7 +118,6 @@ function create_yelp_block_init() {
 add_action( 'init', 'create_yelp_block_init' );
 
 
-
 /**
  * Localize the Plugin for Other Languages
  */
@@ -63,20 +125,11 @@ load_plugin_textdomain( 'yelp-widget-pro', false, dirname( plugin_basename( YELP
 
 
 /**
- * Delete options when uninstalled.
- */
-function yelp_widget_uninstall() {
-	delete_option( 'yelp_widget_settings' );
-}
-
-register_uninstall_hook( YELP_PLUGIN_FILE, 'yelp_widget_uninstall' );
-
-/**
  * Adds Yelp Widget Pro Options Page
  */
 if ( is_admin() ) {
-	require_once YELP_WIDGET_PRO_PATH . '/includes/admin-settings.php';
-	require_once YELP_WIDGET_PRO_PATH . '/includes/plugin-listing-page.php';
+	require_once YELP_WIDGET_PRO_PATH . '/src/admin-settings.php';
+	require_once YELP_WIDGET_PRO_PATH . '/src/plugin-listing-page.php';
 }
 
 /**
@@ -86,6 +139,6 @@ if (
 	! class_exists( 'Yelp_Widget' )
 	&& ! version_compare( $GLOBALS['wp_version'], '5.8', '>=' )
 ) {
-	require_once YELP_WIDGET_PRO_PATH . '/includes/class-yelp-widget.php';
+	require_once YELP_WIDGET_PRO_PATH . '/src/class-yelp-widget.php';
 }
 
