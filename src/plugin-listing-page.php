@@ -135,10 +135,8 @@ function ywp_activation_admin_notice() {
 
 				<div class="wpbr-actions">
 					<?php $current_user = wp_get_current_user(); ?>
-					<h2><?php printf( __( 'Welcome to Yelp Widget Pro by <a href="%s" target="_blank">WP Business Reviews</a>', 'yelp-widget-pro' ), 'https://wpbusinessreviews.com' ); ?></h2>
-					<p class="wpbr-intro-text"><?php esc_html_e( 'Display Yelp business information and reviews on your WordPress website using this powerful block.', 'yelp-widget-pro' ); ?>
-						<br><?php esc_html_e( 'Subscribe to our mailing list for important update information and more:', 'yelp-widget-pro' ); ?>
-					</p>
+					<h2><?php printf( __( 'Welcome to the Yelp Block plugin by <a href="%s" target="_blank">WP Business Reviews</a>', 'yelp-widget-pro' ), 'https://wpbusinessreviews.com' ); ?></h2>
+					<p class="wpbr-intro-text"><?php esc_html_e( 'Display Yelp business information and reviews on your WordPress website using this powerful block.', 'yelp-widget-pro' ); ?></p>
 					<div class="wpbr-action">
 						<a href="<?php echo admin_url( 'options-general.php?page=yelp_widget' ); ?>">
 							<svg class="wpbr-settings-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg"
