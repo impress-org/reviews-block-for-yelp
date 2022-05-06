@@ -26,19 +26,19 @@ add_action( 'rest_api_init', 'yelp_api_rest_endpoint' );
  */
 function yelp_api_rest_callback( WP_REST_Request $request ) {
 
-	$apiKey = get_option( 'yelp_block_api_key', false );
-
-	// TODO: Add API key validation.
-
 	//get parameters from request
 	$params = $request->get_params();
+
+	if ( ! isset( $params['apiKey'] ) ) {
+		return new WP_Error( 'yelp_api_error', esc_html__( 'Request must include a valid Yelp Fusion API key.', 'yelp-widget-pro' ), [ 'status' => 400 ] );
+	}
 
 	// Get the GitHub User info.
 	$args = [
 			'headers' =>
 					[
 							'user-agent'    => '',
-							'authorization' => 'Bearer ' . $apiKey,
+							'authorization' => 'Bearer ' . $params['apiKey'],
 					],
 	];
 
@@ -51,8 +51,6 @@ function yelp_api_rest_callback( WP_REST_Request $request ) {
 	$reposBody    = json_decode( wp_remote_retrieve_body( $reposRequest ) );
 
 	if ( $reposBody->error ) {
-		delete_option( 'yelp_block_api_key' );
-
 		return new WP_Error( 'yelp_api_error', $reposBody->error->description, [ 'status' => 400 ] );
 	}
 
@@ -72,8 +70,6 @@ function yelp_api_rest_callback( WP_REST_Request $request ) {
 function yelp_block_render_profile_block( $attr, $content ) {
 
 	$apiKey = get_option( 'yelp_block_api_key', $attr['apiKeyState'] );
-
-	error_log( print_r( $apiKey . PHP_EOL, true ), 3, './debug_custom.log' );
 
 	if ( ! $apiKey ) :
 		ob_start(); ?>

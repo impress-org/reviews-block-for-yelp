@@ -10,30 +10,28 @@ import {
 } from '@wordpress/components';
 import { Fragment, useState, useEffect } from '@wordpress/element';
 import { InspectorControls, MediaUpload, useBlockProps, MediaUploadCheck } from '@wordpress/block-editor';
-import ServerSideRender from '@wordpress/server-side-render';
 import { dispatch, useSelect } from '@wordpress/data';
-import axios from 'axios';
 import apiFetch from '@wordpress/api-fetch';
 
 import './editor.scss';
 
 /**
- * Main edit component.
+ * Edit function.
  *
- * @param attributes
- * @param setAttributes
- * @returns {JSX.Element}
- * @constructor
+ *  @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
+ *
+ * @return {WPElement} Element to render.
  */
 export default function Edit( { attributes, setAttributes } ) {
 
 	const {
-		apiKeyState,
-		apiKeyValid,
+		apiKey,
 		preview,
 	} = attributes;
 
+	const [yelpApiKey, setYelpApiKey] = useState( attributes.apiKey );
 	const [apiKeyLoading, setApiKeyLoading] = useState( false );
+	const [yelpConnected, setYelpConnected] = useState( null );
 
 	const siteSettings = useSelect( ( select ) => {
 		return select( 'core' ).getEntityRecord( 'root', 'site' );
@@ -42,96 +40,123 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		if ( siteSettings ) {
 			const {
-				yelp_block_api_key: apiKeyState,
+				yelp_widget_settings,
 			} = siteSettings;
-			setAttributes( { apiKeyState: apiKeyState } );
+
+			setAttributes( { apiKey: yelp_widget_settings.yelp_widget_fusion_api } );
+			setYelpConnected( true );
 		}
 	}, [siteSettings] );
 
-	const testApiKey = () => {
-		setApiKeyLoading( true );
+	const userIsAdmin = useSelect( ( select ) => {
+		return select( 'core' ).canUser( 'create', 'users' );
+	}, [] );
 
-		// Save entered key.
-		dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
-			yelp_block_api_key: apiKeyState,
-		} ).then( () => {
+	const testApiKey = ( apiKey ) => {
+		// setApiKeyLoading( true );
 
-			// Fetch REST API to test key.
-			apiFetch( { path: `/yelp-block/v1/profile` } )
-				.then( ( response ) => {
+		// Fetch REST API to test key.
+		apiFetch( { path: `/yelp-block/v1/profile?apiKey=${apiKey}` } )
+			.then( ( response ) => {
+				// 🔑 👍 Key is good. Save it.
+				dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
+					yelp_widget_settings: {
+						yelp_widget_fusion_api: apiKey,
+					},
+				} ).then( () => {
 					dispatch( 'core/notices' ).createErrorNotice( __( '🎉 Success! You have connected to the Yelp API.', 'yelp-block' ), {
 						isDismissible: true,
 						type: 'snackbar',
 					} );
-					setAttributes( { apiKeyState: apiKeyState, apiKeyValid: true } );
-					setApiKeyLoading( false );
-				} )
-				.catch( ( error ) => {
-					const errorMessage = `${__( '🙈️ Yelp API Error:', 'blocks-for-github' )} ${error.message} ${__( 'Error Code:', 'blocks-for-github' )} ${error.code}`;
-					dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
-						isDismissible: true,
-						type: 'snackbar',
-					} );
-					setAttributes( { apiKeyState: '', apiKeyValid: false } );
-					setApiKeyLoading( false );
+					// setAttributes( { apiKey: apiKey } );
+					setYelpConnected( true );
+					// setApiKeyLoading( false );
 				} );
-		} );
+			} )
+			.catch( ( error ) => {
+				// 🔑 👎 Key is bad.
+				const errorMessage = `${__( '🙈️ Yelp API Error:', 'blocks-for-github' )} ${error.message} ${__( 'Error Code:', 'blocks-for-github' )} ${error.code}`;
+				dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
+					isDismissible: true,
+					type: 'snackbar',
+				} );
+				setYelpApiKey( '' );
+				// setApiKeyLoading( false );
+			} );
 	};
 
 	return (
 		<Fragment>
 			<Fragment>
 				<InspectorControls>
-					<PanelBody title={__( 'Yelp API Setting', 'yelp-block' )} initialOpen={false}>
-						<PanelRow>
-							<TextControl
-								label={__( 'API Key', 'yelp-block' )}
-								value={apiKeyState}
-								type={'password'}
-								help={
-									<>
-										{__( 'Please enter your API key to use this block. To create an API key please', 'yelp-block'
-										)}{' '}
-										<a
-											href="https://www.yelp.com/developers/v3/manage_app"
-											target="_blank"
-											rel="noopener noreferrer"
+					{userIsAdmin && (
+						<PanelBody title={__( 'Yelp Connection', 'yelp-block' )} initialOpen={false}>
+							{! yelpConnected ? (
+								<>
+									<PanelRow>
+
+										<TextControl
+											label={__( 'Yelp Fusion API Key', 'yelp-block' )}
+											value={yelpApiKey}
+											type={'password'}
+											help={
+												<>
+													{__( 'Please enter your API key to use this block. To create an API key please', 'yelp-block'
+													)}{' '}
+													<a
+														href="https://www.yelp.com/developers/v3/manage_app"
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+														{__(
+															'click here',
+															'yelp-block'
+														)}
+													</a>{'.'}
+												</>
+											}
+											onChange={( newApiKey ) => {
+												setYelpApiKey( newApiKey );
+											}}
+										/>
+									</PanelRow>
+									<PanelRow className={'yelp-block-button-row'}>
+										<Button
+											isSecondary
+											isBusy={apiKeyLoading}
+											onClick={() => testApiKey( yelpApiKey )}
 										>
-											{__(
-												'click here',
-												'yelp-block'
-											)}
-										</a>{'.'}
-									</>
-								}
-								onChange={( newApiKey ) => {
-									setAttributes( { apiKeyState: newApiKey } );
-								}}
-							/>
-						</PanelRow>
-						<PanelRow className={'yelp-block-button-row'}>
-							<Button
-								isSecondary
-								isBusy={apiKeyLoading}
-								onClick={() => testApiKey( apiKeyState )}
-							>
-								{__( 'Save API Key', 'yelp-block' )}
-							</Button>
-							<div className="jw-text-center">
-								{apiKeyLoading && <Spinner/>}
-							</div>
-						</PanelRow>
-					</PanelBody>
+											{__( 'Save API Key', 'yelp-block' )}
+										</Button>
+										<div className="jw-text-center">
+											{apiKeyLoading && <Spinner/>}
+										</div>
+									</PanelRow>
+								</>
+							) : (
+								<>
+									<PanelRow>
+										<Button
+											isSecondary
+											onClick={() => setYelpConnected(false)}
+										>
+											{__( 'Reset API Key', 'yelp-block' )}
+										</Button>
+									</PanelRow>
+								</>
+							)}
+						</PanelBody>
+					)}
 				</InspectorControls>
 			</Fragment>
 			<Fragment>
 				<div {...useBlockProps()}>
-					<ServerSideRender
-						block="yelp-block/profile"
-						attributes={{
-							apiKeyState: attributes.apiKeyState,
-						}}
-					/>
+					{!yelpConnected && (
+						<p>NO API KEY!</p>
+					)}
+					{yelpConnected && (
+						<p>Search for Yelp Business</p>
+					)}
 				</div>
 			</Fragment>
 		</Fragment>

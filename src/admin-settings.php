@@ -39,6 +39,43 @@ function yelp_admin_scripts( $hook ) {
 add_action( 'admin_enqueue_scripts', 'yelp_admin_scripts', 10, 1 );
 
 /**
+ * Outputs the yelp_widget option setting value.
+ *
+ * @param $setting
+ * @param $options
+ *
+ * @return mixed|string
+ */
+function yelp_widget_option( $setting, $options ) {
+	$value = '';
+	// If the old setting is set, output that
+	if ( get_option( $setting ) != '' ) {
+		$value = get_option( $setting );
+	} elseif ( is_array( $options ) ) {
+		$value = $options[ $setting ];
+	}
+
+	return $value;
+}
+
+/**
+ * Recursively sanitizes a given value.
+ *
+ * @param string|array $value Value to be sanitized.
+ *
+ * @return string|array Array of clean values or single clean value.
+ * @since 1.5.0
+ *
+ */
+function yelp_widget_clean( $value ) {
+	if ( is_array( $value ) ) {
+		return array_map( 'yelp_widget_clean', $value );
+	} else {
+		return is_scalar( $value ) ? sanitize_text_field( $value ) : '';
+	}
+}
+
+/**
  * Admin Options.
  */
 function yelp_widget_options_form() { ?>
@@ -67,11 +104,10 @@ function yelp_widget_options_form() { ?>
 			/**
 			 * Tells WordPress that the options we registered are being handled by this form.
 			 */
-			settings_fields( 'yelp_block_settings' );
+			settings_fields( 'yelp_widget_settings' );
 
 			// Retrieve stored options, if any...
-			$options = get_option( 'yelp_block_settings' );
-
+			$options = get_option( 'yelp_widget_settings' );
 			?>
 
 			<div class="metabox-holder">
@@ -100,12 +136,12 @@ function yelp_widget_options_form() { ?>
 
 						<div class="postbox" id="yelp-widget-options">
 
-							<h3 class="hndle"><span>Yelp Block Settings</span></h3>
+							<h3 class="hndle"><span><?php esc_html_e('Yelp Block Settings', 'yelp-widget-pro'); ?></span></h3>
 
 							<div class="inside">
 								<div class="control-group">
 									<div class="control-label yelp-widget-api-key-label">
-										<label for="yelp_widget_fusion_api">Yelp API Key:<img
+										<label for="yelp_widget_fusion_api"><?php esc_html_e('Yelp API Key:', 'yelp-widget-pro'); ?><img
 													src="<?php echo YELP_WIDGET_PRO_URL . '/assets/images/help.png'; ?>"
 													title="<?php
 													_e( 'This is necessary to get reviews from Yelp.', 'yelp-widget-pro' ); ?>"
@@ -116,11 +152,12 @@ function yelp_widget_options_form() { ?>
 										<input type="password"
 											   id="yelp_widget_fusion_api"
 											   name="yelp_widget_settings[yelp_widget_fusion_api]"
-											   value="<?php echo $ywpFusionAPI; ?>"
+											   value="<?php esc_attr_e($ywpFusionAPI); ?>"
 											   size="45"/>
-										<p class="ywp-help-text"><a href="https://www.yelp.com/developers/v3/manage_app"
-																	target="_blank"
-																	rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App.', 'yelp-widget-pro' ); ?></a> <?php _e( 'Don\'t worry, the process is quick and easy.', 'yelp-widget-pro' ); ?>
+										<p class="ywp-help-text">
+											<a href="https://www.yelp.com/developers/v3/manage_app"
+											   target="_blank"
+											   rel="noopener noreferrer"><?php _e( 'Get a Yelp API Key by creating your own Yelp App.', 'yelp-widget-pro' ); ?></a> <?php _e( 'Don\'t worry, the process is quick and easy.', 'yelp-widget-pro' ); ?>
 										</p>
 									</div>
 								</div>

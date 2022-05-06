@@ -44,25 +44,21 @@ require_once YELP_WIDGET_PRO_PATH . '/src/block/serverside.php';
  * @return void
  */
 function yelp_block_plugin_settings() {
-	// Block settings:
-	register_setting(
-		'yelp_block_settings',
-		'yelp_block_api_key',
-		[
-			'default'      => '',
-			'show_in_rest' => true,
-			'type'         => 'string',
-		]
-	);
-
-	// Legacy settings:
 	register_setting(
 		'yelp_widget_settings',
 		'yelp_widget_settings',
 		[
 			'default'      => '',
-			'show_in_rest' => true,
-			'type'         => 'string',
+			'show_in_rest' => [
+				'schema' => [
+					'type'       => 'object',
+					'properties' => [
+						'yelp_widget_fusion_api' => [
+							'type' => 'string',
+						],
+					]
+				],
+			]
 		]
 	);
 }
@@ -90,7 +86,7 @@ function yelp_block_activate() {
 
 }
 
-register_activation_hook( __FILE__, 'yelp_block_activate' );
+//register_activation_hook( __FILE__, 'yelp_block_activate' );
 
 /**
  * Delete options when uninstalled.
