@@ -34,7 +34,7 @@ export default function BusinessResultsModal( { onRequestClose, businessResults 
 				{businessResults.map( ( business, index ) => {
 
 					return (
-						<div>
+						<div key={index}>
 							<h3>{business.name}</h3>
 							<p>{business.phone}</p>
 							<p>{business.url}</p>
