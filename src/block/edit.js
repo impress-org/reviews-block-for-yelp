@@ -14,6 +14,7 @@ import { dispatch, useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
 import './editor.scss';
+import BusinessLookup from './components/BusinessLookup';
 
 /**
  * Edit function.
@@ -26,6 +27,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const {
 		apiKey,
+		businessName,
 		preview,
 	} = attributes;
 
@@ -56,7 +58,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		// setApiKeyLoading( true );
 
 		// Fetch REST API to test key.
-		apiFetch( { path: `/yelp-block/v1/profile?apiKey=${apiKey}` } )
+		apiFetch( { path: `/yelp-block/v1/profile?apiKey=${apiKey}&keyValidation=true` } )
 			.then( ( response ) => {
 				// 🔑 👍 Key is good. Save it.
 				dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
@@ -94,7 +96,6 @@ export default function Edit( { attributes, setAttributes } ) {
 							{! yelpConnected ? (
 								<>
 									<PanelRow>
-
 										<TextControl
 											label={__( 'Yelp Fusion API Key', 'yelp-block' )}
 											value={yelpApiKey}
@@ -155,7 +156,9 @@ export default function Edit( { attributes, setAttributes } ) {
 						<p>NO API KEY!</p>
 					)}
 					{yelpConnected && (
-						<p>Search for Yelp Business</p>
+						<div>
+							<BusinessLookup />
+						</div>
 					)}
 				</div>
 			</Fragment>
