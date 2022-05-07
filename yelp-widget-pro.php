@@ -132,8 +132,9 @@ if ( is_admin() ) {
  * Get the widget if on WP 5.7.X or lower.
  */
 if (
-	! class_exists( 'Yelp_Widget' )
-	&& ! version_compare( $GLOBALS['wp_version'], '5.8', '>=' )
+	( ! class_exists( 'Yelp_Widget' ) && ! version_compare( $GLOBALS['wp_version'], '5.8', '>=' ) )
+	|| ( in_array( 'classic-widgets/classic-widgets.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) )
+
 ) {
 	require_once YELP_WIDGET_PRO_PATH . '/src/class-yelp-widget.php';
 }
