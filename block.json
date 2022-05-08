@@ -11,15 +11,11 @@
 	"html": false
   },
   "attributes": {
-	"apiKey": {
-	  "type": "string",
-	  "default": ""
-	},
 	"apiKeyValid": {
 	  "type": "boolean",
 	  "default": false
 	},
-	"businessName": {
+	"businessId": {
 	  "type": "string",
 	  "default": ""
 	},

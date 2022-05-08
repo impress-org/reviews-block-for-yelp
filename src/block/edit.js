@@ -26,10 +26,16 @@ import BusinessLookup from './components/BusinessLookup';
 export default function Edit( { attributes, setAttributes } ) {
 
 	const {
-		apiKey,
-		businessName,
+		businessId,
 		preview,
 	} = attributes;
+
+	console.log(businessId);
+
+	useEffect( () => {
+		console.log(businessId);
+	} , [ businessId ] );
+
 
 	const [yelpApiKey, setYelpApiKey] = useState( attributes.apiKey );
 	const [apiKeyLoading, setApiKeyLoading] = useState( false );
@@ -93,7 +99,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<InspectorControls>
 					{userIsAdmin && (
 						<PanelBody title={__( 'Yelp Connection', 'yelp-block' )} initialOpen={false}>
-							{! yelpConnected ? (
+							{!yelpConnected ? (
 								<>
 									<PanelRow>
 										<TextControl
@@ -139,7 +145,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									<PanelRow>
 										<Button
 											isSecondary
-											onClick={() => setYelpConnected(false)}
+											onClick={() => setYelpConnected( false )}
 										>
 											{__( 'Reset API Key', 'yelp-block' )}
 										</Button>
@@ -155,10 +161,16 @@ export default function Edit( { attributes, setAttributes } ) {
 					{!yelpConnected && (
 						<p>NO API KEY!</p>
 					)}
-					{yelpConnected && (
+					{yelpConnected && !businessId && (
 						<div>
-							<BusinessLookup />
+							<BusinessLookup
+								setAttributes={setAttributes}
+								businessId={businessId}
+							/>
 						</div>
+					)}
+					{yelpConnected && businessId && (
+						<p>{businessId}</p>
 					)}
 				</div>
 			</Fragment>

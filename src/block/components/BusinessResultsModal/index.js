@@ -1,24 +1,30 @@
 import { Modal, Button, Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
+import { dispatch } from "@wordpress/data";
+import styles from './styles.module.scss';
 
-
-export default function BusinessResultsModal( { onRequestClose, businessResults } ) {
-	const inputRef = useRef();
+export default function BusinessResultsModal( { setAttributes, onRequestClose, businessResults } ) {
 	const [error, setError] = useState( false );
 
-	console.log( typeof businessResults );
 
-	const handleSubmit = ( event ) => {
-		event.preventDefault();
+	const handleSubmit = ( business ) => {
 
-		const input = inputRef.current.value.toLowerCase();
+		// Get business details from Yelp
 
-		if ( input !== 'disconnect' ) {
-			setError( __( 'Please enter "DISCONNECT" to confirm.', 'donation-block-for-stripe' ) );
-			inputRef.current.focus();
-			return;
-		}
+
+		// Update the businessId attribute
+		// dispatch( 'core/block-editor' ).updateBlockAttributes( { businessId: business.id } );
+
+		setAttributes({ businessId: business.id });
+
+		// Show status update
+		// wait for the API to return
+		// if the API returns an error, set the error state to true
+
+
+		// Close modal
+		onRequestClose();
 
 	};
 
@@ -26,30 +32,56 @@ export default function BusinessResultsModal( { onRequestClose, businessResults 
 		<Modal
 			onRequestClose={onRequestClose}
 			title={__( 'Yelp Business Search Results', 'donation-form-block' )}
-			className="dfb-stripe-disconnect-modal"
+			className={'yelp-business-results-modal'}
 		>
-			<form onSubmit={handleSubmit} className="dfb-stripe-disconnect-modal__form">
-				{error && <p className="dfb-stripe-disconnect-modal__error">{error}</p>}
-
+			<div className={styles.modalWrap}>
 				{businessResults.map( ( business, index ) => {
 
 					return (
 						<div key={index}>
-							<h3>{business.name}</h3>
-							<p>{business.phone}</p>
-							<p>{business.url}</p>
+							<div className="">
+								<h3>
+									<a href={business.url} title={business.name} target={'_blank'}>{business.name}</a>
+								</h3>
+								<div className="business-address">
+									<p>
+										<span>{business.rating}</span>
+										<span>{business.review_count}</span>
+									</p>
+								</div>
+
+								{business.transactions.map( ( transaction, index ) => {
+
+									return (
+										<div key={index} className="business-transactions">
+											<p>{transaction}</p>
+										</div>
+									)
+
+								} )}
+
+								<p>{business.location.display_address}</p>
+								<p>{business.phone}</p>
+								<img src={business.image_url} alt={business.name}/>
+								<p>{business.phone}</p>
+								<p><a href={business.url} title={__( 'Visit the Website', 'yelp-widget-pro' )}
+									  target={'_blank'}>{business.name}</a></p>
+							</div>
+							<Button
+								isSecondary
+								onClick={() => handleSubmit( business )}
+							>
+								{__( 'Select', 'yelp-widget-pro' )}
+							</Button>
 						</div>
 					);
 
-				} )
+				} )}
+			</div>
 
-
-				}
-
-				<Button variant="primary" onClick={onRequestClose}>
-					Cancel
-				</Button>
-			</form>
+			<Button variant="primary" onClick={onRequestClose}>
+				{__( 'Cancel', 'yelp-widget-pro' )}
+			</Button>
 		</Modal>
 	);
 }

@@ -8,8 +8,9 @@ import { Fragment, useState } from '@wordpress/element'
 import { dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
 import BusinessResultsModal from "../BusinessResultsModal";
+import styles from './styles.module.scss';
 
-const BusinessLookup = () => {
+const BusinessLookup = ({setAttributes}) => {
 
 	const [businessName, setBusinessName] = useState( '' );
 	const [businessLocation, setBusinessLocation] = useState( '' );
@@ -20,7 +21,6 @@ const BusinessLookup = () => {
 
 		apiFetch( { path: `/yelp-block/v1/profile?term=${businessName}&location=${businessLocation}` } )
 			.then( ( response ) => {
-				console.log(response);
 				setSearchResults( response );
 				setResultsModalOpen( true );
 			} )
@@ -36,10 +36,11 @@ const BusinessLookup = () => {
 	}
 
 	return (
-		<Fragment>
+		<div className={styles.searchFieldsWrap}>
 			<TextControl
 				label={__( 'Business Name', 'yelp-block' )}
-				value={businessName}
+				// value={businessName}
+				value={'Grab N Go'}
 				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
 				onChange={( newBusinessName ) => {
 					setBusinessName( newBusinessName );
@@ -47,7 +48,8 @@ const BusinessLookup = () => {
 			/>
 			<TextControl
 				label={__( 'Business Location', 'yelp-block' )}
-				value={businessLocation}
+				// value={businessLocation}
+				value={'San Diego, CA'}
 				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
 				onChange={( newBusinessLocation ) => {
 					setBusinessLocation( newBusinessLocation );
@@ -62,12 +64,12 @@ const BusinessLookup = () => {
 
 			{resultsModalOpen && (
 				<BusinessResultsModal
+					setAttributes={setAttributes}
 					onRequestClose={() => setResultsModalOpen(false)}
 					businessResults={JSON.parse(searchResults)}
 				/>
 			)}
-
-		</Fragment>
+		</div>
 	);
 }
 
