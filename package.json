@@ -27,6 +27,7 @@
     "@wordpress/block-editor": "^8.0.13",
     "@wordpress/blocks": "^11.1.5",
     "@wordpress/data": "^6.1.5",
+    "@wordpress/dom-ready": "^3.8.0",
     "@wordpress/i18n": "^4.2.4"
   },
   "devDependencies": {

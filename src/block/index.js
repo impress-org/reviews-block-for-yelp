@@ -19,6 +19,10 @@ import './style.scss';
  */
 import Edit from './edit';
 
+import YelpBlock from './YelpBlock';
+import domReady from '@wordpress/dom-ready';
+import {render} from '@wordpress/element';
+
 /**
  * Every block starts by registering a new block type definition.
  *
@@ -36,4 +40,19 @@ registerBlockType( 'yelp-block/profile', {
 	 */
 	save: () => { return null; }
 
+
 } );
+
+domReady(function () {
+    // Don't run when Gutenberg / Block editor is active.
+    if (document.body.classList.contains('block-editor-page')) {
+        return;
+    }
+
+    const reviewBlocks = document.querySelectorAll('.root-yelp-block');
+
+    reviewBlocks.forEach((reviewBlock) => {
+        const attributes = reviewBlock.dataset;
+        render(<YelpBlock attributes={attributes} />, reviewBlock);
+    });
+});

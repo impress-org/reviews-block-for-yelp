@@ -15,6 +15,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 import './editor.scss';
 import BusinessLookup from './components/BusinessLookup';
+import YelpBlock from "./YelpBlock";
 
 /**
  * Edit function.
@@ -36,7 +37,6 @@ export default function Edit( { attributes, setAttributes } ) {
     const [yelpApiKey, setYelpApiKey] = useState( attributes.apiKey );
     const [apiKeyLoading, setApiKeyLoading] = useState( false );
     const [yelpConnected, setYelpConnected] = useState( null );
-    const [isLoading, setIsLoading] = useState( false );
 
     const siteSettings = useSelect( ( select ) => {
         return select( 'core' ).getEntityRecord( 'root', 'site' );
@@ -59,7 +59,6 @@ export default function Edit( { attributes, setAttributes } ) {
 
 
     const testApiKey = ( apiKey ) => {
-        // setApiKeyLoading( true );
 
         // Fetch REST API to test key.
         apiFetch( { path: `/yelp-block/v1/profile?apiKey=${apiKey}&keyValidation=true` } )
@@ -76,7 +75,6 @@ export default function Edit( { attributes, setAttributes } ) {
                     } );
                     // setAttributes( { apiKey: apiKey } );
                     setYelpConnected( true );
-                    // setApiKeyLoading( false );
                 } );
             } )
             .catch( ( error ) => {
@@ -87,34 +85,9 @@ export default function Edit( { attributes, setAttributes } ) {
                     type: 'snackbar',
                 } );
                 setYelpApiKey( '' );
-                // setApiKeyLoading( false );
             } );
     };
 
-    useEffect( () => {
-        if ( businessId ) {
-            setIsLoading( true );
-            // Fetch REST API to test key.
-            apiFetch( { path: `/yelp-block/v1/profile?businessId=${businessId}` } )
-                .then( ( response ) => {
-
-                    setAttributes( { businessDetails: response } );
-                    // setAttributes( { businessReviews: response.reviews } );
-                    setIsLoading( false );
-                } )
-                .catch( ( error ) => {
-                    const errorMessage = `${__( '🙈️ Yelp API Error:', 'blocks-for-github' )} ${error.message} ${__( 'Error Code:', 'blocks-for-github' )} ${error.code}`;
-                    dispatch( 'core/notices' ).createErrorNotice( errorMessage, {
-                        isDismissible: true,
-                        type: 'snackbar',
-                    } );
-                    setYelpApiKey( '' );
-                    // setApiKeyLoading( false );
-                } );
-
-
-        }
-    }, [businessId] );
 
     return (
         <Fragment>
@@ -218,22 +191,9 @@ export default function Edit( { attributes, setAttributes } ) {
                         </div>
                     )}
                     {yelpConnected && businessId && (
-                        <div>
-                            {isLoading && (
-                                <p>Loading</p>
-                            )}
-                            {!isLoading && (
-
-                                <div>
-                                    <h2>{businessDetails.name}</h2>
-                                    {showBusinessRating && (
-                                        <p>{businessDetails.rating}</p>
-                                    )}
-                                </div>
-
-                            )}
-
-                        </div>
+                        <YelpBlock
+                            attributes={attributes}
+                        />
                     )}
                 </div>
             </Fragment>

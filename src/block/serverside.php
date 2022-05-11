@@ -80,12 +80,12 @@ function yelp_retrieve_business_search_results( $params ) {
 /**
  * @param $params
  *
- * @return WP_Error|WP_REST_Response
+ * @return string|WP_REST_Response
  */
 function yelp_retrieve_business_details( $params ) {
 
     // Check if transient exists.
-//	$business_details = get_transient( $params['businessId'] );
+	$business_details = get_transient( $params['businessId'] );
     $business_details = '';
     if ( $business_details ) {
         return $business_details;
@@ -115,13 +115,41 @@ function yelp_retrieve_business_details( $params ) {
         $response        = wp_safe_remote_get( "https://api.yelp.com/v3/businesses/{$params['businessId']}/reviews", $args );
         $businessReviews = json_decode( wp_remote_retrieve_body( $response ) );
 
+        set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), DAY_IN_SECONDS );
+
         // Combine objects and pass to REST response.
-        return new WP_REST_Response( (object) array_merge((array) $businessDetails, (array) $businessReviews), 200 );;
+        return new WP_REST_Response( (object) array_merge( (array) $businessDetails, (array) $businessReviews ), 200 );;
 
     }
 
 }
 
+
+
+
+/**
+ * Registers the block using the metadata loaded from the `block.json` file.
+ * Behind the scenes, it registers also all assets, so they can be enqueued
+ * through the block editor in the corresponding context.
+ *
+ * @see https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/
+ */
+function create_yelp_block_init() {
+
+    wp_register_script(
+        'reviews-block-yelp-script',
+        plugins_url('build/yelp-block.js', YELP_PLUGIN_FILE),
+        YELP_PLUGIN_SCRIPT_ASSET['dependencies'],
+        YELP_PLUGIN_SCRIPT_ASSET['version']
+    );
+
+    register_block_type( YELP_WIDGET_PRO_PATH, [
+            'render_callback' => 'yelp_block_render_profile_block',
+        ]
+    );
+}
+
+add_action( 'init', 'create_yelp_block_init' );
 
 /**
  * Render Yelp block serverside.
@@ -131,29 +159,33 @@ function yelp_retrieve_business_details( $params ) {
  *
  * @return false|string
  */
-function yelp_block_render_profile_block( $attr, $content ) {
+function yelp_block_render_profile_block( $attributes, $content ) {
 
-    $apiKey = get_option( 'yelp_block_api_key' );
+    if ( ! is_admin() ) {
+        wp_enqueue_script( 'reviews-block-yelp-script' );
+        wp_set_script_translations( 'reviews-block-yelp-script', 'yelp-widget-pro' );
+    }
 
-    if ( ! $apiKey ) :
-        ob_start(); ?>
-        <div id="yelp-block-welcome-wrap" class="yelp-reviews-wrap">
-            <div class="yelp-block-welcome-wrap-inner">
-                <span class="yelp-block-welcome-wave">👋</span>
-                <h2>Welcome to the Yelp Block!</h2>
-                <p>To begin, please enter your Yelp API key in the block's setting panel to the right.
-                    Don't worry, you'll only have to do this one time.</p>
-            </div>
-        </div>
+    ob_start();
+
+    ?>
+    <div id="reviews-block-yelp-<?php echo esc_html( $attributes['businessId'] ); ?>" class="root-yelp-block"
         <?php
-        return ob_get_clean();
-    endif;
+        // 🔁 Loop through and set attributes per block.
+        foreach ( $attributes as $key => $value ) :
 
-    ob_start(); ?>
-
-    <p class="yelp-block-wrap">Hello</p>
-
+            // Arrays need to be stringified.
+            if ( is_array( $value ) ) {
+                $value = implode( ', ', $value );
+            } ?>
+            data-<?php
+            // output as hyphen-case so that it's changed to camelCase in JS.
+            echo preg_replace( '/([A-Z])/', '-$1', $key ); ?>="<?php
+            echo esc_html( $value ); ?>"
+        <?php
+        endforeach; ?>></div>
     <?php
-    // Return output
+    // Return clean buffer
     return ob_get_clean();
+
 }

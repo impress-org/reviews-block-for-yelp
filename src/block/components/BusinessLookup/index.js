@@ -21,7 +21,6 @@ const BusinessLookup = ({setAttributes}) => {
 
 		apiFetch( { path: `/yelp-block/v1/profile?term=${businessName}&location=${businessLocation}` } )
 			.then( ( response ) => {
-				console.log(response);
 				setSearchResults( response );
 				setResultsModalOpen( true );
 			} )

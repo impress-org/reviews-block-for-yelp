@@ -7,24 +7,11 @@ import styles from './styles.module.scss';
 export default function BusinessResultsModal( { setAttributes, onRequestClose, businessResults } ) {
 	const [error, setError] = useState( false );
 
-
 	const handleSubmit = ( business ) => {
-
-
 		// Update the businessId attribute
 		setAttributes({ businessId: business.id });
-
-		// Get business details from Yelp via WP REST API.
-
-
-		// Show status update
-		// wait for the API to return
-		// if the API returns an error, set the error state to true
-
-
 		// Close modal
 		onRequestClose();
-
 	};
 
 	return (

@@ -228,7 +228,7 @@ add_filter( 'plugin_action_links', 'ywp_add_plugin_page_links', 10, 2 );
  */
 function ywp_add_plugin_meta_links( $meta, $file ) {
 	if ( $file == YELP_PLUGIN_NAME_PLUGIN ) {
-		$meta[] = "<a href='http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'yelp-widget-pro' ) . "'>" . __( 'Rate Plugin', 'yelp-widget-pro' ) . '</a>';
+		$meta[] = "<a href='https://wordpress.org/support/view/plugin-reviews/yelp-widget-pro' target='_blank' rel='noopener noreferrer' title='" . __( 'Rate Yelp Widget Pro', 'yelp-widget-pro' ) . "'>" . __( 'Rate Plugin', 'yelp-widget-pro' ) . '</a>';
 		$meta[] = "<a href='https://wpbusinessreviews.com/' target='_blank' rel='noopener noreferrer' title='" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . "'>" . __( 'Upgrade to WP Business Reviews', 'yelp-widget-pro' ) . '</a>';
 	}
 
