@@ -19,6 +19,18 @@
 	  "type": "string",
 	  "default": ""
 	},
+	"businessDetails": {
+	  "type": "object",
+	  "default": ""
+	},
+	"businessReviews": {
+	  "type": "object",
+	  "default": ""
+	},
+	"showBusinessRating": {
+	  "type": "boolean",
+	  "default": true
+	},
 	"preview": {
 	  "type": "boolean",
 	  "default": false

@@ -14,13 +14,14 @@ const BusinessLookup = ({setAttributes}) => {
 
 	const [businessName, setBusinessName] = useState( '' );
 	const [businessLocation, setBusinessLocation] = useState( '' );
-	const [searchResults, setSearchResults] = useState([{}]);
+	const [searchResults, setSearchResults] = useState('');
 	const [resultsModalOpen, setResultsModalOpen] = useState(false);
 
 	const handleSubmit = (businessName, businessLocation) => {
 
 		apiFetch( { path: `/yelp-block/v1/profile?term=${businessName}&location=${businessLocation}` } )
 			.then( ( response ) => {
+				console.log(response);
 				setSearchResults( response );
 				setResultsModalOpen( true );
 			} )
@@ -39,8 +40,7 @@ const BusinessLookup = ({setAttributes}) => {
 		<div className={styles.searchFieldsWrap}>
 			<TextControl
 				label={__( 'Business Name', 'yelp-block' )}
-				// value={businessName}
-				value={'Grab N Go'}
+				value={businessName}
 				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
 				onChange={( newBusinessName ) => {
 					setBusinessName( newBusinessName );
@@ -48,8 +48,7 @@ const BusinessLookup = ({setAttributes}) => {
 			/>
 			<TextControl
 				label={__( 'Business Location', 'yelp-block' )}
-				// value={businessLocation}
-				value={'San Diego, CA'}
+				value={businessLocation}
 				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
 				onChange={( newBusinessLocation ) => {
 					setBusinessLocation( newBusinessLocation );

@@ -10,13 +10,12 @@ export default function BusinessResultsModal( { setAttributes, onRequestClose, b
 
 	const handleSubmit = ( business ) => {
 
-		// Get business details from Yelp
-
 
 		// Update the businessId attribute
-		// dispatch( 'core/block-editor' ).updateBlockAttributes( { businessId: business.id } );
-
 		setAttributes({ businessId: business.id });
+
+		// Get business details from Yelp via WP REST API.
+
 
 		// Show status update
 		// wait for the API to return
