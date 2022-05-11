@@ -19,7 +19,7 @@ import './style.scss';
  */
 import Edit from './edit';
 
-import YelpBlock from './YelpBlock';
+import YelpBlock from './components/YelpBlock';
 import domReady from '@wordpress/dom-ready';
 import {render} from '@wordpress/element';
 

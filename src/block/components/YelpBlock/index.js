@@ -2,6 +2,7 @@ import { useEffect, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
+import styles from './styles.module.scss';
 
 const YelpBlock = ( props ) => {
 
@@ -32,7 +33,7 @@ const YelpBlock = ( props ) => {
     }, [props.attributes.businessId] );
 
     return (
-        <div className="yelp-widget-pro">
+        <div className={`reviews-block-yelp ${styles.yelpBlockWrap}`}>
             {isLoading && (
                 <div>Loading...</div>
             )}

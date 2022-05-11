@@ -143,6 +143,8 @@ function create_yelp_block_init() {
         YELP_PLUGIN_SCRIPT_ASSET['version']
     );
 
+    wp_register_style('reviews-block-yelp-style', plugins_url('build/yelp-block.css', YELP_PLUGIN_FILE), [], YELP_PLUGIN_SCRIPT_ASSET['version']);
+
     register_block_type( YELP_WIDGET_PRO_PATH, [
             'render_callback' => 'yelp_block_render_profile_block',
         ]
@@ -163,6 +165,7 @@ function yelp_block_render_profile_block( $attributes, $content ) {
 
     if ( ! is_admin() ) {
         wp_enqueue_script( 'reviews-block-yelp-script' );
+        wp_enqueue_style( 'reviews-block-yelp-style' );
         wp_set_script_translations( 'reviews-block-yelp-script', 'yelp-widget-pro' );
     }
 

@@ -15,7 +15,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 import './editor.scss';
 import BusinessLookup from './components/BusinessLookup';
-import YelpBlock from "./YelpBlock";
+import YelpBlock from './components/YelpBlock';
 
 /**
  * Edit function.
