@@ -8,6 +8,7 @@ import { Fragment, useState } from '@wordpress/element'
 import { dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
 import BusinessResultsModal from "../BusinessResultsModal";
+
 import styles from './styles.module.scss';
 
 const BusinessLookup = ({setAttributes}) => {
@@ -36,24 +37,27 @@ const BusinessLookup = ({setAttributes}) => {
 	}
 
 	return (
-		<div className={styles.searchFieldsWrap}>
+		<div className={'rby-admin-search-fields-wrap'}>
 			<TextControl
-				label={__( 'Business Name', 'yelp-block' )}
+                className={'rby-admin-field rby-admin-field--business-name'}
+				placeholder={__( 'Business Name', 'yelp-block' )}
 				value={businessName}
-				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
+				help={__( 'Enter the name of the business as it appears on Yelp. You can also use search terms like "Shoes, Mexican Restaurants, etc".', 'yelp-block' )}
 				onChange={( newBusinessName ) => {
 					setBusinessName( newBusinessName );
 				}}
 			/>
 			<TextControl
-				label={__( 'Business Location', 'yelp-block' )}
+                className={'rby-admin-field rby-admin-field--business-location'}
+				placeholder={__( 'Business Location', 'yelp-block' )}
 				value={businessLocation}
-				help={__( 'Enter the name of your business as it appears on Yelp.', 'yelp-block' )}
+				help={__( 'Enter the location of the business. You can use City, State, and Country to help find businesses.', 'yelp-block' )}
 				onChange={( newBusinessLocation ) => {
 					setBusinessLocation( newBusinessLocation );
 				}}
 			/>
 			<Button
+                className={'rby-admin-button'}
 				isPrimary
 				onClick={() => handleSubmit( businessName, businessLocation )}
 			>

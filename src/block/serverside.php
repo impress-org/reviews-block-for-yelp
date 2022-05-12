@@ -29,7 +29,7 @@ function yelp_api_rest_callback( WP_REST_Request $request ) {
     // Get parameters from request
     $params = $request->get_params();
 
-    if ( array_key_exists( 'term', $params ) && array_key_exists( 'location', $params ) ) {
+    if ( array_key_exists( 'term', $params ) && array_key_exists( 'location', $params ) || isset( $params['keyValidation'] ) ) {
         return yelp_retrieve_business_search_results( $params );
     } else {
         return yelp_retrieve_business_details( $params );
@@ -45,9 +45,9 @@ function yelp_api_rest_callback( WP_REST_Request $request ) {
  */
 function yelp_retrieve_business_search_results( $params ) {
     $apiKey = get_option( 'yelp_widget_settings' );
-    $apiKey = $apiKey['yelp_widget_fusion_api'];
+    $apiKey = $params['apiKey'] ?? $apiKey['yelp_widget_fusion_api'];
 
-    if ( empty( $apiKey['yelp_widget_fusion_api'] ) && isset( $params['keyValidation'] ) ) {
+    if ( empty( $params['apiKey'] ) && isset( $params['keyValidation'] ) ) {
         return new WP_Error( 'yelp_api_error', esc_html__( 'Request must include a valid Yelp Fusion API key.', 'yelp-widget-pro' ), [ 'status' => 400 ] );
     }
 
@@ -85,8 +85,7 @@ function yelp_retrieve_business_search_results( $params ) {
 function yelp_retrieve_business_details( $params ) {
 
     // Check if transient exists.
-	$business_details = get_transient( $params['businessId'] );
-    $business_details = '';
+    $business_details = get_transient( $params['businessId'] );
     if ( $business_details ) {
         return $business_details;
     } else {
@@ -125,8 +124,6 @@ function yelp_retrieve_business_details( $params ) {
 }
 
 
-
-
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets, so they can be enqueued
@@ -138,12 +135,12 @@ function create_yelp_block_init() {
 
     wp_register_script(
         'reviews-block-yelp-script',
-        plugins_url('build/yelp-block.js', YELP_PLUGIN_FILE),
+        plugins_url( 'build/yelp-block.js', YELP_PLUGIN_FILE ),
         YELP_PLUGIN_SCRIPT_ASSET['dependencies'],
         YELP_PLUGIN_SCRIPT_ASSET['version']
     );
 
-    wp_register_style('reviews-block-yelp-style', plugins_url('build/yelp-block.css', YELP_PLUGIN_FILE), [], YELP_PLUGIN_SCRIPT_ASSET['version']);
+    wp_register_style( 'reviews-block-yelp-style', plugins_url( 'build/yelp-block.css', YELP_PLUGIN_FILE ), [], YELP_PLUGIN_SCRIPT_ASSET['version'] );
 
     register_block_type( YELP_WIDGET_PRO_PATH, [
             'render_callback' => 'yelp_block_render_profile_block',

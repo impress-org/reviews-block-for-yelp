@@ -2,3 +2,93 @@
  * The following styles get applied inside the editor only.
  */
 
+// 👋 Welcome and API Key.
+#rby-admin-welcome-wrap {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 30px 30px 60px;
+
+    .rby-admin-yelp-logo {
+        margin: 20px auto;
+        width: 300px;
+    }
+
+    #yelp-block-admin-lottie-api {
+        margin: -70px 0 10px;
+    }
+
+    .rby-admin-welcome-content-wrap {
+        max-width: 380px;
+        margin: 0 auto 30px;
+    }
+
+    .rby-admin-yelp-welcome-heading {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+        margin: 0 0 15px;
+        padding:0;
+    }
+    .rby-admin-button {
+        margin: 20px 0 0;
+    }
+}
+
+
+// 🏙 Business Lookup
+#rby-admin-business-lookup-wrap {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 30px 30px 60px;
+
+    .rby-admin-business-lookup {
+    }
+
+    .rby-admin-yelp-logo {
+        margin: 20px auto;
+        width: 150px;
+    }
+
+    #yelp-block-admin-lottie-search {
+        height: 280px;
+        margin: -70px 0 -50px;
+    }
+
+    .rby-admin-business-lookup-content-wrap {
+        max-width: 380px;
+        margin: 0 auto 30px;
+    }
+
+    .rby-admin-yelp-welcome-heading {
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+        margin: 0 0 15px;
+        padding:0;
+    }
+
+    // 🔎 Search fields
+    .rby-admin-search-fields-wrap {
+        max-width: 420px;
+        margin: 0 auto;
+        text-align: left;
+        background: #efefef;
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .rby-admin-field {
+        margin-bottom: 20px;
+
+        &--business-name {
+
+        }
+
+    }
+
+
+}

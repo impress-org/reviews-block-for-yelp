@@ -16,6 +16,9 @@ import apiFetch from '@wordpress/api-fetch';
 import './editor.scss';
 import BusinessLookup from './components/BusinessLookup';
 import YelpBlock from './components/YelpBlock';
+import runLottieAnimation from './helperFunctions/runLottieAnimation';
+
+import YelpLogo from './images/yelp_logo.svg';
 
 /**
  * Edit function.
@@ -32,7 +35,7 @@ export default function Edit( { attributes, setAttributes } ) {
         preview,
     } = attributes;
 
-    const [yelpApiKey, setYelpApiKey] = useState( attributes.apiKey );
+    const [yelpApiKey, setYelpApiKey] = useState( false );
     const [apiKeyLoading, setApiKeyLoading] = useState( false );
     const [yelpConnected, setYelpConnected] = useState( null );
 
@@ -46,8 +49,10 @@ export default function Edit( { attributes, setAttributes } ) {
                 yelp_widget_settings,
             } = siteSettings;
 
-            setAttributes( { apiKey: yelp_widget_settings.yelp_widget_fusion_api } );
-            setYelpConnected( true );
+            if ( yelp_widget_settings.yelp_widget_fusion_api ) {
+                setYelpApiKey( true );
+                setYelpConnected( true );
+            }
         }
     }, [siteSettings] );
 
@@ -55,12 +60,13 @@ export default function Edit( { attributes, setAttributes } ) {
         return select( 'core' ).canUser( 'create', 'users' );
     }, [] );
 
-
     const testApiKey = ( apiKey ) => {
 
         // Fetch REST API to test key.
         apiFetch( { path: `/yelp-block/v1/profile?apiKey=${apiKey}&keyValidation=true` } )
             .then( ( response ) => {
+                console.log( response );
+
                 // 🔑 👍 Key is good. Save it.
                 dispatch( 'core' ).saveEntityRecord( 'root', 'site', {
                     yelp_widget_settings: {
@@ -86,48 +92,60 @@ export default function Edit( { attributes, setAttributes } ) {
             } );
     };
 
+    // Run Lotties.
+    useEffect( () => {
+        // business search screen
+        if ( yelpConnected && !businessId ) {
+            runLottieAnimation( 'search', 'yelp-block-admin-lottie-search' );
+        }
+        if ( !yelpConnected && !businessId ) {
+            runLottieAnimation( 'twinkle-stars', 'yelp-block-admin-lottie-api' );
+        }
+    }, [yelpConnected] )
+
     return (
         <Fragment>
             <Fragment>
                 <InspectorControls>
                     {userIsAdmin && (
                         <Fragment>
+                            {yelpConnected && businessId && (
+                                <PanelBody title={__( 'Appearance Settings', 'yelp-block' )}>
+                                    <>
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__( 'Display Business Rating', 'donation-form-block' )}
+                                                help={
+                                                    <>
+                                                        {__(
+                                                            'This option allows donors to give using their saved payment methods with Stripe Link. Currently, this option is only available for US donors.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        <ExternalLink
+                                                            href={'https://support.stripe.com/questions/link-faq'}>
+                                                            {__( 'Link FAQ', 'donation-form-block' )}
+                                                        </ExternalLink>
+                                                    </>
+                                                }
+                                                className={'dfb-stripe-link-toggle'}
+                                                checked={showBusinessRating}
+                                                onChange={( value ) => {
+                                                    setAttributes( { showBusinessRating: value } );
+                                                }}
+                                            />
+                                        </PanelRow>
+                                        <PanelRow>
+                                            <Button
+                                                isSecondary
+                                                onClick={() => setAttributes( { businessId: '' } )}
+                                            >
+                                                {__( 'Reset Business', 'yelp-block' )}
+                                            </Button>
+                                        </PanelRow>
+                                    </>
 
-                            <PanelBody title={__( 'Appearance Settings', 'yelp-block' )}>
-                                <>
-                                    <PanelRow>
-                                        <ToggleControl
-                                            label={__( 'Display Business Rating', 'donation-form-block' )}
-                                            help={
-                                                <>
-                                                    {__(
-                                                        'This option allows donors to give using their saved payment methods with Stripe Link. Currently, this option is only available for US donors.',
-                                                        'donation-form-block'
-                                                    )}
-                                                    <ExternalLink
-                                                        href={'https://support.stripe.com/questions/link-faq'}>
-                                                        {__( 'Link FAQ', 'donation-form-block' )}
-                                                    </ExternalLink>
-                                                </>
-                                            }
-                                            className={'dfb-stripe-link-toggle'}
-                                            checked={showBusinessRating}
-                                            onChange={( value ) => {
-                                                setAttributes( { showBusinessRating: value } );
-                                            }}
-                                        />
-                                    </PanelRow>
-                                    <PanelRow>
-                                        <Button
-                                            isSecondary
-                                            onClick={() => setAttributes( { businessId: '' } )}
-                                        >
-                                            {__( 'Reset Business', 'yelp-block' )}
-                                        </Button>
-                                    </PanelRow>
-                                </>
-
-                            </PanelBody>
+                                </PanelBody>
+                            )}
                             <PanelBody title={__( 'Yelp Connection', 'yelp-block' )} initialOpen={false}>
                                 {!yelpConnected ? (
                                     <>
@@ -155,8 +173,6 @@ export default function Edit( { attributes, setAttributes } ) {
                                                 onChange={( newApiKey ) => {
                                                     setYelpApiKey( newApiKey );
                                                 }}
-
-
                                             />
                                         </PanelRow>
                                         <PanelRow className={'yelp-block-button-row'}>
@@ -177,7 +193,10 @@ export default function Edit( { attributes, setAttributes } ) {
                                         <PanelRow>
                                             <Button
                                                 isSecondary
-                                                onClick={() => setYelpConnected( false )}
+                                                onClick={() => {
+                                                    setYelpApiKey( null )
+                                                    setYelpConnected( null )
+                                                }}
                                             >
                                                 {__( 'Reset API Key', 'yelp-block' )}
                                             </Button>
@@ -191,15 +210,60 @@ export default function Edit( { attributes, setAttributes } ) {
             </Fragment>
             <Fragment>
                 <div {...useBlockProps()}>
-                    {!yelpConnected && (
-                        <p>NO API KEY!</p>
+                    {!yelpConnected && !businessId && (
+                        <div id={'rby-admin-welcome-wrap'}>
+                            <div className="rby-admin-welcome-content-wrap">
+                                <img className={'rby-admin-yelp-logo'} src={YelpLogo} alt={'Yelp Logo'}/>
+                                <div id={'yelp-block-admin-lottie-api'}></div>
+                                <h2 className={'rby-admin-yelp-welcome-heading'}>{__( 'Welcome to the Review Block for Yelp! Let’s get started.', 'yelp-widget-pro' )}</h2>
+                                <p className={'rby-admin-yelp-welcome-text'}>{__( 'This plugin requires a Yelp Fusion API key to get started. Don’t worry! It’s easy to get one. All you need is a Yelp account and to request one.', 'yelp-widget-pro' )}</p>
+                                <TextControl
+                                    value={yelpApiKey}
+                                    type={'password'}
+                                    help={
+                                        <>
+                                            {__( 'Please enter your API key to use this block. To create an API key please', 'yelp-block'
+                                            )}{' '}
+                                            <a
+                                                href="https://www.yelp.com/developers/v3/manage_app"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {__(
+                                                    'click here',
+                                                    'yelp-block'
+                                                )}
+                                            </a>{'.'}
+                                        </>
+                                    }
+                                    onChange={( newApiKey ) => {
+                                        setYelpApiKey( newApiKey );
+                                    }}
+                                />
+                                <Button
+                                    className={'rby-admin-button'}
+                                    isPrimary
+                                    onClick={() => testApiKey( yelpApiKey )}
+                                >
+                                    {__( 'Save API Key', 'yelp-block' )}
+                                </Button>
+                            </div>
+                        </div>
                     )}
                     {yelpConnected && !businessId && (
-                        <div>
-                            <BusinessLookup
-                                setAttributes={setAttributes}
-                                businessId={businessId}
-                            />
+                        <div id={'rby-admin-business-lookup-wrap'}>
+                            <div className="rby-admin-business-lookup">
+                                <div className={'rby-admin-business-lookup-content-wrap'}>
+                                    <img className={'rby-admin-yelp-logo'} src={YelpLogo} alt={'Yelp Logo'}/>
+                                    <div id={'yelp-block-admin-lottie-search'}></div>
+                                    <h2 className={'rby-admin-yelp-welcome-heading'}>{__( 'Let’s find the business you’re looking for on Yelp!', 'yelp-widget-pro' )}</h2>
+                                    <p className={'rby-admin-yelp-welcome-text'}>{__( 'Use the fields below to lookup the business you\'d like to display on Yelp.', 'yelp-widget-pro' )}</p>
+                                </div>
+                                <BusinessLookup
+                                    setAttributes={setAttributes}
+                                    businessId={businessId}
+                                />
+                            </div>
                         </div>
                     )}
                     {yelpConnected && businessId && (

@@ -11,10 +11,6 @@
 	"html": false
   },
   "attributes": {
-	"apiKeyValid": {
-	  "type": "boolean",
-	  "default": false
-	},
 	"businessId": {
 	  "type": "string",
 	  "default": ""
