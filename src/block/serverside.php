@@ -115,7 +115,7 @@ function yelp_retrieve_business_details( $params ) {
         $response        = wp_safe_remote_get( "https://api.yelp.com/v3/businesses/{$params['businessId']}/reviews", $args );
         $businessReviews = json_decode( wp_remote_retrieve_body( $response ) );
 
-        set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), DAY_IN_SECONDS );
+        set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), HOUR_IN_SECONDS );
 
         // Combine objects and pass to REST response.
         return new WP_REST_Response( (object) array_merge( (array) $businessDetails, (array) $businessReviews ), 200 );;

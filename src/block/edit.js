@@ -28,8 +28,6 @@ export default function Edit( { attributes, setAttributes } ) {
 
     const {
         businessId,
-        businessDetails,
-        businessReviews,
         showBusinessRating,
         preview,
     } = attributes;
@@ -88,33 +86,47 @@ export default function Edit( { attributes, setAttributes } ) {
             } );
     };
 
-
     return (
         <Fragment>
             <Fragment>
                 <InspectorControls>
                     {userIsAdmin && (
                         <Fragment>
+
                             <PanelBody title={__( 'Appearance Settings', 'yelp-block' )}>
-                                <ToggleControl
-                                    label={__( 'Display Business Rating', 'donation-form-block' )}
-                                    help={
-                                        <>
-                                            {__(
-                                                'This option allows donors to give using their saved payment methods with Stripe Link. Currently, this option is only available for US donors.',
-                                                'donation-form-block'
-                                            )}
-                                            <ExternalLink href={'https://support.stripe.com/questions/link-faq'}>
-                                                {__( 'Link FAQ', 'donation-form-block' )}
-                                            </ExternalLink>
-                                        </>
-                                    }
-                                    className={'dfb-stripe-link-toggle'}
-                                    checked={showBusinessRating}
-                                    onChange={( value ) => {
-                                        setAttributes( { showBusinessRating: value } );
-                                    }}
-                                />
+                                <>
+                                    <PanelRow>
+                                        <ToggleControl
+                                            label={__( 'Display Business Rating', 'donation-form-block' )}
+                                            help={
+                                                <>
+                                                    {__(
+                                                        'This option allows donors to give using their saved payment methods with Stripe Link. Currently, this option is only available for US donors.',
+                                                        'donation-form-block'
+                                                    )}
+                                                    <ExternalLink
+                                                        href={'https://support.stripe.com/questions/link-faq'}>
+                                                        {__( 'Link FAQ', 'donation-form-block' )}
+                                                    </ExternalLink>
+                                                </>
+                                            }
+                                            className={'dfb-stripe-link-toggle'}
+                                            checked={showBusinessRating}
+                                            onChange={( value ) => {
+                                                setAttributes( { showBusinessRating: value } );
+                                            }}
+                                        />
+                                    </PanelRow>
+                                    <PanelRow>
+                                        <Button
+                                            isSecondary
+                                            onClick={() => setAttributes( { businessId: '' } )}
+                                        >
+                                            {__( 'Reset Business', 'yelp-block' )}
+                                        </Button>
+                                    </PanelRow>
+                                </>
+
                             </PanelBody>
                             <PanelBody title={__( 'Yelp Connection', 'yelp-block' )} initialOpen={false}>
                                 {!yelpConnected ? (
