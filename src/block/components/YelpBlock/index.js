@@ -5,6 +5,9 @@ import apiFetch from '@wordpress/api-fetch';
 import StarRating from "../StarRating";
 import Address from "../Address";
 import OpenHours from "../OpenHours";
+import IconClaimed from '../../images/check-circle.svg';
+import IconStarOutline from '../../images/star-outline.svg';
+import Review from "../Review";
 
 const YelpBlock = ( props ) => {
 
@@ -68,14 +71,23 @@ const YelpBlock = ( props ) => {
                             <div className={'rby-business-status-meta-wrap'}>
                                 <div className={'rby-business-status-meta-wrap__inner'}>
                                     {businessData.is_claimed && (
-                                        <span
-                                            className={'rby-badge rby-business-claimed'}>{__( 'Claimed', 'yelp-widget-pro' )}</span>
+                                        <div className={'rby-business-claimed'}>
+                                            <img src={IconClaimed}
+                                                 alt={__( 'Claimed', 'yelp-widget-pro' )}
+                                                 className={'rby-business-claimed__icon'}/>
+                                            <span
+                                                className={'rby-business-claimed__text'}>{__( 'Claimed', 'yelp-widget-pro' )}</span>
+                                        </div>
                                     )}
                                     <span className={'rby-business-price'}>{businessData.price}</span>
 
-                                    {!businessData.is_closed && (
+                                    {businessData.hours.is_open_now && (
                                         <span
-                                            className={'rby-business-open-closed'}>{__( 'Open', 'yelp-widget-pro' )}</span>
+                                            className={'rby-business-open-status rby-business-open-status__open'}>{__( 'Open', 'yelp-widget-pro' )}</span>
+                                    )}
+                                    {!businessData.hours.is_open_now && (
+                                        <span
+                                            className={'rby-business-open-status rby-business-open-status__closed'}>{__( 'Closed', 'yelp-widget-pro' )}</span>
                                     )}
                                 </div>
                             </div>
@@ -83,7 +95,10 @@ const YelpBlock = ( props ) => {
                             <div className={`rby-button-wrap`}>
                                 <a href={`https://www.yelp.com/writeareview/biz/${businessData.id}`}
                                    target={'_blank'}
-                                   className={`rby-button rby-button--red rby-button--link`}>{__( 'Write a Review', 'yelp-widget-pro' )}</a>
+                                   className={`rby-button rby-button--red rby-button--link`}>
+                                    <img src={IconStarOutline} alt={__( 'Write a Review', 'yelp-widget-pro' )}
+                                         className={'rby-button__icon'}/>
+                                    {__( 'Write a Review', 'yelp-widget-pro' )}</a>
                             </div>
 
                         </div>
@@ -92,17 +107,17 @@ const YelpBlock = ( props ) => {
 
                     <div className={'rby-additional-info-wrap'}>
                         <div className={'rby-additional-info-wrap__inner'}>
-                            <h4>{__( 'Phone and More', 'yelp-widget-pro' )}</h4>
+                            <h4 class={'rby-heading'}>{__( 'Phone and More', 'yelp-widget-pro' )}</h4>
                             <p>{businessData.display_phone}</p>
                         </div>
                         <div className={'rby-additional-info-wrap__inner'}>
-                            <h4>{__( 'Hours', 'yelp-widget-pro' )}</h4>
+                            <h4 class={'rby-heading'}>{__( 'Hours', 'yelp-widget-pro' )}</h4>
                             <OpenHours
                                 hours={businessData.hours[0].open}
                             />
                         </div>
                         <div className={'rby-additional-info-wrap__inner'}>
-                            <h4>{__( 'Location', 'yelp-widget-pro' )}</h4>
+                            <h4 class={'rby-heading'}>{__( 'Location', 'yelp-widget-pro' )}</h4>
 
                             <Address
                                 displayAddress={businessData.location.display_address}
@@ -115,6 +130,19 @@ const YelpBlock = ( props ) => {
                             </div>
 
                         </div>
+                    </div>
+
+
+                    <div className={'rby-business-reviews-wrap'}>
+                        <h3 class={'rby-heading'}>{__( 'Highlighted Reviews', 'yelp-widget-pro' )}</h3>
+                        {businessData.reviews.map( ( review, index ) => {
+                            return (
+                                <Review
+                                    key={index}
+                                    review={review}
+                                />
+                            )
+                        } )}
                     </div>
 
                 </>

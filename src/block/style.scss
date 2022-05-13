@@ -17,6 +17,15 @@
     overflow: hidden;
     line-height: 1.6;
 
+    a {
+        text-decoration: none;
+        color: $link-color;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
     .rby-image-header {
         position: absolute;
         top: 0;
@@ -119,10 +128,33 @@
     .rby-business-claimed {
         color: #1F8EFF;
         font-weight: 600;
+        font-size: 13px;
+        margin: 0;
+        padding: 10px 20px 10px 15px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        &__icon {
+            position: relative;
+            top: -1px;
+        }
     }
 
-    .rby-business-open-closed {
-        color: green;
+    .rby-business-open-status {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+
+        &__open {
+            color: #4CBB30;
+        }
+
+        &__closed {
+            color: red;
+        }
+
     }
 
     .rby-business-price {
@@ -141,6 +173,9 @@
         padding: 10px 16px;
         border: none;
         font-size: 16px;
+        display: flex;
+        align-content: center;
+        gap: 5px;
 
         &--red {
             color: white;
@@ -179,23 +214,73 @@
             border-radius: $border-radius;
             border: 1px solid $border-color;
             padding: 20px;
-
-            h4 {
-                text-transform: uppercase;
-                color: $heading-color;
-                font-size: 16px;
-                margin: 0 0 10px;
-                font-weight: 500;
-            }
         }
     }
 
     .rby-directions-link-wrap {
         margin: 20px 0 0;
+
         a {
             display: inline-block;
             line-height: 1;
         }
+    }
+
+    h2.rby-heading,
+    h3.rby-heading,
+    h4.rby-heading,
+    h5.rby-heading {
+        text-transform: uppercase;
+        color: $heading-color;
+        font-size: 13px;
+        margin: 0 0 10px;
+        font-weight: 600;
+    }
+
+
+    .rby-business-review {
+        border-radius: $border-radius;
+        border: 1px solid $border-color;
+        display: flex;
+        margin: 0 0 20px;
+        padding: 20px;
+        gap: 20px;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .rby-business-review-user-image {
+            width: 60px;
+            overflow: hidden;
+            margin: 0 0 8px;
+
+            img {
+                border-radius: 6px;
+            }
+        }
+
+        .rby-business-review-user-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: $heading-color;
+        }
+
+        .rby-business-review-content-rating {
+            margin: 0 0 15px;
+        }
+
+        .rby-business-review-content-text {
+
+            p {
+                font-size: 16px;
+                line-height: 1.4;
+                color: $heading-color;
+                margin: 0 0 10px;
+                padding: 0;
+            }
+        }
+
     }
 
 }
