@@ -2,14 +2,15 @@
  * Applied to frontend and editor views.
  */
 
-$border-color: #E1E4E8;
-$border-radius: 8px;
-$heading-color: #24292F;
+@import './styles/variables';
 
 [id^="rby-"] {
 
+    @import 'styles/stars';
+    @import 'styles/address';
+
     position: relative;
-    padding: 0;
+    padding: 20px;
     border-radius: $border-radius;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     overflow: hidden;
@@ -108,62 +109,6 @@ $heading-color: #24292F;
         }
     }
 
-    // ⭐️ Star ratings.
-    .rby-business-stars-wrap {
-        line-height: 1;
-    }
-
-    .rby-business-stars {
-        background: url('./images/stars2x.png') no-repeat;
-        background-size: cover;
-        height: 32px;
-        width: 176px;
-        overflow: hidden;
-        display: block;
-
-
-        &--1 {
-            background-position: 0px -64px;
-        }
-        &--1-5 {
-            background-position: 0px -32px;
-        }
-        &--2 {
-            background-position: 0px -128px;
-        }
-        &--2-5 {
-            background-position: 0px -96px;
-        }
-        &--3 {
-            background-position: 0px -192px;
-        }
-        &--3-5 {
-            background-position: 0px -160px;
-        }
-        &--4 {
-            background-position: 0px -256px;
-        }
-
-        &--4-5 {
-            background-position: 0px -224px;
-        }
-
-        &--5 {
-            background-position: 0px -288px;
-        }
-    }
-
-    .rby-business-stars-reviews {
-        font-weight: 600;
-        font-size: 13px;
-        line-height: 1;
-        margin: 8px 0 0;
-        display: block;
-        padding: 0;
-        color: $heading-color;
-    }
-
-
     // 🪪 Badges
     .rby-badge {
         border-radius: 50px;
@@ -191,11 +136,27 @@ $heading-color: #24292F;
     .rby-button {
         background: #E00707;
         border-radius: 6px;
+        margin: 0;
         padding: 10px 16px;
         border: none;
+        font-size: 16px;
 
         &--red {
             color: white;
+
+            &:hover {
+                color: white;
+            }
+        }
+
+        &--white {
+            background: #FFF;
+            border: 1px solid #C0C4C8;
+            color: $heading-color;
+
+            &:hover {
+                color: $heading-color;
+            }
         }
 
         &--link, a {

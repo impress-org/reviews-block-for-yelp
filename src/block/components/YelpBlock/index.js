@@ -3,6 +3,8 @@ import { __ } from "@wordpress/i18n";
 import { dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
 import styles from './styles.module.scss';
+import StarRating from "../StarRating";
+import Address from "../Address";
 
 const YelpBlock = ( props ) => {
 
@@ -34,13 +36,13 @@ const YelpBlock = ( props ) => {
 
 
     return (
-        <div id={`rby-${styles.yelpBlockWrap}`} className={`rby-wrap ${styles.yelpBlockWrap}`}>
+        <div id={`rby-wrap`} className={`rby-wrap`}>
             {isLoading && (
                 <div>Loading...</div>
             )}
             {!isLoading && (
                 <>
-                    <div className={`rby-image-header ${styles.yelpBlockHeader}`}>
+                    <div className={`rby-image-header`}>
                         {businessData.photos && (
                             <>
                                 <img src={businessData.photos[0]} alt="Yelp Business"/>
@@ -57,15 +59,11 @@ const YelpBlock = ( props ) => {
                         </div>
 
                         <div className={'rby-business-meta-wrap'}>
-
                             {props.attributes.showBusinessRating && (
-                                <div className={'rby-business-stars-wrap'}>
-                                    <span
-                                        aria-label={`${businessData.rating} out of 5 stars`}
-                                        className={`rby-business-stars rby-business-stars--${businessData.rating.toString().replace( '.', '-' )}`}></span>
-                                    <span
-                                        className={'rby-business-stars-reviews'}>{businessData.rating} {__( 'stars from', 'yelp-widget-pro' )} {businessData.total} {__( 'reviews', 'yelp-widget-pro' )}</span>
-                                </div>
+                                <StarRating
+                                    overallRating={businessData.rating}
+                                    totalRatings={businessData.total}
+                                />
                             )}
                             <div className={'rby-business-status-meta-wrap'}>
                                 <div className={'rby-business-status-meta-wrap__inner'}>
@@ -103,9 +101,15 @@ const YelpBlock = ( props ) => {
                         <div className={'rby-additional-info-wrap__inner'}>
                             <h4>{__( 'Location', 'yelp-widget-pro' )}</h4>
 
-                            <a href={`https://www.yelp.com/map/${businessData.alias}`}
-                               target={'_blank'}
-                               className={`rby-button rby-button--white rby-button--link`}>{__( 'Get Directions', 'yelp-widget-pro' )}</a>
+                            <Address
+                                displayAddress={businessData.location.display_address}
+                                alias={businessData.alias}
+                            />
+                            <div className={'rby-directions-link-wrap'}>
+                                <a href={`https://www.yelp.com/map/${businessData.alias}`}
+                                   target={'_blank'}
+                                   className={`rby-button rby-button--white rby-button--link`}>{__( 'Get Directions', 'yelp-widget-pro' )}</a>
+                            </div>
 
                         </div>
                     </div>

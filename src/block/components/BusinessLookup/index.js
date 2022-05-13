@@ -19,7 +19,6 @@ const BusinessLookup = ({setAttributes}) => {
 	const [resultsModalOpen, setResultsModalOpen] = useState(false);
 
 	const handleSubmit = (businessName, businessLocation) => {
-
 		apiFetch( { path: `/yelp-block/v1/profile?term=${businessName}&location=${businessLocation}` } )
 			.then( ( response ) => {
 				setSearchResults( response );
@@ -33,7 +32,6 @@ const BusinessLookup = ({setAttributes}) => {
 					type: 'snackbar',
 				} );
 			} );
-
 	}
 
 	return (

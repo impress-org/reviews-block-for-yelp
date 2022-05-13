@@ -1,13 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import {
-    PanelBody,
-    PanelRow,
-    TextControl,
-    Button,
-    Spinner,
-    CheckboxControl,
-    ResponsiveWrapper, ToggleControl, ExternalLink,
-} from '@wordpress/components';
+import { PanelBody, PanelRow, TextControl, Button, Spinner, ToggleControl, ExternalLink, } from '@wordpress/components';
 import { Fragment, useState, useEffect } from '@wordpress/element';
 import { InspectorControls, MediaUpload, useBlockProps, MediaUploadCheck } from '@wordpress/block-editor';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -101,7 +93,7 @@ export default function Edit( { attributes, setAttributes } ) {
         if ( !yelpConnected && !businessId ) {
             runLottieAnimation( 'twinkle-stars', 'yelp-block-admin-lottie-api' );
         }
-    }, [yelpConnected] )
+    }, [yelpConnected, businessId] )
 
     return (
         <Fragment>

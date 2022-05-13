@@ -1,73 +1,67 @@
 import { Modal, Button, Icon } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useRef, useState } from '@wordpress/element';
-import { dispatch } from "@wordpress/data";
-import styles from './styles.module.scss';
+import StarRating from "../StarRating";
+import Address from "../Address";
 
 export default function BusinessResultsModal( { setAttributes, onRequestClose, businessResults } ) {
-	const [error, setError] = useState( false );
+    const [error, setError] = useState( false );
 
-	const handleSubmit = ( business ) => {
-		// Update the businessId attribute
-		setAttributes({ businessId: business.id });
-		// Close modal
-		onRequestClose();
-	};
+    const handleSubmit = ( business ) => {
+        // Update the businessId attribute
+        setAttributes( { businessId: business.id } );
+        // Close modal
+        onRequestClose();
+    };
 
-	return (
-		<Modal
-			onRequestClose={onRequestClose}
-			title={__( 'Yelp Business Search Results', 'donation-form-block' )}
-			className={'yelp-business-results-modal'}
-		>
-			<div className={styles.modalWrap}>
-				{businessResults.map( ( business, index ) => {
+    return (
+        <Modal
+            onRequestClose={onRequestClose}
+            title={__( 'Yelp Business Search Results', 'donation-form-block' )}
+            className={'rby-business-results-modal'}
+        >
+            <div id={'yelp-block-business-results'} className={'rby-business-results-inner'}>
+                {businessResults.map( ( business, index ) => {
 
-					return (
-						<div key={index}>
-							<div className="">
-								<h3>
-									<a href={business.url} title={business.name} target={'_blank'}>{business.name}</a>
-								</h3>
-								<div className="business-address">
-									<p>
-										<span>{business.rating}</span>
-										<span>{business.review_count}</span>
-									</p>
-								</div>
+                    return (
+                        <div className={'rby-business-result'} key={index}>
+                            <div className={'rby-business-result-image'}>
+                                <img src={business.image_url} alt={business.name}/>
+                            </div>
+                            <div className={'rby-business-result-content'}>
+                                <h3>
+                                    <a href={business.url} title={business.name} target={'_blank'}>{business.name}</a>
+                                </h3>
+                                <div className={'rby-business-result-meta'}>
+                                    <StarRating
+                                        overallRating={business.rating}
+                                        totalRatings={business.review_count}
+                                    />
+                                    <div className={'rby-business-result-address'}>
+                                        <Address
+                                            displayAddress={business.location.display_address}
+                                            alias={business.alias}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'rby-business-result-button'}>
+                                <Button
+                                    isSecondary
+                                    onClick={() => handleSubmit( business )}
+                                >
+                                    {__( 'Select', 'yelp-widget-pro' )}
+                                </Button>
+                            </div>
+                        </div>
+                    );
 
-								{business.transactions.map( ( transaction, index ) => {
+                } )}
+            </div>
 
-									return (
-										<div key={index} className="business-transactions">
-											<p>{transaction}</p>
-										</div>
-									)
-
-								} )}
-
-								<p>{business.location.display_address}</p>
-								<p>{business.phone}</p>
-								<img src={business.image_url} alt={business.name}/>
-								<p>{business.phone}</p>
-								<p><a href={business.url} title={__( 'Visit the Website', 'yelp-widget-pro' )}
-									  target={'_blank'}>{business.name}</a></p>
-							</div>
-							<Button
-								isSecondary
-								onClick={() => handleSubmit( business )}
-							>
-								{__( 'Select', 'yelp-widget-pro' )}
-							</Button>
-						</div>
-					);
-
-				} )}
-			</div>
-
-			<Button variant="primary" onClick={onRequestClose}>
-				{__( 'Cancel', 'yelp-widget-pro' )}
-			</Button>
-		</Modal>
-	);
+            <Button variant="primary" onClick={onRequestClose}>
+                {__( 'Cancel', 'yelp-widget-pro' )}
+            </Button>
+        </Modal>
+    );
 }
