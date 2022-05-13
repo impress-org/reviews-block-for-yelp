@@ -112,10 +112,9 @@
         padding: 20px;
         display: flex;
         column-gap: 20px;
-        justify-content: space-between;
 
-        > div {
-            grid-row: 1;
+        > .rby-business-result-button {
+            margin-left: auto;
         }
 
         .rby-business-result-meta {
