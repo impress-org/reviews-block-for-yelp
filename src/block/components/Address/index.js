@@ -11,7 +11,7 @@ export default function Address( { displayAddress = [], alias } ) {
 
                     if ( 0 === index ) {
                         return (
-                            <a href={`https://www.yelp.com/map/${alias}`}
+                            <a key={index} href={`https://www.yelp.com/map/${alias}`}
                                target={'_blank'}><span key={index}>{addressPart}</span></a>
                         )
                     }

@@ -2,9 +2,9 @@ import { useEffect, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { dispatch } from "@wordpress/data";
 import apiFetch from '@wordpress/api-fetch';
-import styles from './styles.module.scss';
 import StarRating from "../StarRating";
 import Address from "../Address";
+import OpenHours from "../OpenHours";
 
 const YelpBlock = ( props ) => {
 
@@ -97,6 +97,9 @@ const YelpBlock = ( props ) => {
                         </div>
                         <div className={'rby-additional-info-wrap__inner'}>
                             <h4>{__( 'Hours', 'yelp-widget-pro' )}</h4>
+                            <OpenHours
+                                hours={businessData.hours[0].open}
+                            />
                         </div>
                         <div className={'rby-additional-info-wrap__inner'}>
                             <h4>{__( 'Location', 'yelp-widget-pro' )}</h4>

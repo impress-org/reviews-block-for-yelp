@@ -8,6 +8,7 @@
 
     @import 'styles/stars';
     @import 'styles/address';
+    @import 'styles/hours';
 
     position: relative;
     padding: 20px;
@@ -62,7 +63,7 @@
 
         border: 1px solid $border-color;
         border-radius: $border-radius;
-        margin: 200px auto 25px;
+        margin: 155px auto 25px;
         padding: 0;
         max-width: 800px;
 
@@ -186,6 +187,14 @@
                 margin: 0 0 10px;
                 font-weight: 500;
             }
+        }
+    }
+
+    .rby-directions-link-wrap {
+        margin: 20px 0 0;
+        a {
+            display: inline-block;
+            line-height: 1;
         }
     }
 
