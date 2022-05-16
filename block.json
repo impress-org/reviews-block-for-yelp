@@ -3,7 +3,7 @@
   "apiVersion": 2,
   "name": "yelp-block/profile",
   "version": "3.0.0",
-  "title": "Yelp Block",
+  "title": "Reviews Block for Yelp",
   "category": "widgets",
   "icon": "star-filled",
   "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",

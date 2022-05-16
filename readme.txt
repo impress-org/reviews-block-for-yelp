@@ -1,12 +1,12 @@
-=== Yelp Block and Widget for WordPress ===
+=== Reviews Block for Yelp ===
 Contributors: dlocc, webdevmattcrom
 Donate link: https://wpbusinessreviews.com
 Tags: yelp, yelp reviews, yelp block, yelp widget, yelp business listings, yelp business reviews, business reviews, google reviews, facebook reviews
 Requires at least: 5.0
-Tested up to: 5.9
+Tested up to: 6.0
 Stable tag: 3.0.0
 
-Yelp Widget Pro makes it easy for you to display your Yelp reviews and business information on your website via an easy-to-use and intuitive widget.
+The Review Block for Yelp makes it easy for you to display your Yelp reviews and business information on your WordPress website with a simple and intuitive Gutenberg block.
 
 == Description ==
 
@@ -66,7 +66,7 @@ Some themes may have very small sidebars and CSS styles that conflict or alter t
 == Changelog ==
 
 = 3.0.0: TBD =
-* New: Gutenberg block and compatibility with WordPress 5.9+.
+* New: We entirely revamped the plugin in 3.0.0 - Introducing the Review Block for Yelp. The new block displays your business information and reviews in a styling and customizable interface. Invite users to leave a review, show business hours, display your address, directions and more with a new Gutenberg block.
 * New: Updated name to reflect the shift away from widgets to blocks in WordPress.
 
 = 2.0.2: October 28th, 2019 =

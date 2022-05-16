@@ -6,11 +6,10 @@ import {
     Button,
     Spinner,
     ToggleControl,
-    ExternalLink,
     CheckboxControl, Icon,
 } from '@wordpress/components';
 import { Fragment, useState, useEffect } from '@wordpress/element';
-import { InspectorControls, MediaUpload, useBlockProps, MediaUploadCheck } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { dispatch, useSelect } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -44,7 +43,7 @@ export default function Edit( { attributes, setAttributes } ) {
         preview,
     } = attributes;
 
-    const [yelpApiKey, setYelpApiKey] = useState( false );
+    const [yelpApiKey, setYelpApiKey] = useState( '' );
     const [apiKeyLoading, setApiKeyLoading] = useState( false );
     const [yelpConnected, setYelpConnected] = useState( null );
 

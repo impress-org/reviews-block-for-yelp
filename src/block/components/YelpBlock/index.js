@@ -8,9 +8,10 @@ import OpenHours from "../OpenHours";
 import IconClaimed from '../../images/check-circle.svg';
 import IconStarOutline from '../../images/star-outline.svg';
 import IconYelp from '../../images/yelp-icon.svg';
+import YelpLogo from '../../images/yelp_logo.svg';
 
 import Review from "../Review";
-import { Icon } from "@wordpress/components";
+import { Icon, Spinner } from "@wordpress/components";
 
 const YelpBlock = ( props ) => {
 
@@ -24,6 +25,7 @@ const YelpBlock = ( props ) => {
             apiFetch( { path: `/yelp-block/v1/profile?businessId=${props.attributes.businessId}` } )
                 .then( ( response ) => {
                     setBusinessData( response );
+                    console.log( response );
                     setIsLoading( false );
                 } )
                 .catch( ( error ) => {
@@ -39,11 +41,16 @@ const YelpBlock = ( props ) => {
         }
     }, [props.attributes.businessId] );
 
-
     return (
         <div id={`rby-wrap`} className={`rby-wrap`}>
             {isLoading && (
-                <div>Loading...</div>
+                <div className={'rby-loading-content'}>
+                    <img src={YelpLogo} alt={__( 'Loading Yelp Business Data', 'yelp-widget-pro' )}/>
+                    <div className={'rby-loading-text'}>
+                        <Spinner/>
+                        {__( 'Loading Yelp Business Data', 'yelp-widget-pro' )}
+                    </div>
+                </div>
             )}
             {!isLoading && (
                 <>
@@ -172,10 +179,14 @@ const YelpBlock = ( props ) => {
                         </div>
                     )}
 
+                    <div className={'rby-powered-by-wrap'}>
+                        <div className={'rby-powered-by'}>
+                            <span>{__( 'Powered by', 'yelp-widget-pro' )}</span>
+                            <img src={YelpLogo} alt={__( 'Powered by Yelp', 'yelp-widget-pro' )}/>
+                        </div>
+                    </div>
                 </>
             )}
-
-
         </div>
     );
 
