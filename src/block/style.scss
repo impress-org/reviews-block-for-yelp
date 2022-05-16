@@ -72,6 +72,8 @@
         width: 100%;
         border-bottom: 1px solid $border-color;
         text-align: center;
+        background: #FFF;
+        border-radius: 7px 7px 0 0;
 
         .rby-business-name {
             color: $heading-color;
@@ -85,7 +87,7 @@
     }
 
     .rby-title-header {
-        background: #FFF;
+        background: #FBFBFB;
         position: relative;
         z-index: 99;
 
@@ -106,15 +108,15 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            gap: 20px;
             overflow: hidden;
             border-radius: 0 0 7px 7px;
-            background: #FBFBFB;
-            padding: 0;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
 
             // Align blocks evenly across the row.
             > div {
-                padding: 20px;
 
                 &:last-child {
                     margin-left: auto;
@@ -126,6 +128,7 @@
 
     .rby-business-status-meta-wrap {
         flex: 1;
+        text-align: center;
 
         &__inner {
             display: inline-flex;
@@ -207,6 +210,7 @@
         display: inline-flex;
         align-content: center;
         gap: 5px;
+        white-space: nowrap;
 
         &--red {
             color: white;
@@ -223,6 +227,7 @@
             color: $heading-color;
 
             &:hover {
+                border: 1px solid darken(#C0C4C8, 20%);
                 color: $heading-color;
             }
         }
@@ -304,7 +309,12 @@
         margin: 0 0 20px 20px;
     }
 
-    // Individual Reviews
+    // 💬 Individual Reviews
+    .rby-business-reviews-wrap {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
     .rby-business-review {
         border-radius: $border-radius;
         border: 1px solid $border-color;
@@ -332,6 +342,8 @@
 
             img {
                 border-radius: 6px;
+                width: 100%;
+                height: auto;
             }
         }
 
@@ -381,6 +393,7 @@
     .rby-powered-by-wrap {
         text-align: center;
     }
+
     .rby-powered-by {
         background: #FFFFFF;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
@@ -419,13 +432,8 @@
                     margin: 0 auto;
                 }
 
-                > div {
-                    padding: 0 20px 20px;
-
-                    &:last-of-type {
-                        margin-right: auto;
-                        padding-bottom: 0;
-                    }
+                > div:last-of-type {
+                    margin-right: auto;
                 }
             }
         }
