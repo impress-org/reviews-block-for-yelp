@@ -104,6 +104,7 @@
 
 }
 
+// Business Results Listings
 #yelp-block-business-results {
     .rby-business-result {
         border: 1px solid $border-color;
@@ -145,4 +146,44 @@
             height: auto;
         }
     }
+}
+
+
+.rby-admin-subfields-wrap {
+    position: relative;
+    margin: 0 0 25px;
+    padding: 20px 20px 0;
+    background: #eee;
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: -15px;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid #EEE;
+    }
+}
+
+
+.rby-change-business {
+    margin: 15px 0 0;
+    padding: 15px;
+    background: #fff0f0;
+
+    p {
+        font-size: 12px;
+        font-style: normal;
+        color: rgb(117, 117, 117);
+        margin: 0;
+        padding: 15px 0;
+    }
+
+    button {
+        background: #fff !important;
+    }
+
 }

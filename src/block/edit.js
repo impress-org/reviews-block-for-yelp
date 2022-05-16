@@ -1,5 +1,14 @@
 import { __ } from '@wordpress/i18n';
-import { PanelBody, PanelRow, TextControl, Button, Spinner, ToggleControl, ExternalLink, } from '@wordpress/components';
+import {
+    PanelBody,
+    PanelRow,
+    TextControl,
+    Button,
+    Spinner,
+    ToggleControl,
+    ExternalLink,
+    CheckboxControl, Icon,
+} from '@wordpress/components';
 import { Fragment, useState, useEffect } from '@wordpress/element';
 import { InspectorControls, MediaUpload, useBlockProps, MediaUploadCheck } from '@wordpress/block-editor';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -23,7 +32,15 @@ export default function Edit( { attributes, setAttributes } ) {
 
     const {
         businessId,
+        showHeader,
         showBusinessRating,
+        showReviewButton,
+        showBusinessMeta,
+        showBusinessInfo,
+        showPhone,
+        showHours,
+        showLocation,
+        showReviews,
         preview,
     } = attributes;
 
@@ -106,36 +123,139 @@ export default function Edit( { attributes, setAttributes } ) {
                                     <>
                                         <PanelRow>
                                             <ToggleControl
-                                                label={__( 'Display Business Rating', 'donation-form-block' )}
-                                                help={
-                                                    <>
-                                                        {__(
-                                                            'This option allows donors to give using their saved payment methods with Stripe Link. Currently, this option is only available for US donors.',
-                                                            'donation-form-block'
-                                                        )}
-                                                        <ExternalLink
-                                                            href={'https://support.stripe.com/questions/link-faq'}>
-                                                            {__( 'Link FAQ', 'donation-form-block' )}
-                                                        </ExternalLink>
-                                                    </>
-                                                }
+                                                label={__( 'Display Header', 'donation-form-block' )}
+                                                help={__(
+                                                    'Do you want to display the business name, overall rating, images, price point, more?',
+                                                    'donation-form-block'
+                                                )}
                                                 className={'dfb-stripe-link-toggle'}
-                                                checked={showBusinessRating}
+                                                checked={showHeader}
                                                 onChange={( value ) => {
-                                                    setAttributes( { showBusinessRating: value } );
+                                                    setAttributes( { showHeader: value } );
                                                 }}
                                             />
                                         </PanelRow>
+                                        {showHeader && (
+                                            <div className={'rby-admin-subfields-wrap'}>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Business Rating', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Check to display the overall business rating.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showBusinessRating}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showBusinessRating: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Review Button', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Check to display the "Write a Review" button.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showReviewButton}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showReviewButton: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Meta', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Check to display the business meta info like price point, open or closed, and price point.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showBusinessMeta}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showBusinessMeta: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                            </div>
+                                        )}
                                         <PanelRow>
-                                            <Button
-                                                isSecondary
-                                                onClick={() => setAttributes( { businessId: '' } )}
-                                            >
-                                                {__( 'Reset Business', 'yelp-block' )}
-                                            </Button>
+                                            <ToggleControl
+                                                label={__( 'Display Business Info', 'donation-form-block' )}
+                                                help={__(
+                                                    'Toggle on to display the business info section containing hours, location, and more.',
+                                                    'donation-form-block'
+                                                )}
+                                                className={'dfb-stripe-link-toggle'}
+                                                checked={showBusinessInfo}
+                                                onChange={( value ) => {
+                                                    setAttributes( { showBusinessInfo: value } );
+                                                }}
+                                            />
+                                        </PanelRow>
+                                        {showBusinessInfo && (
+                                            <div className={'rby-admin-subfields-wrap'}>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Phone', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Toggle on to display the business phone number and additional business information.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showPhone}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showPhone: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Hours', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Toggle on to display the business hours.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showHours}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showHours: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                                <PanelRow>
+                                                    <CheckboxControl
+                                                        label={__( 'Display Location', 'donation-form-block' )}
+                                                        help={__(
+                                                            'Toggle on to display the business location.',
+                                                            'donation-form-block'
+                                                        )}
+                                                        className={'dfb-stripe-link-toggle'}
+                                                        checked={showLocation}
+                                                        onChange={( value ) => {
+                                                            setAttributes( { showLocation: value } );
+                                                        }}
+                                                    />
+                                                </PanelRow>
+                                            </div>
+                                        )}
+                                        <PanelRow>
+                                            <ToggleControl
+                                                label={__( 'Display Reviews', 'donation-form-block' )}
+                                                help={__(
+                                                    'Toggle on to display individual reviews (up to 3 total per locale).',
+                                                    'donation-form-block'
+                                                )}
+                                                className={'dfb-stripe-link-toggle'}
+                                                checked={showReviews}
+                                                onChange={( value ) => {
+                                                    setAttributes( { showReviews: value } );
+                                                }}
+                                            />
                                         </PanelRow>
                                     </>
-
                                 </PanelBody>
                             )}
                             <PanelBody title={__( 'Yelp Connection', 'yelp-block' )} initialOpen={false}>
@@ -182,16 +302,42 @@ export default function Edit( { attributes, setAttributes } ) {
                                     </>
                                 ) : (
                                     <>
+                                        {businessId && (
+                                            <PanelRow>
+                                                <div className={'rby-change-business'}>
+                                                    <div className={'rby-label-wrap'}>
+                                                        <label><Icon
+                                                            icon={'warning'}/> {__( 'Change Business', 'donation-form-block' )}
+                                                        </label>
+                                                    </div>
+                                                    <p className={'rby-field-description'}>{__( 'Do you want to update the business displayed for this block?', 'yelp-widget-pro' )}</p>
+                                                    <Button
+                                                        isSecondary
+                                                        onClick={() => setAttributes( { businessId: '' } )}
+                                                    >
+                                                        {__( 'Reset Business', 'yelp-block' )}
+                                                    </Button>
+                                                </div>
+                                            </PanelRow>
+                                        )}
                                         <PanelRow>
-                                            <Button
-                                                isSecondary
-                                                onClick={() => {
-                                                    setYelpApiKey( null )
-                                                    setYelpConnected( null )
-                                                }}
-                                            >
-                                                {__( 'Reset API Key', 'yelp-block' )}
-                                            </Button>
+                                            <div className={'rby-change-business'}>
+                                                <div className={'rby-label-wrap'}>
+                                                    <label><Icon
+                                                        icon={'warning'}/> {__( 'API Key', 'donation-form-block' )}
+                                                    </label>
+                                                </div>
+                                                <p className={'rby-field-description'}>{__( 'Do you want to update the API key used for all Review blocks?', 'yelp-widget-pro' )}</p>
+                                                <Button
+                                                    isSecondary
+                                                    onClick={() => {
+                                                        setYelpApiKey( null )
+                                                        setYelpConnected( null )
+                                                    }}
+                                                >
+                                                    {__( 'Reset API Key', 'yelp-block' )}
+                                                </Button>
+                                            </div>
                                         </PanelRow>
                                     </>
                                 )}
