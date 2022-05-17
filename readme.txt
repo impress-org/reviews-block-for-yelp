@@ -1,67 +1,78 @@
-=== Yelp Widget Pro ===
+=== Reviews Block for Yelp ===
 Contributors: impressorg, dlocc, webdevmattcrom
-Donate link: https://impress.org/
-Tags: yelp, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp reviews widget, yelp business reviews, yelp widget pro, business reviews, google reviews, google places reviews, facebook reviews, facebook page reviews
+Donate link: https://wpbusinessreviews.com/
+Tags: yelp, yelp block, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp reviews widget, yelp business reviews, yelp widget pro, business reviews, google reviews, google places reviews, facebook reviews, facebook page reviews
 Requires at least: 4.2
 Tested up to: 5.3
 Stable tag: 2.0.2
 
-Yelp Widget Pro makes it easy for you to display your Yelp reviews and business information on your website via an easy-to-use and intuitive widget.
+Display your Yelp reviews and business information on your website through an easy-to-use Reviews Block for Yelp.
 
 == Description ==
+This free Yelp reviews block displays your Yelp business information and reviews on your website. You can find the block through the block library search or directly on the WordPress plugin repository. 
 
-= Yelp Widget Pro =
-Yelp Widget Pro allows you to easily display Yelp reviews and profiles for any business on your website easily configurable widget. Yelp Widget Pro users are able to display business names, ratings, review counts and profile images in any WordPress sidebar. Customize the widget to display one or many listings from Yelp based on location.
+=== ✨ Reviews Block for Yelp Features ===
+Our Yelp reviews block includes a variety of options to customize how your Yelp information is displayed. 
 
-This widget supports for Yelp's Search and Business API methods. Yelp Widget Pro allows for multiple widgets within the same or separate sidebars. No coding knowledge is required.
+First, search for the business by name and location directly in the block. 
 
-Yelp Widget Pro is actively supported and developed. The open source version is available for free to the WordPress community. For additional options and priority support please consider [upgrading to WP Business Reviews](https://wpbusinessreviews.com). If you like this plugin please [rate it on WordPress.org](http://wordpress.org/support/view/plugin-reviews/yelp-widget-pro/).
+Then, choose from the block options to display or hide your: 
 
-= WP Business Reviews =
+* Header with three images, aggregate rating, price point, and general business information 
+* Write a Review button 
+* Detailed business information, such as contact, hours, tags, and directions
+* Three highlighted reviews 
 
-*WP Business Reviews* is a **significant upgrade** to *Yelp Widget Pro* that adds many features that will allow you to further customize how you display reviews on your WordPress website.
+=== ⭐ WP Business Reviews ===
+While the Reviews Block for Yelp can help you display your Yelp reviews on your website for free, we have an even better solution for you! 
+
+*WP Business Reviews* is a **significant upgrade** to our free reviews blocks for Google and Yelp. With WP Business Reviews (WPBR), you can display reviews from many platforms, including:
+
+* Google 
+* Yelp 
+* Facebook 
+* WooCommerce 
+* Zomato 
+* Trustpilot 
+
+When you use WP Business Reviews, you also gain more control over the style of your displayed reviews as well as which reviews you show. WPBR also allows you to mix and match your reviews across platforms. So, your Google and WooCommerce reviews can be displayed right alongside your Facebook and Yelp reviews. 
 
 [Upgrade to WP Business Reviews](https://wpbusinessreviews.com "Upgrade to WP Business Reviews")
 
 [youtube https://www.youtube.com/watch?v=3xNJX5cjdQ0]
 
-== Installation ==
+=== 💡 Installation ===
 
-1. Upload the `yelp-widget-pro` folder and it's contents to the `/wp-content/plugins/` directory or install via the WP plugins panel in your WordPress admin dashboard
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. That's it! You should now be able to access the Plugin's options via your settings panel.  You will need to enter your Yelp API information prior to using the plugin.
+1. Find the Reviews Block for Yelp directly in the plugin in your WordPress admin dashboard.
+2. Activate the plugin. 
 
-Note: If you have Wordpress 2.7 or above you can simply go to 'Plugins' &gt; 'Add New' in the WordPress admin and search for "Yelp Widget Pro" and install it from there.
+Alternatively
+1. Use the WordPress block library search bar to search for "Reviews Block for Yelp" from any page or post. 
+2. Install the block and begin using it on that page immediately. 
+
+That's it! You should now be able to access the Plugin's API settings via your settings panel and the block options on the block settings panel. You will need to enter your Yelp API information prior to using the plugin. 
+
+[Learn how to create a Yelp API key.](https://wpbusinessreviews.com/documentation/platforms/yelp/)
 
 == Frequently Asked Questions ==
 
 = Why should I use this plugin? =
 
-A business website can use this plugin to display their yelp business listing and reviews in their sidebar by using the Business ID search option. You can also use this plugin if you have a website that would benefit in displaying search results for a Yelp search term.  For example, a travel website selling reservations could display the top resorts for a given destination.
+A business website can use this plugin to display their Yelp business listing and reviews in their sidebar by using the Business ID search option. You can also use this plugin if you have a website that would benefit in displaying search results for a Yelp search term.  For example, a travel website selling reservations could display the top resorts for a given destination.
 
-= How do I display only my business? =
-
-If you would like to display only your certain business then you must enter in your "Yelp Business ID" in the widget's ID input.  The ID of the business is the last part of the Yelp URL of its Yelp page. Ex: `http://www.yelp.com/biz/togos-sandwiches-san-diego-3`, the id is `togos-sandwiches-san-diego-3`.  This is the *only* parameter you need to set to use this method.
+Displaying reviews on your website also provides an element of social proof, which helps to increase sales. Learn more about using reviews in your marketing [on our blog](https://wpbusinessreviews.com/blog). 
 
 = How do I get a Yelp API key? =
 
 In order for the plugin to access your Yelp reviews, you must have a valid Yelp API key. To get the key please review [how to create a Yelp API key](https://wpbusinessreviews.com/documentation/platforms/yelp/).
 
-= How do I disable the CSS =
-
-If you would like to theme the widget yourself you should disable the plugin's CSS output.  To do that please visit the options page (Settings > Yelp Widget Pro) and check the appropriate option.
-
-= The plugin looks funny in my sidebar, what's the deal? =
-
-Some themes may have very small sidebars and CSS styles that conflict or alter the styles within Yelp Widget Pro.  To correct any styling errors you can either disable the plugin's CSS all together or override the CSS selectors in use to make the widget appear how you'd like.
-
 == Screenshots ==
 
-1. A view of the Yelp Widget Pro Settings page displaying the metabox to enter in your Yelp API key.
+1. The Yelp API Key Settings Area 
 
-2. Yelp Widget Pro expanded displaying all available options.
+2. The Yelp Block Search Screen 
 
-3. How the widget looks in a website sidebar.
+3. The Yelp Block Settings Panel 
 
 == Changelog ==
 
