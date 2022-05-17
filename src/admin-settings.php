@@ -85,9 +85,9 @@ function yelp_widget_options_form() { ?>
 		<!-- Plugin Title -->
 		<div id="ywp-title-wrap">
 			<div id="icon-yelp" class=""></div>
-			<h2><?php _e( 'Yelp Block Settings', 'yelp-widget-pro' ); ?> </h2>
+			<h2><?php _e( 'Reviews Block for Yelp Settings', 'yelp-widget-pro' ); ?> </h2>
 			<a href="https://wpbusinessreviews.com/" class="wpbr-option-page-upsell"
-			   title="Upgrade to Yelp Widget Premium"
+			   title="Upgrade to WP Business Reviews"
 			   target="_blank" rel="noopener noreferrer" class="update-link new-window">
 				<svg class="wpbr-star-icon wpbr-banner-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 					<rect x="0" fill="none" width="20"
@@ -121,7 +121,7 @@ function yelp_widget_options_form() { ?>
 
 							<div class="inside">
 								<p>
-									<strong><?php _e( 'Thanks for checking out the plugin! To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
+									<strong><?php _e( 'Thanks for choosing this plugin to display your business reviews. To get started, follow the steps below:', 'yelp-widget-pro' ); ?></strong>
 								</p>
 
 								<ol class="yelp-widget-api-key-steps">

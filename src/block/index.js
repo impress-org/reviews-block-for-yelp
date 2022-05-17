@@ -3,7 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-import { registerBlockType } from '@wordpress/blocks';
+import {registerBlockType} from '@wordpress/blocks';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -22,26 +22,27 @@ import Edit from './edit';
 import YelpBlock from './components/YelpBlock';
 import domReady from '@wordpress/dom-ready';
 import {render} from '@wordpress/element';
+import {__} from '@wordpress/i18n';
 
 /**
  * Every block starts by registering a new block type definition.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( 'yelp-block/profile', {
+registerBlockType('yelp-block/profile', {
+    title: __('Reviews Block for Yelp', 'yelp-widget-pro'),
+    /**
+     * @see ./edit.js
+     */
+    edit: Edit,
 
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
-
-	/**
-	 * @see ./save.js
-	 */
-	save: () => { return null; }
-
-
-} );
+    /**
+     * @see ./save.js
+     */
+    save: () => {
+        return null;
+    },
+});
 
 domReady(function () {
     // Don't run when Gutenberg / Block editor is active.
