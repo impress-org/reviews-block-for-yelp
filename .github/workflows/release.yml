@@ -1,0 +1,17 @@
+name: Deploy to WordPress.org
+
+on:
+    release:
+        types: [ released ]
+
+jobs:
+    build:
+        uses: impress-org/givewp-github-actions/.github/workflows/wp-org-release.yml@master
+        with:
+            wp_org_slug: yelp-widget-pro
+            zip_name: yelp-widget-pro
+            text_domain: yelp-widget-pro
+        secrets:
+            SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+            SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+            SLACK_ANNOUNCEMENT_WEBHOOK: ${{ secrets.SLACK_ANNOUNCEMENT_WEBHOOK }}
