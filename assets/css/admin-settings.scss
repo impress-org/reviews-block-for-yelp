@@ -1,20 +1,48 @@
-/**
- * Styles for the Yelp Widget Pro options panel
- */
+// Styles for the Yelp Widget Pro options panel
+
+#yelp-settings {
+	.hndle {
+		border-bottom: 1px solid #c3c4c7;
+	}
+
+	.metabox-holder {
+		max-width: 1080px;
+	}
+
+	.yelp-widget-api-key-steps {
+		margin-bottom:0;
+	}
+
+	p, ol li {
+		font-size: 14px;
+	}
+
+	.yelp-widget-api-key-label {
+		font-weight: 500;
+		margin: 0 0 10px;
+	}
+
+	.ywp-help-text {
+		font-style: italic;
+		padding: 10px 0;
+		margin: 0;
+	}
+}
 
 #icon-yelp {
 	background: url('../images/platform-icon-wpbr.png') no-repeat 0 0 transparent;
-	background-size: 60px;
+	background-size: 45px;
 	float: left;
-	width: 80px;
-	height: 60px;
+	width: 60px;
+	height: 45px;
+
+	+ h2 {
+		line-height: 45px;
+		margin-bottom: 6px;
+		font-size: 22px;
+	}
 }
 
-#icon-yelp + h2 {
-	line-height: 55px;
-	margin-bottom: 6px;
-	font-size: 23px;
-}
 
 .control-group {
 	margin-bottom: 10px;
@@ -51,7 +79,7 @@
 	margin-top: 2px;
 }
 
-/* Sidebar Sortables */
+// Sidebar Sortables
 #sidebar-sortables .postbox {
 	min-width: auto;
 }
@@ -60,8 +88,8 @@ a.wpbr-option-page-upsell {
 	font-weight: bold;
 	font-size: 15px;
 	position: absolute;
-	top: 37px;
-	left: 380px;
+	top: 30px;
+	left: 400px;
 	outline: none;
 	box-shadow: none;
 	text-decoration: underline;
@@ -105,12 +133,8 @@ Tipsy
 /* Rounded corners */
 .tipsy-inner {
 	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	font-size: 14px;
 }
-
-/* Uncomment for shadow */
-/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
 
 .tipsy-arrow {
 	position: absolute;
@@ -138,7 +162,7 @@ Tipsy
 }
 
 .tipsy-n .tipsy-arrow {
-	top: 0px;
+	top: 0;
 	left: 50%;
 	margin-left: -5px;
 	border-bottom-style: solid;

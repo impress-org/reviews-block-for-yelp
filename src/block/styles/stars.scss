@@ -1,0 +1,122 @@
+// ⭐️ Star ratings.
+@import 'variables';
+
+.rby-business-stars-wrap {
+    line-height: 1;
+}
+
+.rby-business-stars {
+    background: url('./images/stars2x.png') no-repeat;
+    background-size: cover;
+    height: 32px;
+    width: 176px;
+    overflow: hidden;
+    display: block;
+
+    &.rby-business-stars-small {
+        height: 24px;
+        width: 132px;
+    }
+
+    // Star sprite positioning.
+    &--0-5 {
+        background-position: 0px -64px;
+
+        &.rby-business-stars-small {
+            background-position: 0 0;
+        }
+    }
+
+    &--1 {
+        background-position: 0px -64px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -48px;
+        }
+    }
+
+    &--1-5 {
+        background-position: 0px -32px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -24px;
+        }
+    }
+
+    &--2 {
+        background-position: 0px -128px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -96px;
+        }
+    }
+
+    &--2-5 {
+        background-position: 0px -96px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -72px;
+        }
+    }
+
+    &--3 {
+        background-position: 0px -192px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -144px;
+        }
+    }
+
+    &--3-5 {
+        background-position: 0px -160px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -120px;
+        }
+    }
+
+    &--4 {
+        background-position: 0px -256px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -192px;
+        }
+    }
+
+    &--4-5 {
+        background-position: 0px -224px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -168px;
+        }
+    }
+
+    &--5 {
+        background-position: 0px -288px;
+
+        &.rby-business-stars-small {
+            background-position: 0px -216px;
+        }
+
+    }
+
+
+}
+
+.rby-business-stars-reviews {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1;
+    margin: 8px 0 0;
+    display: block;
+    padding: 0;
+    color: #24292F;
+}
+
+.rby-business-stars-date {
+    font-size: 13px;
+    color: $heading-color;
+    padding: 0;
+    margin: 10px 0 0;
+    display: block;
+}

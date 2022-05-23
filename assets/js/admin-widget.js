@@ -8,10 +8,8 @@
  */
 jQuery(
 	function () {
-
 		yelpWidgetToggles();
 		yelpWidgetTooltips();
-
 	}
 );
 
