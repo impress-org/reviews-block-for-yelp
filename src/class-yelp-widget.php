@@ -18,7 +18,7 @@ class Yelp_Widget extends WP_Widget {
 
 		parent::__construct(
 			'yelp_widget', // Base ID
-			'Yelp Widget Pro', // Name
+			'Reviews Widget for Yelp', // Name
 			array( 'description' => __( 'Display Yelp business ratings and reviews on your website.', 'yelp-widget-pro' ) ) // Args
 		);
 

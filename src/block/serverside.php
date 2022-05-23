@@ -62,9 +62,9 @@ function yelp_retrieve_business_search_results( $params ) {
 
     // Get business search data.
     $requestUrl = add_query_arg( [
-        'term'     => $params['term'] ?? '',
-        'location' => $params['location'] ?? 'NYC',
-    ], 'https://api.yelp.com/v3/businesses/search' );
+        'term'     => rawurlencode($params['term'] ?? ''),
+        'location' => rawurlencode($params['location'] ?? 'NYC'),
+    ], rawurlencode('https://api.yelp.com/v3/businesses/search') );
 
     $requestRequest = wp_remote_get( $requestUrl, $args );
     $requestBody    = json_decode( wp_remote_retrieve_body( $requestRequest ) );
@@ -80,7 +80,7 @@ function yelp_retrieve_business_search_results( $params ) {
 /**
  * @param $params
  *
- * @return string|WP_REST_Response
+ * @return WP_Error|WP_REST_Response
  */
 function yelp_retrieve_business_details( $params ) {
 
@@ -103,20 +103,29 @@ function yelp_retrieve_business_details( $params ) {
     ];
 
     $businessDetailsReq = add_query_arg( [
-        'locale' => $params['locale'] ?? 'en_US',
+        'locale' => rawurlencode( $params['locale'] ?? 'en_US' ),
     ], "https://api.yelp.com/v3/businesses/{$params['businessId']}" );
 
     // 1️⃣ Get business details.
     $response        = wp_safe_remote_get( $businessDetailsReq, $args );
     $businessDetails = json_decode( wp_remote_retrieve_body( $response ) );
 
-    // 2⃣ Get business reviews.
+    if ( $businessDetails->error ) {
+        return new WP_Error( 'yelp_api_error', $businessDetails->error->description, [ 'status' => 400 ] );
+    }
+
+    // 2️⃣ Get business reviews.
     $response        = wp_safe_remote_get( "https://api.yelp.com/v3/businesses/{$params['businessId']}/reviews", $args );
     $businessReviews = json_decode( wp_remote_retrieve_body( $response ) );
 
+    if ( $businessReviews->error ) {
+        return new WP_Error( 'yelp_api_error', $businessDetails->error->description, [ 'status' => 400 ] );
+    }
+
+    // Save transient for later use.
     set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), HOUR_IN_SECONDS );
 
-    // Combine objects and pass to REST response.
+    // 3️⃣ Combine objects and pass to REST response.
     return new WP_REST_Response( (object) array_merge( (array) $businessDetails, (array) $businessReviews ), 200 );;
 
 }
@@ -171,15 +180,14 @@ function yelp_block_render_profile_block( $attributes, $content ) {
         <?php
         // 🔁 Loop through and set attributes per block.
         foreach ( $attributes as $key => $value ) :
-
             // Arrays need to be stringified.
             if ( is_array( $value ) ) {
                 $value = implode( ', ', $value );
             } ?>
             data-<?php
             // output as hyphen-case so that it's changed to camelCase in JS.
-            echo preg_replace( '/([A-Z])/', '-$1', $key ); ?>="<?php
-            echo esc_html( $value ); ?>"
+            esc_attr_e( preg_replace( '/([A-Z])/', '-$1', $key ) ); ?>="<?php
+            esc_attr_e( $value ); ?>"
         <?php
         endforeach; ?>></div>
     <?php
