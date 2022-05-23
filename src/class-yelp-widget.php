@@ -34,7 +34,6 @@ class Yelp_Widget extends WP_Widget {
      */
     function public_scripts() {
         wp_register_style( 'yelp-widget-pro', YELP_WIDGET_PRO_URL . '/build/yelp-widget-public-styles.css' );
-        wp_enqueue_style( 'yelp-widget-pro' );
     }
 
     /**
@@ -47,6 +46,8 @@ class Yelp_Widget extends WP_Widget {
      *
      */
     function widget( $args, $instance ) {
+
+        wp_enqueue_style( 'yelp-widget-pro' );
 
         // Get plugin options.
         $options = get_option( 'yelp_widget_settings' );
