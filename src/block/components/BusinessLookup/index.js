@@ -39,18 +39,18 @@ const BusinessLookup = ( { setAttributes } ) => {
             <form onSubmit={handleSubmit}>
                 <TextControl
                     className={'rby-admin-field rby-admin-field--business-name'}
-                    placeholder={__( 'Business Name', 'yelp-block' )}
+                    placeholder={__( 'Business Name', 'yelp-widget-pro' )}
                     value={businessName}
-                    help={__( 'Enter the name of the business as it appears on Yelp. You can also use search terms like "Shoes, Mexican Restaurants, etc".', 'yelp-block' )}
+                    help={__( 'Enter the name of the business as it appears on Yelp. You can also use search terms like "Shoes, Mexican Restaurants, etc".', 'yelp-widget-pro' )}
                     onChange={( newBusinessName ) => {
                         setBusinessName( newBusinessName );
                     }}
                 />
                 <TextControl
                     className={'rby-admin-field rby-admin-field--business-location'}
-                    placeholder={__( 'Business Location', 'yelp-block' )}
+                    placeholder={__( 'Business Location', 'yelp-widget-pro' )}
                     value={businessLocation}
-                    help={__( 'Enter the location of the business. You can use City, State, and Country to help find businesses.', 'yelp-block' )}
+                    help={__( 'Enter the location of the business. You can use City, State, and Country to help find businesses.', 'yelp-widget-pro' )}
                     onChange={( newBusinessLocation ) => {
                         setBusinessLocation( newBusinessLocation );
                     }}
@@ -60,7 +60,7 @@ const BusinessLookup = ( { setAttributes } ) => {
                     isPrimary
                     type={'submit'}
                 >
-                    {__( 'Lookup Business', 'yelp-block' )}
+                    {__( 'Lookup Business', 'yelp-widget-pro' )}
                 </Button>
             </form>
             {resultsModalOpen && (
