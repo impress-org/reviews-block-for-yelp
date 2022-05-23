@@ -7,7 +7,7 @@ function yelp_widget_add_options_page() {
 	// Add the menu option under Settings, shows up as "Yelp API Settings" (second param)
 	add_submenu_page(
 			'options-general.php', // The parent page of this menu
-			__( 'Yelp Block and Widget Settings', 'yelp-widget-pro' ), // The Page Title
+			__( 'Reviews Block for Yelp Settings', 'yelp-widget-pro' ), // The Page Title
 			__( 'Yelp Reviews', 'yelp-widget-pro' ), // The Menu Title
 			'manage_options', // The capability required for access to this item
 			'yelp_widget', // the slug to use for the page in the URL.
@@ -116,7 +116,7 @@ function yelp_widget_options_form() { ?>
 						<div class="postbox" id="yelp-widget-intro">
 							<div class="handlediv" title="Click to toggle"><br></div>
 							<h3 class="hndle">
-								<span><?php _e( 'Yelp Block Introduction', 'yelp-widget-pro' ); ?></span>
+								<span><?php _e( 'Reviews Block for Yelp Introduction', 'yelp-widget-pro' ); ?></span>
 							</h3>
 
 							<div class="inside">

@@ -1,68 +1,68 @@
 {
-  "$schema": "https://json.schemastore.org/block.json",
-  "apiVersion": 2,
-  "name": "yelp-block/profile",
-  "version": "3.0.0",
-  "title": "Reviews Block for Yelp",
-  "category": "widgets",
-  "icon": "star-filled",
-  "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",
-  "supports": {
-	"html": false
-  },
-  "attributes": {
-	"businessId": {
-	  "type": "string",
-	  "default": ""
-	},
-	"showHeader": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showBusinessRating": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showReviewButton": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showBusinessMeta": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showBusinessInfo": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showPhone": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showHours": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showLocation": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"showReviews": {
-	  "type": "boolean",
-	  "default": true
-	},
-	"preview": {
-	  "type": "boolean",
-	  "default": false
-	}
-  },
-  "example": {
-	"attributes": {
-	  "preview": true
-	}
-  },
-  "textdomain": "yelp-block",
-  "editorScript": "file:./build/yelp-block.js",
-  "editorStyle": "file:./build/yelp-block.css",
-  "style": "file:./build/style-yelp-block.css"
+    "$schema": "https://json.schemastore.org/block.json",
+    "apiVersion": 2,
+    "name": "yelp-block/profile",
+    "version": "3.0.0",
+    "title": "Reviews Block for Yelp",
+    "category": "widgets",
+    "icon": "star-filled",
+    "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",
+    "textdomain": "yelp-widget-pro",
+    "editorScript": "file:./build/yelp-block.js",
+    "editorStyle": "file:./build/yelp-block.css",
+    "style": "file:./build/style-yelp-block.css",
+    "supports": {
+        "html": false
+    },
+    "attributes": {
+        "businessId": {
+            "type": "string",
+            "default": ""
+        },
+        "showHeader": {
+            "type": "boolean",
+            "default": true
+        },
+        "showBusinessRating": {
+            "type": "boolean",
+            "default": true
+        },
+        "showReviewButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "showBusinessMeta": {
+            "type": "boolean",
+            "default": true
+        },
+        "showBusinessInfo": {
+            "type": "boolean",
+            "default": true
+        },
+        "showPhone": {
+            "type": "boolean",
+            "default": true
+        },
+        "showHours": {
+            "type": "boolean",
+            "default": true
+        },
+        "showLocation": {
+            "type": "boolean",
+            "default": true
+        },
+        "showReviews": {
+            "type": "boolean",
+            "default": true
+        },
+        "preview": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "example": {
+        "attributes": {
+            "preview": true
+        }
+    }
 }

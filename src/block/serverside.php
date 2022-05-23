@@ -88,38 +88,36 @@ function yelp_retrieve_business_details( $params ) {
     $business_details = get_transient( $params['businessId'] );
     if ( $business_details ) {
         return $business_details;
-    } else {
-
-        $apiKey = get_option( 'yelp_widget_settings' );
-        $apiKey = $apiKey['yelp_widget_fusion_api'];
-
-        // Ready to Query the Yelp API.
-        $args = [
-            'headers' =>
-                [
-                    'user-agent'    => '',
-                    'authorization' => 'Bearer ' . $apiKey,
-                ],
-        ];
-
-        $businessDetailsReq = add_query_arg( [
-            'locale' => $params['locale'] ?? 'en_US',
-        ], "https://api.yelp.com/v3/businesses/{$params['businessId']}" );
-
-        // 1️⃣ Get business details.
-        $response        = wp_safe_remote_get( $businessDetailsReq, $args );
-        $businessDetails = json_decode( wp_remote_retrieve_body( $response ) );
-
-        // 2⃣ Get business reviews.
-        $response        = wp_safe_remote_get( "https://api.yelp.com/v3/businesses/{$params['businessId']}/reviews", $args );
-        $businessReviews = json_decode( wp_remote_retrieve_body( $response ) );
-
-        set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), HOUR_IN_SECONDS );
-
-        // Combine objects and pass to REST response.
-        return new WP_REST_Response( (object) array_merge( (array) $businessDetails, (array) $businessReviews ), 200 );;
-
     }
+
+    $apiKey = get_option( 'yelp_widget_settings' );
+    $apiKey = $apiKey['yelp_widget_fusion_api'];
+
+    // Ready to Query the Yelp API.
+    $args = [
+        'headers' =>
+            [
+                'user-agent'    => '',
+                'authorization' => 'Bearer ' . $apiKey,
+            ],
+    ];
+
+    $businessDetailsReq = add_query_arg( [
+        'locale' => $params['locale'] ?? 'en_US',
+    ], "https://api.yelp.com/v3/businesses/{$params['businessId']}" );
+
+    // 1️⃣ Get business details.
+    $response        = wp_safe_remote_get( $businessDetailsReq, $args );
+    $businessDetails = json_decode( wp_remote_retrieve_body( $response ) );
+
+    // 2⃣ Get business reviews.
+    $response        = wp_safe_remote_get( "https://api.yelp.com/v3/businesses/{$params['businessId']}/reviews", $args );
+    $businessReviews = json_decode( wp_remote_retrieve_body( $response ) );
+
+    set_transient( $params['businessId'], (object) array_merge( (array) $businessDetails, (array) $businessReviews ), HOUR_IN_SECONDS );
+
+    // Combine objects and pass to REST response.
+    return new WP_REST_Response( (object) array_merge( (array) $businessDetails, (array) $businessReviews ), 200 );;
 
 }
 

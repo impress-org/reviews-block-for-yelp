@@ -1,13 +1,13 @@
 {
-    "name": "yelp-widget-pro",
+    "name": "reviews-block-for-yelp",
     "version": "3.0.0",
     "description": "Easily display Yelp business reviews and ratings with a simple and intuitive WordPress block.",
     "author": "Devin Walker",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/impress-org/yelp-widget-pro/issues"
+        "url": "https://github.com/impress-org/reviews-block-for-yelp/issues"
     },
-    "homepage": "https://github.com/impress-org/yelp-widget-pro#readme",
+    "homepage": "https://github.com/impress-org/reviews-block-for-yelp#readme",
     "main": "src/js/index.js",
     "scripts": {
         "build": "wp-scripts build",
@@ -22,7 +22,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/impress-org/yelp-widget-pro.git"
+        "url": "git+https://github.com/impress-org/reviews-block-for-yelp.git"
     },
     "dependencies": {
         "@wordpress/block-editor": "^8.0.13",
