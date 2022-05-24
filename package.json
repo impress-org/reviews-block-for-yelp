@@ -16,7 +16,7 @@
         "lint:js": "wp-scripts lint-js",
         "start": "wp-scripts start",
         "start:hot": "wp-scripts start --hot",
-        "dev": "wp-scripts start",
+        "dev": "wp-scripts start --hot",
         "run": "wp-scripts start",
         "packages-update": "wp-scripts packages-update",
         "plugin-zip": "wp-scripts plugin-zip"
