@@ -60,15 +60,22 @@ const YelpBlock = ( props ) => {
                     <div className={'rby-yelp-icon-header'}>
                         <img src={IconYelp} alt={__( 'Yelp', 'yelp-widget-pro' )} />
                     </div>
-                    <div className={`rby-image-header`}>
-                        {businessData.photos && (
-                            <>
-                                <img src={businessData.photos[0]} alt='Yelp Business' />
-                                <img src={businessData.photos[1]} alt='Yelp Business' />
-                                <img src={businessData.photos[2]} alt='Yelp Business' />
-                            </>
-                        )}
-                    </div>
+                    {props.attributes.mediaUrl && (
+                        <div className={`rby-image-header rby-image-header__custom`}
+                             style={{ backgroundImage: `url(${props.attributes.mediaUrl})` }} />
+                    )}
+                    {!props.attributes.mediaUrl && (
+                        <div className={`rby-image-header`}>
+                            {businessData.photos && (
+                                <>
+                                    <img src={businessData.photos[0]} alt='Yelp Business' />
+                                    <img src={businessData.photos[1]} alt='Yelp Business' />
+                                    <img src={businessData.photos[2]} alt='Yelp Business' />
+                                </>
+                            )}
+                        </div>
+                    )}
+
                     <div className={`rby-title-header`}>
                         <div className={`rby-business-name-wrap`}>
                             <h3 className={`rby-business-name`}>{businessData.name}</h3>

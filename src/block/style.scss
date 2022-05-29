@@ -66,6 +66,10 @@
             display: inline;
             height: 100%;
         }
+        &__custom {
+            background-size: cover;
+            background-position: center;
+        }
     }
 
     .rby-business-name-wrap {
