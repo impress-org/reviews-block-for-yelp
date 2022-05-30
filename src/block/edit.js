@@ -21,6 +21,7 @@ import YelpBlock from './components/YelpBlock';
 import runLottieAnimation from './helperFunctions/runLottieAnimation';
 
 import YelpLogo from './images/yelp_logo.svg';
+import PreviewImage from './images/block-preview.png';
 
 /**
  * Edit function.
@@ -34,7 +35,6 @@ export default function Edit( { attributes, setAttributes } ) {
         businessId,
         showHeader,
         mediaId,
-        mediaUrl,
         showBusinessRating,
         showReviewButton,
         showBusinessMeta,
@@ -49,6 +49,16 @@ export default function Edit( { attributes, setAttributes } ) {
     const [yelpApiKey, setYelpApiKey] = useState( '' );
     const [apiKeyLoading, setApiKeyLoading] = useState( false );
     const [yelpConnected, setYelpConnected] = useState( null );
+
+    // Preview image when an admin hovers over the block in block insert panel.
+    if ( preview ) {
+        return (
+            <Fragment>
+                <img src={PreviewImage} alt={__( 'Reviews Block for Yelp', 'yelp-widget-pro' )}
+                     style={{ maxWidth: '100%' }} />
+            </Fragment>
+        );
+    }
 
     const removeMedia = () => {
         setAttributes( {
