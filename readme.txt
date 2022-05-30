@@ -46,13 +46,13 @@ When you use WP Business Reviews, you also gain more control over the style of y
 1. Find the Reviews Block for Yelp directly in the plugin in your WordPress admin dashboard.
 2. Activate the plugin. 
 
-Alternatively
+Alternatively:
 1. Use the WordPress block library search bar to search for "Reviews Block for Yelp" from any page or post. 
 2. Install the block and begin using it on that page immediately. 
 
 That's it! You should now be able to access the Plugin's API settings via your settings panel and the block options on the block settings panel. You will need to enter your Yelp API information prior to using the plugin. 
 
-[Learn how to create a Yelp API key.](https://wpbusinessreviews.com/documentation/platforms/yelp/)
+[👉 Learn how to create a Yelp API key](https://wpbusinessreviews.com/documentation/platforms/yelp/)
 
 == Frequently Asked Questions ==
 
@@ -68,15 +68,15 @@ In order for the plugin to access your Yelp reviews, you must have a valid Yelp 
 
 == Screenshots ==
 
-1. The Yelp API Key Settings Area 
+1. The Reviews Block for Yelp block is the #1 block for displaying Yelp reviews on your WordPress website. 
 
-2. The Yelp Block Search Screen 
+2. The Reviews Block for Yelp block can be used to display reviews for any location on Yelp. 
 
-3. The Yelp Block Settings Panel 
+3. Easily customize the display of the block with easy to use configuration options.
 
 == Changelog ==
 
-= 3.0.0: TBD =
+= 3.0.0: May 30th, 2022 =
 * New: We entirely revamped the plugin in 3.0.0 - Introducing the Review Block for Yelp. The new block displays your business information and reviews in a styling and customizable interface. Invite users to leave a review, show business hours, display your address, directions and more with a new Gutenberg block.
 * New: Updated name to reflect the shift away from widgets to blocks in WordPress.
 
