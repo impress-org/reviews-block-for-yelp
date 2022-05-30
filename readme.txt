@@ -1,7 +1,7 @@
 === Reviews Block for Yelp ===
 Contributors: impressorg, dlocc, webdevmattcrom
 Donate link: https://wpbusinessreviews.com/
-Tags: yelp, yelp block, yelp widget, yelp shortcode, yelp api, yelp business listings, yelp reviews, yelp reviews widget, yelp business reviews, yelp widget pro, business reviews, google reviews, google places reviews, facebook reviews, facebook page reviews
+Tags: yelp, yelp block, reviews, yelp review
 Requires at least: 5.0
 Tested up to: 6.0
 Stable tag: 3.0.0
