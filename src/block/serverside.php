@@ -62,11 +62,11 @@ function yelp_retrieve_business_search_results( $params ) {
 
     // Get business search data.
     $requestUrl = add_query_arg( [
-        'term'     => rawurlencode($params['term'] ?? ''),
-        'location' => rawurlencode($params['location'] ?? 'NYC'),
-    ], rawurlencode('https://api.yelp.com/v3/businesses/search') );
+        'term'     => rawurlencode( $params['term'] ?? '' ),
+        'location' => rawurlencode( $params['location'] ?? 'NYC' ),
+    ], 'https://api.yelp.com/v3/businesses/search' );
 
-    $requestRequest = wp_remote_get( $requestUrl, $args );
+    $requestRequest = wp_safe_remote_get( $requestUrl, $args );
     $requestBody    = json_decode( wp_remote_retrieve_body( $requestRequest ) );
 
     if ( $requestBody->error ) {

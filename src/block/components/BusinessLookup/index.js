@@ -42,6 +42,7 @@ const BusinessLookup = ( { setAttributes } ) => {
                     placeholder={__( 'Business Name', 'yelp-widget-pro' )}
                     value={businessName}
                     help={__( 'Enter the name of the business as it appears on Yelp. You can also use search terms like "Shoes, Mexican Restaurants, etc".', 'yelp-widget-pro' )}
+                    required
                     onChange={( newBusinessName ) => {
                         setBusinessName( newBusinessName );
                     }}
@@ -51,6 +52,7 @@ const BusinessLookup = ( { setAttributes } ) => {
                     placeholder={__( 'Business Location', 'yelp-widget-pro' )}
                     value={businessLocation}
                     help={__( 'Enter the location of the business. You can use City, State, and Country to help find businesses.', 'yelp-widget-pro' )}
+                    required
                     onChange={( newBusinessLocation ) => {
                         setBusinessLocation( newBusinessLocation );
                     }}
